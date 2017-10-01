@@ -1,5 +1,8 @@
 ---
+layout: post
 title: {{ title }}
 date: {{ date }}
-tags:
+updated: 
+tags: 
+comment: true
 ---
