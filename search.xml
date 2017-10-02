@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Linux下任务调度crond笔记]]></title>
+    <url>%2F2017%2F10%2F01%2FLinux%E4%B8%8B%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6crond%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[安装1yum install -y vixie-cron crond 添加调度计划调度表达式介绍12345678# Example of job definition:# .---------------- minute (0 - 59)# | .------------- hour (0 - 23)# | | .---------- day of month (1 - 31)# | | | .------- month (1 - 12) OR jan,feb,mar,apr ...# | | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat# | | | | |# * * * * * user-name command to be executed 栗子：1234* * * * * /bin/bash /home/crontab.sh #每分钟执行/home/crontab.sh0 * * * * /bin/bash /home/crontab.sh #每小时执行/home/crontab.sh0 0 * * * /bin/bash /home/crontab.sh #每天凌晨执行/home/crontab.sh*/2 * * * * /bin/bash /home/crontab.sh #每两分钟执行/home/crontab.sh 表达式最小支持分钟，如果想按照秒执行呢？12345step=5 #间隔的秒数for (( i = 0; i &lt; 60; i=(i+step) )); do restartShutdownTomcat sleep $step done 脚本里通过for循环，能够按秒执行。 如果60不能整除间隔的秒数，则需要调整执行的时间。例如需要每7秒执行一次，就需要找到7与60的最小公倍数，7与60的最小公倍数是420（即7分钟）。则crontab.sh中step的值为7，循环结束条件i&lt;420， crontab -e可以输入以下语句来实现1*/7 * * * * /home/crontab.sh 添加调度计划 一种是直接编辑，执行crontab -e，然后输入调度表达式 另一种是编辑文件，然后执行crontab absolutePath，我使用是这种 注意：使用编辑文件方式添加会覆盖原来的crontab任务 crond不执行原因分析：1. 没有使用绝对路径包括crond命令和脚本 2. crontab不提供所执行用户的环境变量解决方法：在脚本中加入下面这一行： 1. /etc/profile 或者导入环境变量(例如Java环境)：1export JAVA_HOME=/usr/local/java 3. 脚本没有可执行权限在crontab中建议使用 sh 或 bash 来执行shell脚本，避免因脚本文件的执行权限丢失导致任务失败。 4. 放大招：查看日志1tail /var/log/cron]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F10%2F01%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>
