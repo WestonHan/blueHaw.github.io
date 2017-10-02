@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[java排序方法]]></title>
+    <url>%2Fposts%2F2017%2F10%2F02%2Fjava%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[###冒泡排序法123456789101112131415/*** 冒泡排序算法* @param nums*/private static void bubbleSort(int[] nums) &#123; for(int i = 1;i&lt;nums.length;i++)&#123; for(int j = 0;j &lt; nums.length - i;j++)&#123; if(nums[j] &lt; nums[j+1])&#123; int temp = nums[j]; nums[j] = nums[j+1]; nums[j+1] = temp; &#125; &#125; &#125;&#125; ###选择排序法123456789101112131415/** * 选择排序法 * @param nums */private static void selectionSort(int[] nums) &#123; for(int i = 0;i&lt;nums.length - 1;i++)&#123; for(int j = i + 1;j&lt;nums.length;j++)&#123; if(nums[i] &lt; nums[j])&#123; int temp = nums[j]; nums[j] = nums[i]; nums[i] = temp; &#125; &#125; &#125;&#125; ###二分查找法 先决条件是数组要是已经有序的数组123456789101112131415161718192021/** * 二分查找法 * @param nums * @param num */private static int binarySearch(int[] nums,int num) &#123; Arrays.sort(nums); //先对数组进行排序 int low = 0; int high = nums.length -1; while(low &lt;= high&amp;&amp;high &lt;= nums.length -1&amp;&amp;low &lt;= nums.length -1)&#123; int mid = (low + high)/2; if(num == nums[mid])&#123; return mid; &#125;else if(num &gt; nums[mid])&#123; low = mid + 1; &#125;else&#123; high = mid - 1; &#125; &#125; return -1;&#125;]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Linux系统基础环境设置]]></title>
     <url>%2Fposts%2F2017%2F10%2F02%2FLinux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE%2F</url>
     <content type="text"><![CDATA[1. 更换本地yum源1. 从ustc下载.repo文件，切换源1cd /etc/yum.repos.d/ 将原有xx.repo文件全部改名为xx.repo.bak(rename .repo .repo.bak *.repo)1234567wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=1-O CentOS-ustc.repo 【centos5 ustc源】wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=2 -O CentOS-ustc.repo【centos6 ustc源】wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=3 -O CentOS-ustc.repo 【centos7 ustc源】yum clean allyum makecache 2. 检查源是否切换成功12yum list#看到很多列表表示成功 2. 修改主机名永久修改，需重启12345[root@docker1 ~]# vim /etc/sysconfig/network#NETWORKING=yesNETWORKING=yesNETWORKING_IPV6=noHOSTNAME=docker1 临时修改，立即生效（重启失效）123[root@docker1 ~]# hostname hh[root@docker1 ~]# hostnamehh 3. 修改host文件（ip地址和主机名绑定）123456[root@docker1 ~]# vim /etc/hosts127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4::1 localhost localhost.localdomain localhost6 localhost6.localdomain6172.31.1.73 docker1172.31.1.85 docker2 172.31.1.86 docker3 4. 禁用IP6没有做过12345678910111213141516vi /etc/sysconfig/network在最后增加一句：IPV6INIT=nocat /etc/sysconfig/networkNETWORKING=yesIPV6INIT=no//修改hosts文件，注释ip6#vi /etc/hosts127.0.0.1 localhost.localdomain localhost #::1 localhost6.localdomain6 localhost6//立即停止IP6服务service ip6tables stop//永久停止ipv6的iptableschkconfig ip6tables off 5. 关闭防火墙1234#立即停止 （暂时停止，重启失效）service iptables stop#永久停止chkconfig iptables off #禁用 6. 禁用SELINUX1vim /etc/selinux/config 将SELINUX=enforcing改为SELINUX=disabled 7. 修改默认启动级别1234vim /etc/inittab#默认为5：图形界面的多用户#修改为3：带网络的多用户id:3:initdefault:]]></content>
