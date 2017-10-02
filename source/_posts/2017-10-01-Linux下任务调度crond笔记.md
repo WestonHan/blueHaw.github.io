@@ -1,12 +1,10 @@
 ---
 layout: post
 title: Linux下任务调度crond笔记
-comment: true
+comments: true
 date: 2017-10-01 22:44:03
 updated:
-category: 
-    - linux
-    - crond
+category: [linux, crond]
 tags: [linux, crond]
 ---
 

@@ -5,5 +5,5 @@ date: {{ date }}
 updated:
 category: []
 tags: []
-comment: true
+comments: true
 ---

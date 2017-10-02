@@ -1,7 +1,7 @@
 ---
 layout: post
 title: uninstall docker
-comment: true
+comments: true
 date: 2017-10-02 19:38:29
 updated:
 category: [docker]

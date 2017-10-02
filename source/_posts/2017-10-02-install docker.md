@@ -4,6 +4,7 @@ title: install docker
 date: 2017-10-02 19:34:58
 category: [docker]
 tags: [docker]
+comments: true
 ---
 
 ### 安装docker：

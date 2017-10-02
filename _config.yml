@@ -4,8 +4,8 @@
 
 # Site
 title: blueHaw's Notes
-subtitle: subtitle
-description: winter is coming
+subtitle: winter is coming
+description:
 author: blueHaw
 language: zh-Hans
 timezone:
@@ -87,3 +87,5 @@ search:
   field: post
   format: html
   limit: 10000
+# 设定站点建立时间，这个时间将在站点的底部显示，例如 © 2013 - 2015
+since: 2017
