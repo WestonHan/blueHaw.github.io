@@ -388,26 +388,26 @@
 <h5 id="Install-using-the-repository"><a href="#Install-using-the-repository" class="headerlink" title="Install using the repository"></a>Install using the repository</h5><p>Before you install Docker CE for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.</p>
 <h6 id="Set-up-the-repository"><a href="#Set-up-the-repository" class="headerlink" title="Set up the repository"></a>Set up the repository</h6><ol>
 <li><p>Install required packages.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2</div></pre></td></tr></table></figure>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install -y yum-utils device-mapper-persistent-<span class="class"><span class="keyword">data</span> lvm2</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>Use the following command to set up the <strong>stable</strong> repository. You always need the <strong>stable</strong> repository, even if you want to install builds from the <strong>edge</strong> or <strong>test</strong> repositories as well.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo yum-config-manager \</div><div class="line">    --add-repo \</div><div class="line">    https://download.docker.com/linux/centos/docker-ce.repo</div></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo yum-config-manager \</div><div class="line">    --<span class="built_in">add</span>-repo \</div><div class="line">    http<span class="variable">s:</span>//download.docker.<span class="keyword">com</span>/linux/centos/docker-<span class="keyword">ce</span>.repo</div></pre></td></tr></table></figure>
 </li>
 <li><p><strong>Optional</strong>: Enable the <strong>edge</strong> and <strong>test</strong> repositories. These repositories are included in the docker.repo file above but are disabled by default. You can enable them alongside the stable repository.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum-config-manager --enable docker-ce-edge</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo yum-config-manager --<span class="built_in">enable</span> docker-ce-edge</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum-config-manager --enable docker-ce-test</div></pre></td></tr></table></figure>
-<p>You can disable the <strong>edge</strong> or <strong>test</strong> repository by running the yum-config-manager command with the <code>--disable</code> flag. To re-enable it, use the <code>--enable</code> flag. The following command disables the <strong>edge</strong> repository.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum-config-manager --disable docker-ce-edge</div></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo yum-config-manager --<span class="built_in">enable</span> docker-ce-test</span></div></pre></td></tr></table></figure>
+<p>You can disable the <strong>edge</strong> or <strong>test</strong> repository by running the yum-config-manager command with the <code>--disable</code> flag. To re-enable it, use the <code>--enable</code> flag. The following command disables the <strong>edge</strong> repository.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo yum-config-manager --<span class="built_in">disable</span> docker-ce-edge</span></div></pre></td></tr></table></figure></p>
 <blockquote>
 <p><strong>Note</strong>: Starting with Docker 17.06, stable releases are also pushed to the <strong>edge</strong> and <strong>test</strong> repositories.</p>
 <h6 id="Install-Docker-CE"><a href="#Install-Docker-CE" class="headerlink" title="Install Docker CE"></a>Install Docker CE</h6><ol>
-<li>Update the <code>yum</code> package index.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum makecache fast</div></pre></td></tr></table></figure>
+<li>Update the <code>yum</code> package index.<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo yum makecache fast</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
 </blockquote>
 <ol>
-<li>Install the latest version of Docker CE, or go to the next step to install a specific version.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install docker-ce</div></pre></td></tr></table></figure>
+<li>Install the latest version of Docker CE, or go to the next step to install a specific version.<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum <span class="keyword">install</span> docker-ce</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <blockquote>
@@ -416,18 +416,18 @@
 <ol>
 <li>On production systems, you should install a specific version of Docker CE instead of always using the latest. List the available versions. This example uses the <code>sort -r</code> command to sort the results by version number, highest to lowest, and is truncated.<blockquote>
 <p><strong>Note</strong>: This yum list command only shows binary packages. To show source packages as well, omit the .x86_64 from the package name.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ yum list docker-ce.x86_64  --showduplicates | sort -r</div><div class="line"></div><div class="line">docker-ce.x86_64  17.06.0.el7                              docker-ce-stable</div></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ yum <span class="keyword">list</span> docker-<span class="keyword">ce</span>.x86_64  --showduplicates | <span class="keyword">sort</span> -r</div><div class="line"></div><div class="line">docker-<span class="keyword">ce</span>.x86_64  <span class="number">17.06</span>.<span class="number">0</span>.el7                              docker-<span class="keyword">ce</span>-stable</div></pre></td></tr></table></figure>
 </blockquote>
 </li>
 </ol>
 <p>The contents of the list depend upon which repositories are enabled, and will be specific to your version of CentOS (indicated by the .el7 suffix on the version, in this example). </p>
-<p>Choose a specific version to install. The second column is the version string. The third column is the repository name, which indicates which repository the package is from and by extension its stability level. To install a specific version, append the version string to the package name and separate them by a hyphen (-):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install docker-ce-&lt;VERSION&gt;</div></pre></td></tr></table></figure></p>
+<p>Choose a specific version to install. The second column is the version string. The third column is the repository name, which indicates which repository the package is from and by extension its stability level. To install a specific version, append the version string to the package name and separate them by a hyphen (-):<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo yum install docker-ce-&lt;VERSION&gt;</span></div></pre></td></tr></table></figure></p>
 <ol>
 <li><p>Start Docker.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo systemctl start docker</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo systemctl start docker</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>Verify that docker is installed correctly by running the hello-world image.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run hello-world</div></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker <span class="keyword">run</span><span class="bash"> hello-world</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>This command downloads a test image and runs it in a container. When the container runs, it prints an informational message and exits.</p>
@@ -441,22 +441,22 @@
 </blockquote>
 </li>
 <li><p>Install Docker CE, changing the path below to the path where you downloaded the Docker package.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install /path/to/package.rpm</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum <span class="keyword">install</span> /<span class="keyword">path</span>/<span class="keyword">to</span>/package.rpm</div></pre></td></tr></table></figure>
 </li>
 <li><p>Start Docker.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo systemctl start docker</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo systemctl start docker</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>Verify that docker is installed correctly by running the hello-world image.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run hello-world</div></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker <span class="keyword">run</span><span class="bash"> hello-world</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
 <h5 id="Install-using-the-convenience-script"><a href="#Install-using-the-convenience-script" class="headerlink" title="Install using the convenience script"></a>Install using the convenience script</h5><p>reference <a href="https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-using-the-convenience-script" target="_blank" rel="external">https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-using-the-convenience-script</a></p>
 <h3 id="Uninstall-Docker-CE"><a href="#Uninstall-Docker-CE" class="headerlink" title="Uninstall Docker CE"></a>Uninstall Docker CE</h3><ol>
 <li><p>Uninstall the Docker package:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum remove docker-ce</div></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum <span class="builtin-name">remove</span> docker-ce</div></pre></td></tr></table></figure>
 </li>
 <li><p>Images, containers, volumes, or customized configuration files on your host are not automatically removed. To delete all images, containers, and volumes:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo rm -rf /var/lib/docker</div></pre></td></tr></table></figure>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo rm -rf /var/<span class="class"><span class="keyword">lib</span>/<span class="title">docker</span></span></div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>You must delete any edited configuration files manually.</p>
