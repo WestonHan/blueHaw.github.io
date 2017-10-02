@@ -7,7 +7,7 @@ updated:
 tags:
 ---
 
-## 安装
+<!--more## 安装
 ```
 yum install -y vixie-cron crond
 ```
@@ -30,7 +30,7 @@ yum install -y vixie-cron crond
  0  0  *  *  *  /bin/bash /home/crontab.sh    #每天凌晨执行/home/crontab.sh
  */2  *  *  *  *  /bin/bash /home/crontab.sh  #每两分钟执行/home/crontab.sh
 ```
-表达式最小支持分钟，如果想按照秒执行呢？
+表达式最小支持分钟，如果想按照秒执行呢？-->
 ```bash
 step=5 #间隔的秒数
 for (( i = 0; i < 60; i=(i+step) )); do  
