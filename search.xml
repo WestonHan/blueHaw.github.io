@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Linux系统基础环境设置]]></title>
+    <url>%2Fposts%2F2017%2F10%2F02%2FLinux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[1. 更换本地yum源1. 从ustc下载.repo文件，切换源1cd /etc/yum.repos.d/ 将原有xx.repo文件全部改名为xx.repo.bak(rename .repo .repo.bak *.repo)1234567wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=1-O CentOS-ustc.repo 【centos5 ustc源】wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=2 -O CentOS-ustc.repo【centos6 ustc源】wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=3 -O CentOS-ustc.repo 【centos7 ustc源】yum clean allyum makecache 2. 检查源是否切换成功12yum list#看到很多列表表示成功 2. 修改主机名永久修改，需重启12345[root@docker1 ~]# vim /etc/sysconfig/network#NETWORKING=yesNETWORKING=yesNETWORKING_IPV6=noHOSTNAME=docker1 临时修改，立即生效（重启失效）123[root@docker1 ~]# hostname hh[root@docker1 ~]# hostnamehh 3. 修改host文件（ip地址和主机名绑定）123456[root@docker1 ~]# vim /etc/hosts127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4::1 localhost localhost.localdomain localhost6 localhost6.localdomain6172.31.1.73 docker1172.31.1.85 docker2 172.31.1.86 docker3 4. 禁用IP6没有做过12345678910111213141516vi /etc/sysconfig/network在最后增加一句：IPV6INIT=nocat /etc/sysconfig/networkNETWORKING=yesIPV6INIT=no//修改hosts文件，注释ip6#vi /etc/hosts127.0.0.1 localhost.localdomain localhost #::1 localhost6.localdomain6 localhost6//立即停止IP6服务service ip6tables stop//永久停止ipv6的iptableschkconfig ip6tables off 5. 关闭防火墙1234#立即停止 （暂时停止，重启失效）service iptables stop#永久停止chkconfig iptables off #禁用 6. 禁用SELINUX1vim /etc/selinux/config 将SELINUX=enforcing改为SELINUX=disabled 7. 修改默认启动级别1234vim /etc/inittab#默认为5：图形界面的多用户#修改为3：带网络的多用户id:3:initdefault:]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[keepalived遇到的问题]]></title>
+    <url>%2Fposts%2F2017%2F10%2F02%2Fkeepalived%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[1. keepalived日志报错狂刷：IPVS: Can’t initialize ipvs: Protocol not available原因是ip_vs模块系统默认没有自动加载，可以通过lsmod | grep ip_vs 命令查看一下，如果没有任何输出则表示ip_vs模块并没有被内核加载，那必须手动加载一下：12modprobe ip_vsmodprobe ip_vs_wrr 然后再查看系统日志发现keepalived已经正常工作了。如果要让系统开机加载此模块的话得讲刚才那两句话写到/etc/rc.local文件中，这样开机就能自动加载了。 2. 报错IPVS: Can’t initialize ipvs: Permission denied (you must be root)在container运行时加上--privileged=true]]></content>
+      <categories>
+        <category>keepalived</category>
+      </categories>
+      <tags>
+        <tag>keepalived</tag>
+        <tag>high availability</tag>
+        <tag>HA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[docker遇到的问题]]></title>
+    <url>%2Fposts%2F2017%2F10%2F02%2Fdocker%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[1. 运行容器报错：Error response from daemon: Error running DeviceCreate (createSnapDevice) dm_task_run failed metadata目录在docker info查看1234service docker stopthin_check /iflytek/containers/devicemapper/devicemapper/metadatathin_check --clear-needs-check-flag /iflytek/containers/devicemapper/devicemapper/metadataservice docker start 2. Error running DeviceCreate (ActivateDevice) dm_task_run failed3. 重启docker服务器后 遇到 ‘device or resource busy’错误如果有container在运行的时候重启 docker 服务， 可能会导致 container无法启动， 错误信息类似于12Error response from daemon: Cannot start container zookeeper: Error getting container ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c from driver devicemapper: Error mounting &apos;/dev/mapper/docker-8:1-525372-ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c&apos; on &apos;/var/lib/docker/devicemapper/mnt/ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c&apos;: device or resource busy 2015/01/26 04:42:07 Error: failed to start one or more containers 或者12d2859bd1f84b: Error pulling image (latest) from xxxxxx, Driver devicemapper failed to create image rootfs e6158e7962db43274de40fc3db65ad64811d43fe342dea633df20639f5a4e3cd: device e6158e7962db43274de40fc3db65ad64811d43fe342dea633df20639f5a4e3cd already exists 43fe342dea633df20639f5a4e3cd already exists c049b2b: Download complete e6158e7962db: Error downloading dependent layers 这是一个Docker的 bug ，解决方式是先找出没有umount的路径1cat /proc/mounts | grep &quot;mapper/docker&quot; | awk &apos;&#123;print $2&#125;&apos; 然后依次umount]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[uninstall docker]]></title>
     <url>%2Fposts%2F2017%2F10%2F02%2Funinstalldocker%2F</url>
     <content type="text"><![CDATA[123yum list installed | grep dockeryum -y remove docker-engine.x86_64rm -rf /var/lib/docker]]></content>
