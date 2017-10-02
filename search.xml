@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[unistall docker]]></title>
-    <url>%2F2017%2F10%2F02%2Funistalldocker%2F</url>
+    <title><![CDATA[uninstall docker]]></title>
+    <url>%2F2017%2F10%2F02%2Funinstalldocker%2F</url>
     <content type="text"><![CDATA[123yum list installed | grep dockeryum -y remove docker-engine.x86_64rm -rf /var/lib/docker]]></content>
       <categories>
         <category>docker</category>
