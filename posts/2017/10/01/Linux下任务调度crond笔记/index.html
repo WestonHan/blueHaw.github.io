@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="github," />
+  <meta name="keywords" content="linux,crond," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="##1. 为github帐号添加SSH keys使用git clone命令从github上同步github上的代码库时，如果使用SSH链接（如我自己的beagleOS项 目：git@github.com:DamonDeng/beagleOS.git），而你的SSH key没有添加到github帐号设置中，系统会报下面的错误：12Permission denied (publickey).fatal">
-<meta name="keywords" content="github">
+<meta name="description" content="安装1yum install -y vixie-cron crond">
+<meta name="keywords" content="linux,crond">
 <meta property="og:type" content="article">
-<meta property="og:title" content="github学习">
-<meta property="og:url" content="https://bluehaw.github.io/2017/10/02/github学习/index.html">
+<meta property="og:title" content="Linux下任务调度crond笔记">
+<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/01/Linux下任务调度crond笔记/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="##1. 为github帐号添加SSH keys使用git clone命令从github上同步github上的代码库时，如果使用SSH链接（如我自己的beagleOS项 目：git@github.com:DamonDeng/beagleOS.git），而你的SSH key没有添加到github帐号设置中，系统会报下面的错误：12Permission denied (publickey).fatal">
+<meta property="og:description" content="安装1yum install -y vixie-cron crond">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-02T11:53:22.433Z">
+<meta property="og:updated_time" content="2017-10-02T11:56:10.474Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="github学习">
-<meta name="twitter:description" content="##1. 为github帐号添加SSH keys使用git clone命令从github上同步github上的代码库时，如果使用SSH链接（如我自己的beagleOS项 目：git@github.com:DamonDeng/beagleOS.git），而你的SSH key没有添加到github帐号设置中，系统会报下面的错误：12Permission denied (publickey).fatal">
+<meta name="twitter:title" content="Linux下任务调度crond笔记">
+<meta name="twitter:description" content="安装1yum install -y vixie-cron crond">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://bluehaw.github.io/2017/10/02/github学习/"/>
+  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/01/Linux下任务调度crond笔记/"/>
 
 
 
 
 
-  <title>github学习 | blueHaw's Notes</title>
+  <title>Linux下任务调度crond笔记 | blueHaw's Notes</title>
   
 
 
@@ -277,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/2017/10/02/github学习/">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/01/Linux下任务调度crond笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blueHaw">
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">github学习</h1>
+          <h1 class="post-title" itemprop="name headline">Linux下任务调度crond笔记</h1>
         
 
         <div class="post-meta">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T19:31:53+08:00">
-                2017-10-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-01T22:44:03+08:00">
+                2017-10-01
               </time>
             
 
@@ -329,8 +329,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/github/" itemprop="url" rel="index">
-                    <span itemprop="name">github</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/crond/" itemprop="url" rel="index">
+                    <span itemprop="name">crond</span>
                   </a>
                 </span>
 
@@ -347,9 +358,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/10/02/github学习/#comments" itemprop="discussionUrl">
+                <a href="/posts/2017/10/01/Linux下任务调度crond笔记/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/10/02/github学习/" itemprop="commentCount"></span>
+                        data-disqus-identifier="posts/2017/10/01/Linux下任务调度crond笔记/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -377,20 +388,28 @@
       
 
       
-        <p>##1. 为<code>github</code>帐号添加<code>SSH keys</code><br>使用<code>git clone</code>命令从github上同步github上的代码库时，如果使用SSH链接（如我自己的beagleOS项 目：<code>git@github.com:DamonDeng/beagleOS.git</code>），而你的SSH key没有添加到github帐号设置中，系统会报下面的错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Permission denied (publickey).</div><div class="line">fatal: The remote end hung up unexpectedly</div></pre></td></tr></table></figure></p>
+        <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y vixie-cron crond</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<p><strong>这时需要在本地创建SSH key，然后将生成的SSH key文件内容添加到github帐号上去</strong>。<br>创建SSH key的方法很简单，执行如下命令就可以：<br><code>ssh-keygen</code><br>然后系统提示输入文件保存位置等信息，连续敲三次回车即可，生成的SSH key文件保存在中<code>～/.ssh/id_rsa.pub</code></p>
-<p>然后用<strong>文本编辑工具打开该文件</strong>，我用的是vim,所以命令是：<br><code>vim ~/.ssh/id_rsa.pub</code></p>
-<p>接着拷贝.ssh/id_rsa.pub文件内的所以内容，将它粘帖到github帐号管理中的添加SSH key界面中。<br>打开github帐号管理中的添加SSH key界面的步骤如下：</p>
-<ol>
-<li>登录github</li>
-<li>点击右上方的Accounting settings图标</li>
-<li>选择 SSH key</li>
-<li>点击 Add SSH key<br>在出现的界面中填写SSH key的名称，填一个你自己喜欢的名称即可，然后将上面拷贝的~/.ssh/id_rsa.pub文件内容粘帖到key一栏，在点击“add key”按钮就可以了。<br>添加过程github会提示你输入一次你的github密码</li>
-</ol>
-<p>添加完成后再次执行git clone就可以成功克隆github上的代码库了。</p>
-<p>来源： <a href="http://blog.csdn.net/keyboardota/article/details/7603630" target="_blank" rel="external">http://blog.csdn.net/keyboardota/article/details/7603630</a></p>
-<p>##2. 布拉布拉</p>
+<h2 id="添加调度计划"><a href="#添加调度计划" class="headerlink" title="添加调度计划"></a>添加调度计划</h2><h3 id="调度表达式介绍"><a href="#调度表达式介绍" class="headerlink" title="调度表达式介绍"></a>调度表达式介绍</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Example of job definition:</span></div><div class="line"><span class="comment"># .---------------- minute (0 - 59)</span></div><div class="line"><span class="comment"># |  .------------- hour (0 - 23)</span></div><div class="line"><span class="comment"># |  |  .---------- day of month (1 - 31)</span></div><div class="line"><span class="comment"># |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span></div><div class="line"><span class="comment"># |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span></div><div class="line"><span class="comment"># |  |  |  |  |</span></div><div class="line"><span class="comment"># *  *  *  *  * user-name command to be executed</span></div></pre></td></tr></table></figure>
+<p>栗子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">*  *  *  *  *  /bin/bash /home/crontab.sh    <span class="comment">#每分钟执行/home/crontab.sh</span></div><div class="line">0  *  *  *  *  /bin/bash /home/crontab.sh    <span class="comment">#每小时执行/home/crontab.sh</span></div><div class="line">0  0  *  *  *  /bin/bash /home/crontab.sh    <span class="comment">#每天凌晨执行/home/crontab.sh</span></div><div class="line">*/2  *  *  *  *  /bin/bash /home/crontab.sh  <span class="comment">#每两分钟执行/home/crontab.sh</span></div></pre></td></tr></table></figure></p>
+<p>表达式最小支持分钟，如果想按照秒执行呢？<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">step=5 <span class="comment">#间隔的秒数</span></div><div class="line"><span class="keyword">for</span> (( i = 0; i &lt; 60; i=(i+step) )); <span class="keyword">do</span>  </div><div class="line">    restartShutdownTomcat </div><div class="line">    sleep <span class="variable">$step</span>  </div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure></p>
+<p>脚本里通过for循环，能够按秒执行。</p>
+<blockquote>
+<p>如果60不能整除间隔的秒数，则需要调整执行的时间。例如需要每7秒执行一次，就需要找到7与60的最小公倍数，7与60的最小公倍数是420（即7分钟）。<br>则<code>crontab.sh</code>中<code>step</code>的值为7，循环结束条件<code>i&lt;420</code>， <code>crontab -e</code>可以输入以下语句来实现<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">*/7 * * * * /home/crontab.sh</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="添加调度计划-1"><a href="#添加调度计划-1" class="headerlink" title="添加调度计划"></a>添加调度计划</h3><ul>
+<li>一种是直接编辑，执行<code>crontab -e</code>，然后输入调度表达式</li>
+<li>另一种是编辑文件，然后执行<code>crontab absolutePath</code>，我使用是这种<blockquote>
+<p>注意：<strong>使用编辑文件方式添加会覆盖原来的crontab任务</strong></p>
+<h2 id="crond不执行原因分析："><a href="#crond不执行原因分析：" class="headerlink" title="crond不执行原因分析："></a>crond不执行原因分析：</h2><h3 id="1-没有使用绝对路径"><a href="#1-没有使用绝对路径" class="headerlink" title="1. 没有使用绝对路径"></a>1. 没有使用绝对路径</h3><p>包括<strong>crond命令</strong>和<strong>脚本</strong></p>
+<h3 id="2-crontab不提供所执行用户的环境变量"><a href="#2-crontab不提供所执行用户的环境变量" class="headerlink" title="2. crontab不提供所执行用户的环境变量"></a>2. crontab不提供所执行用户的环境变量</h3><p>解决方法：在脚本中加入下面这一行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">. /etc/profile</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<p>或者导入环境变量(例如Java环境)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export  JAVA_HOME=/usr/local/java</div></pre></td></tr></table></figure></p>
+<h3 id="3-脚本没有可执行权限"><a href="#3-脚本没有可执行权限" class="headerlink" title="3. 脚本没有可执行权限"></a>3. 脚本没有可执行权限</h3><p>在crontab中建议使用 sh 或 bash 来执行shell脚本，避免因脚本文件的执行权限丢失导致任务失败。</p>
+<h3 id="4-放大招：查看日志"><a href="#4-放大招：查看日志" class="headerlink" title="4. 放大招：查看日志"></a>4. 放大招：查看日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail /var/<span class="built_in">log</span>/cron</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -408,7 +427,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/github/" rel="tag"># github</a>
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/crond/" rel="tag"># crond</a>
           
         </div>
       
@@ -421,18 +442,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/01/Linux下任务调度crond笔记/" rel="next" title="Linux下任务调度crond笔记">
-                <i class="fa fa-chevron-left"></i> Linux下任务调度crond笔记
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/02/install docker/" rel="prev" title="install docker">
-                install docker <i class="fa fa-chevron-right"></i>
+              <a href="/posts/2017/10/02/github学习/" rel="prev" title="github学习">
+                github学习 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -492,8 +509,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -559,6 +585,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加调度计划"><span class="nav-number">2.</span> <span class="nav-text">添加调度计划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调度表达式介绍"><span class="nav-number">2.1.</span> <span class="nav-text">调度表达式介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加调度计划-1"><span class="nav-number">2.2.</span> <span class="nav-text">添加调度计划</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crond不执行原因分析："><span class="nav-number">3.</span> <span class="nav-text">crond不执行原因分析：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-没有使用绝对路径"><span class="nav-number">3.1.</span> <span class="nav-text">1. 没有使用绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-crontab不提供所执行用户的环境变量"><span class="nav-number">3.2.</span> <span class="nav-text">2. crontab不提供所执行用户的环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-脚本没有可执行权限"><span class="nav-number">3.3.</span> <span class="nav-text">3. 脚本没有可执行权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-放大招：查看日志"><span class="nav-number">3.4.</span> <span class="nav-text">4. 放大招：查看日志</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -709,9 +751,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://bluehaw.github.io/2017/10/02/github学习/';
-          this.page.identifier = '2017/10/02/github学习/';
-          this.page.title = 'github学习';
+          this.page.url = 'https://bluehaw.github.io/posts/2017/10/01/Linux下任务调度crond笔记/';
+          this.page.identifier = 'posts/2017/10/01/Linux下任务调度crond笔记/';
+          this.page.title = 'Linux下任务调度crond笔记';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://bluehaw.disqus.com/embed.js';
