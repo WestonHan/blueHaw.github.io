@@ -343,10 +343,11 @@
       
         
           
-            <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y vixie-cron crond</div></pre></td></tr></table></figure>
+            <!--more## 安装
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y vixie-cron crond</div></pre></td></tr></table></figure>
 <h2 id="添加调度计划"><a href="#添加调度计划" class="headerlink" title="添加调度计划"></a>添加调度计划</h2><h3 id="调度表达式介绍"><a href="#调度表达式介绍" class="headerlink" title="调度表达式介绍"></a>调度表达式介绍</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Example of job definition:</span></div><div class="line"><span class="comment"># .---------------- minute (0 - 59)</span></div><div class="line"><span class="comment"># |  .------------- hour (0 - 23)</span></div><div class="line"><span class="comment"># |  |  .---------- day of month (1 - 31)</span></div><div class="line"><span class="comment"># |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span></div><div class="line"><span class="comment"># |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span></div><div class="line"><span class="comment"># |  |  |  |  |</span></div><div class="line"><span class="comment"># *  *  *  *  * user-name command to be executed</span></div></pre></td></tr></table></figure>
 <p>栗子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">*  *  *  *  *  /bin/bash /home/crontab.sh    <span class="comment">#每分钟执行/home/crontab.sh</span></div><div class="line">0  *  *  *  *  /bin/bash /home/crontab.sh    <span class="comment">#每小时执行/home/crontab.sh</span></div><div class="line">0  0  *  *  *  /bin/bash /home/crontab.sh    <span class="comment">#每天凌晨执行/home/crontab.sh</span></div><div class="line">*/2  *  *  *  *  /bin/bash /home/crontab.sh  <span class="comment">#每两分钟执行/home/crontab.sh</span></div></pre></td></tr></table></figure></p>
-<p>表达式最小支持分钟，如果想按照秒执行呢？<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">step=5 <span class="comment">#间隔的秒数</span></div><div class="line"><span class="keyword">for</span> (( i = 0; i &lt; 60; i=(i+step) )); <span class="keyword">do</span>  </div><div class="line">    restartShutdownTomcat </div><div class="line">    sleep <span class="variable">$step</span>  </div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure></p>
+<p>表达式最小支持分钟，如果想按照秒执行呢？–&gt;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">step=5 <span class="comment">#间隔的秒数</span></div><div class="line"><span class="keyword">for</span> (( i = 0; i &lt; 60; i=(i+step) )); <span class="keyword">do</span>  </div><div class="line">    restartShutdownTomcat </div><div class="line">    sleep <span class="variable">$step</span>  </div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure></p>
 <p>脚本里通过for循环，能够按秒执行。</p>
 <blockquote>
 <p>如果60不能整除间隔的秒数，则需要调整执行的时间。例如需要每7秒执行一次，就需要找到7与60的最小公倍数，7与60的最小公倍数是420（即7分钟）。<br>则<code>crontab.sh</code>中<code>step</code>的值为7，循环结束条件<code>i&lt;420</code>， <code>crontab -e</code>可以输入以下语句来实现<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">*/7 * * * * /home/crontab.sh</div></pre></td></tr></table></figure></p>
@@ -364,7 +365,7 @@
 <p>或者导入环境变量(例如Java环境)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export  JAVA_HOME=/usr/local/java</div></pre></td></tr></table></figure></p>
 <h3 id="3-脚本没有可执行权限"><a href="#3-脚本没有可执行权限" class="headerlink" title="3. 脚本没有可执行权限"></a>3. 脚本没有可执行权限</h3><p>在crontab中建议使用 sh 或 bash 来执行shell脚本，避免因脚本文件的执行权限丢失导致任务失败。</p>
 <h3 id="4-放大招：查看日志"><a href="#4-放大招：查看日志" class="headerlink" title="4. 放大招：查看日志"></a>4. 放大招：查看日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail /var/<span class="built_in">log</span>/cron</div></pre></td></tr></table></figure>
-
+-->
           
         
       
@@ -483,16 +484,21 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+            <!--Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
+## Quick Start
+
+### Create a new post
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>–&gt;<br>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+-->
           
         
       
