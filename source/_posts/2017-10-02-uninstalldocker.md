@@ -1,6 +1,6 @@
 ---
 layout: post
-title: unistall docker
+title: uninstall docker
 comment: true
 date: 2017-10-02 19:38:29
 updated:

@@ -14,7 +14,7 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://bluehaw.github.io/
 root: /
-permalink: :year/:month/:day/:title/
+permalink: posts/:year/:month/:day/:title/
 permalink_defaults:
 
 # Directory
@@ -80,7 +80,7 @@ deploy:
   type: git
   repo: git@github.com:blueHaw/blueHaw.github.io.git
   branch: master
-  
+
 # my add
 search:
   path: search.xml
