@@ -6,7 +6,7 @@
 title: blueHaw's Notes
 subtitle: subtitle
 description: winter is coming
-author: bluehaw
+author: blueHaw
 language: zh-Hans
 timezone:
 
@@ -80,3 +80,10 @@ deploy:
   type: git
   repo: git@github.com:blueHaw/blueHaw.github.io.git
   branch: master
+  
+# my add
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000

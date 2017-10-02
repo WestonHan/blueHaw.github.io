@@ -2,7 +2,8 @@
 layout: post
 title: {{ title }}
 date: {{ date }}
-updated: 
-tags: 
+updated:
+category: []
+tags: []
 comment: true
 ---
