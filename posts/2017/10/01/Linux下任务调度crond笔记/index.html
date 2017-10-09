@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
 <meta property="og:description" content="安装1yum install -y vixie-cron crond">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-02T14:01:10.608Z">
+<meta property="og:updated_time" content="2017-10-06T02:12:23.377Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下任务调度crond笔记">
 <meta name="twitter:description" content="安装1yum install -y vixie-cron crond">
@@ -401,12 +401,11 @@
 <li>一种是直接编辑，执行<code>crontab -e</code>，然后输入调度表达式</li>
 <li>另一种是编辑文件，然后执行<code>crontab absolutePath</code>，我使用是这种<blockquote>
 <p>注意：<strong>使用编辑文件方式添加会覆盖原来的crontab任务</strong></p>
-<h2 id="crond不执行原因分析："><a href="#crond不执行原因分析：" class="headerlink" title="crond不执行原因分析："></a>crond不执行原因分析：</h2><h3 id="1-没有使用绝对路径"><a href="#1-没有使用绝对路径" class="headerlink" title="1. 没有使用绝对路径"></a>1. 没有使用绝对路径</h3><p>包括<strong>crond命令</strong>和<strong>脚本</strong></p>
-<h3 id="2-crontab不提供所执行用户的环境变量"><a href="#2-crontab不提供所执行用户的环境变量" class="headerlink" title="2. crontab不提供所执行用户的环境变量"></a>2. crontab不提供所执行用户的环境变量</h3><p>解决方法：在脚本中加入下面这一行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">. /etc/profile</div></pre></td></tr></table></figure>
 </blockquote>
 </li>
 </ul>
+<h2 id="crond不执行原因分析："><a href="#crond不执行原因分析：" class="headerlink" title="crond不执行原因分析："></a>crond不执行原因分析：</h2><h3 id="1-没有使用绝对路径"><a href="#1-没有使用绝对路径" class="headerlink" title="1. 没有使用绝对路径"></a>1. 没有使用绝对路径</h3><p>包括<strong>crond命令</strong>和<strong>脚本</strong></p>
+<h3 id="2-crontab不提供所执行用户的环境变量"><a href="#2-crontab不提供所执行用户的环境变量" class="headerlink" title="2. crontab不提供所执行用户的环境变量"></a>2. crontab不提供所执行用户的环境变量</h3><p>解决方法：在脚本中加入下面这一行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">. /etc/profile</div></pre></td></tr></table></figure></p>
 <p>或者导入环境变量(例如Java环境)：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="builtin-name">export</span>  <span class="attribute">JAVA_HOME</span>=/usr/local/java</div></pre></td></tr></table></figure></p>
 <h3 id="3-脚本没有可执行权限"><a href="#3-脚本没有可执行权限" class="headerlink" title="3. 脚本没有可执行权限"></a>3. 脚本没有可执行权限</h3><p>在crontab中建议使用 sh 或 bash 来执行shell脚本，避免因脚本文件的执行权限丢失导致任务失败。</p>
 <h3 id="4-放大招：查看日志"><a href="#4-放大招：查看日志" class="headerlink" title="4. 放大招：查看日志"></a>4. 放大招：查看日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail /var/<span class="built_in">log</span>/cron</div></pre></td></tr></table></figure>
@@ -556,7 +555,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -567,7 +566,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -578,7 +577,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

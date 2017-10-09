@@ -273,6 +273,1184 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/" itemprop="url">linux集群时钟同步ntp（NetworkTimeProtocol）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T17:25:12+08:00">
+                2017-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/ntp/" itemprop="url" rel="index">
+                    <span itemprop="name">ntp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用root用户进行操作，涉及所有服务器。</p>
+<h3 id="1-安装ntp服务"><a href="#1-安装ntp服务" class="headerlink" title="1.    安装ntp服务"></a>1.    安装ntp服务</h3><ul>
+<li><p>查看是否已经安装：<code>rpm -qa | grep ntp</code>。 如果已安装就不需要再安装了。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@docker2 ~]# rpm -qa | grep ntp</div><div class="line">ntpdate-4.2.6p5-5.el6.centos.x86_64</div><div class="line">ntp-4.2.6p5-5.el6.centos.x86_64</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果没安装，使用： <code>yum install ntp</code> 安装</p>
+<h3 id="2-设置开机启动：-chkconfig-ntpd-on"><a href="#2-设置开机启动：-chkconfig-ntpd-on" class="headerlink" title="2.    设置开机启动： chkconfig ntpd on"></a>2.    设置开机启动： <code>chkconfig ntpd on</code></h3><h3 id="3-修改-etc-ntp-conf"><a href="#3-修改-etc-ntp-conf" class="headerlink" title="3.    修改/etc/ntp.conf"></a>3.    修改<code>/etc/ntp.conf</code></h3></li>
+<li>将<code>restrict default kod nomodify notrap nopeer noquery</code>注释掉，这个对客户端的限制太多。<strong>ntp 4.2之前版本</strong>添加<code>restrict default nomodify notrust</code>（允许任何IP的客户机都可以进行时间同步）以允许所有客户端获取时间数据。<code>notrust</code> 参数的功能是并需通过认证才能同步，也就是客户端同步命令中必须有<code>keyid</code>和<code>key</code>才能通过。</li>
+<li>注释掉所有的<code>trustedkey</code>， 添加 <code>trustedkey 1 2 3</code>，后边指定数字任意，但必须与<code>/etc/ntp/keys</code>文件中的 值保持一致。也就是说<code>1 2 3</code> 这三个数分别作为认证的<code>keyid</code>。</li>
+<li><p>配置时间源， 指定同步参考的服务器时间。如果连接不了外网就把所有外网时间服务器都注释掉</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server <span class="number">10.148</span>.<span class="number">27.166</span> <span class="comment">// 局域网（GA网）内，客户机（slaver）配置为集群内master服务器IP</span></div><div class="line">server ntp<span class="selector-class">.api</span><span class="selector-class">.bz</span> <span class="comment">// 连接不了外网就注释掉</span></div><div class="line">server <span class="number">2</span><span class="selector-class">.centos</span><span class="selector-class">.pool</span><span class="selector-class">.ntp</span><span class="selector-class">.org</span> <span class="comment">// 连接不了外网就注释掉</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>添加如下配置项目，以让<code>NTP Server</code>和其自身保持同步，如果在<code>/etc/ntp.conf</code>中定义的server都不可用时，将使用local时间作为ntp服务提供给ntp客户端。 客户端不需要配置，只在服务端配置即可</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">server <span class="number">127.127</span><span class="number">.1</span><span class="number">.0</span> # local clock <span class="comment">//服务端如果连接不了外网，使用本地时间提供给客户端同步</span></div><div class="line">fudge <span class="number">127.127</span><span class="number">.1</span><span class="number">.0</span> stratum <span class="number">2</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>最后保存退出</p>
+<h3 id="4-修改-etc-ntp-keys文件（集群内所在节点）"><a href="#4-修改-etc-ntp-keys文件（集群内所在节点）" class="headerlink" title="4.    修改/etc/ntp/keys文件（集群内所在节点）"></a>4.    修改<code>/etc/ntp/keys</code>文件（集群内所在节点）</h3><p>添加如下配置， 前面的数字必须与 <code>/etc/ntp.conf</code> 文件中 <code>trustedkey</code> 后边指定的数字一致才行，字符串任意。</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">1 </span>M gao</div><div class="line"><span class="symbol">2 </span>M tian</div><div class="line"><span class="symbol">3 </span>M di</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="5-修改时区"><a href="#5-修改时区" class="headerlink" title="5.    修改时区"></a>5.    修改时区</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rm -f <span class="regexp">/etc/</span>localtime</div><div class="line">cp -f <span class="regexp">/usr/</span>share<span class="regexp">/zoneinfo/</span>Asia<span class="regexp">/Shanghai /</span>etc<span class="regexp">/localtime</span></div></pre></td></tr></table></figure>
+<h3 id="6-重启-ntp-服务-service-ntpd-restart"><a href="#6-重启-ntp-服务-service-ntpd-restart" class="headerlink" title="6.    重启 ntp 服务    service ntpd restart"></a>6.    重启 ntp 服务    <code>service ntpd restart</code></h3><ul>
+<li>要注意ntp的重启是有延迟的，所以有的时候重启以后没发现修改配置生效，是因为这个延迟导致的， 这是因为NTP server还没有和其自身或者它的server同步上</li>
+<li>如果集群内所在节点都安装了NTP服务，服务端时间源外网时间源不可用时，可与本地时间同步，且客户端时间源配置了集群内服务端，那么启动所有节点NTP服务，集群内节点即可实现时间同步。</li>
+<li>如果客户端NTP服务未启动，或者未配置集群内时间源，可通过执行 <code>ntpdate &lt;ntp server&gt;</code> 来同步，我们只要指定与<code>master</code>节点同步就可以了。</li>
+<li>手动在集群内所客户端系统上执行 <code>ntpdate 10.148.27.166</code> ，测试服务器是否成功配置；<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">成功返回：ntpdate[15522]: adjust time<span class="built_in"> server </span>10.148.27.166 offset 0.290456 sec</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>同步调试模式<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ntpdate</span> <span class="selector-tag">-d</span> 10<span class="selector-class">.148</span><span class="selector-class">.27</span><span class="selector-class">.166</span></div></pre></td></tr></table></figure></p>
+<h3 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7. 常见问题"></a>7. 常见问题</h3><h4 id="问题一：-10-148-27-166-Server-dropped-no-data"><a href="#问题一：-10-148-27-166-Server-dropped-no-data" class="headerlink" title="问题一： 10.148.27.166: Server dropped: no data"></a>问题一： <code>10.148.27.166: Server dropped: no data</code></h4><ol>
+<li><p>ntp 4.2（包括4.2）之后的版本，在restrict的定义中使用<code>notrust</code>的话，会导致以上错误。<br>使用以下命令查看ntp版本：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ntpq -c <span class="built_in">version</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>检查ntp server的防火墙，可能是server的防火墙屏蔽了upd 123端口<br>可关闭防火墙试试，若同步成功，说明是防火墙问题，开启防火墙端口即可。关闭防火墙：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service iptables <span class="built_in">stop</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="问题二：-10-148-27-166-Server-dropped-Strata-too-high"><a href="#问题二：-10-148-27-166-Server-dropped-Strata-too-high" class="headerlink" title="问题二： 10.148.27.166: Server dropped: Strata too high"></a>问题二： <code>10.148.27.166: Server dropped: Strata too high</code></h4><p><code>startum</code>的值正常情况下为<code>0~15</code>，修改<code>/etc/ntp.conf</code>中：startum后面的值在0~15之间即可。</p>
+<p>成功返回<code>adjust time server 10.148.27.166 offset 0.000073 sec</code></p>
+<h3 id="8-常用命令"><a href="#8-常用命令" class="headerlink" title="8. 常用命令"></a>8. 常用命令</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看ntp版本</span></div><div class="line">ntpq -c version</div><div class="line">ntpdate -u ip</div><div class="line"><span class="comment"># NTP服务状态</span></div><div class="line">ntpstat</div><div class="line">ntpq -p</div><div class="line"><span class="comment"># 查看NTP服务的运行状况</span></div><div class="line">watch ntpq -p</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/centos7minimal方式安装笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/2017/10/09/centos7minimal方式安装笔记/" itemprop="url">centos7 minimal方式安装笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T17:16:51+08:00">
+                2017-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/2017/10/09/centos7minimal方式安装笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="posts/2017/10/09/centos7minimal方式安装笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>从<a href="http://mirrors.ustc.edu.cn/" target="_blank" rel="external">ustc</a>下载安装包</p>
+<h3 id="1-修改网卡名称为eth0"><a href="#1-修改网卡名称为eth0" class="headerlink" title="1. 修改网卡名称为eth0"></a>1. 修改网卡名称为eth0</h3><p>从<code>CentOS/RHEL7</code>起，可预见的命名规则变成了默认。这一规则，接口名称被自动基于固件，拓扑结构和位置信息来确定。出于习惯等一些原因，修改为熟悉的<code>eth0</code>.</p>
+<ol>
+<li>编辑<code>/etc/sysconfig/network-scripts/ifcfg-eno16777736</code>可能是<code>ifcfg-xxxx</code>，将里面的<code>NAME</code>修改为<code>eth0</code></li>
+<li>重名名该文件为<code>mv ifcfg-eno16777736 ifcfg-eth0</code></li>
+<li>然后，禁用该可预测命名规则，向<code>/etc/default/grub</code>文件的<code>GRUB_CMDLINE_LINUX</code>变量追加：<code>net.ifnames=0 biosdevname=0</code></li>
+<li>运行命令<code>grub2-mkconfig -o /boot/grub2/grub.cfg</code> 来重新生成GRUB配置并更新内核参数</li>
+<li>第4步重启就已经生效了，根据Centos 官方WIKI的FAQ中得知，如果你有多个接口，并且想要控制其设备名，而不是让内核以它自己的方式命名，创建<code>/etc/udev/rules.d/XXX-net.rules</code>规则是必要的！那么这里我们也创建好规则吧。以前系统的net规则名称是<code>70-persistent-net.rules</code>，这里我也按照这个名字定义规则！编辑文件添加下面一行。更换成你自己的MAC地址（08:00:27:a9:7a:e1）和接口（eth0）。</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vi /etc/udev/rules.d/70-persistent-net.rules</div><div class="line"><span class="attribute">SUBSYSTEM</span>=="net", <span class="attribute">ACTION</span>=="add", <span class="attribute">DRIVERS</span>=="?*", ATTR&#123;address&#125;==<span class="string">"00:0c:29:6d:06:88"</span>, ATTR&#123;type&#125;==<span class="string">"1"</span>, <span class="attribute">KERNEL</span>=="eth*", <span class="attribute">NAME</span>=<span class="string">"eth0"</span></div></pre></td></tr></table></figure>
+<ol>
+<li>重启系统，验证！<blockquote>
+<p>如果Centos7系统minimal方式安装是没有ifconfig命令的，可以通过安装net-tools解决。</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>备注：linux中查看网卡mac地址</p>
+<ol>
+<li>ip ether后面的字段就是mac地址</li>
+<li>ifconfig -a 其中 HWaddr字段就是mac地址</li>
+<li>cat /sys/class/net/eth0/address 查看eth0的mac地址</li>
+<li>cat /proc/net/arp 查看连接到本机的远端ip的mac地址</li>
+</ol>
+</blockquote>
+<p>修改/etc/sysconfig/network-script/ifcfg-eth0:(注意：设置vmware为net共享模式)</p>
+<p>HWADDR=”00:0c:29:6d:06:88”<br>iIPADDR=”192.168.11.103”<br>NETMASK=”255.255.255.0”<br>GATEWAY=”192.168.11.2”<br>DNS1=8.8.8.8</p>
+<h3 id="2-设置基础环境"><a href="#2-设置基础环境" class="headerlink" title="2. 设置基础环境"></a>2. 设置基础环境</h3><p>更新yum源<br>安装<code>ifconfig</code><br>    yum -y install net-tools<br>安装其他<br>    yum -y install gcc gcc-c++ vim dos2unix ntpdate</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/虚拟机网络模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/2017/10/09/虚拟机网络模式/" itemprop="url">虚拟机网络模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T17:16:30+08:00">
+                2017-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/虚拟机/" itemprop="url" rel="index">
+                    <span itemprop="name">虚拟机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/2017/10/09/虚拟机网络模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="posts/2017/10/09/虚拟机网络模式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-桥接bridge"><a href="#1-桥接bridge" class="headerlink" title="1. 桥接bridge"></a>1. 桥接bridge</h2><p>桥接网络是指本地物理网卡和虚拟网卡通过VMnet0虚拟交换机进行桥接，物理网卡和虚拟网卡在拓扑图上处于同等地位，那么物理网卡和虚拟网卡就相当于处于同一个网段，虚拟交换机就相当于一台现实网络中的交换机,所以两个网卡的IP地址也要设置为同一网段。</p>
+<p>所以当我们要在局域网使用虚拟机，对局域网其他pc提供服务时，例如提供ftp，提供ssh，提供http服务，那么就要选择桥接模式。</p>
+<h2 id="2-NAT（共享主机的IP地址）"><a href="#2-NAT（共享主机的IP地址）" class="headerlink" title="2. NAT（共享主机的IP地址）"></a>2. NAT（共享主机的IP地址）</h2><p>即让虚拟机借助NAT(网络地址转换)功能，通过宿主机器所在的网络来访问公网。</p>
+<p>NAT模式中，虚拟机的网卡和物理网卡的网络，不在同一个网络，虚拟机的网卡，是在vmware提供的一个虚拟网络。</p>
+<h3 id="NAT和桥接的比较"><a href="#NAT和桥接的比较" class="headerlink" title="NAT和桥接的比较:"></a>NAT和桥接的比较:</h3><ol>
+<li>NAT模式和桥接模式虚拟机都可以上外网。</li>
+<li>由于NAT的网络在vmware提供的一个虚拟网络里，所以局域网其他主机是无法访问虚拟机的，而宿主机可以访问虚拟机，虚拟机可以访问局域网的所有主机，因为真实的局域网相对于NAT的虚拟网络，就是NAT的虚拟网络的外网，不懂的人可以查查NAT的相关知识。</li>
+<li>桥接模式下，多个虚拟机之间可以互相访问；NAT模式下，多个虚拟机之间也可以相互访问。</li>
+</ol>
+<h2 id="3-Host-Only（仅主机模式）"><a href="#3-Host-Only（仅主机模式）" class="headerlink" title="3. Host-Only（仅主机模式）"></a>3. Host-Only（仅主机模式）</h2><p>在Host-Only模式下，虚拟网络是一个全封闭的网络，它唯一能够访问的就是主机。其实Host-Only网络和NAT网络很相似，不同的地方就是Host-Only网络没有NAT服务，所以虚拟网络不能连接到Internet。主机和虚拟机之间的通信是通过VMware Network Adepter VMnet1虚拟网卡来实现的。</p>
+<p>　　Host-Only的宗旨就是建立一个与外界隔绝的内部网络，来提高内网的安全性。这个功能或许对普通用户来说没有多大意义，但大型服务商会常常利用这个功能。如果你想为VMnet1网段提供路由功能，那就需要使用RRAS，而不能使用XP或2000的ICS，因为ICS会把内网的IP地址改为192.168.0.1，但虚拟机是不会给VMnet1虚拟网卡分配这个地址的，那么主机和虚拟机之间就不能通信了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/" itemprop="url">虚拟机NAT模式使用静态IP上网</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T17:16:11+08:00">
+                2017-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/虚拟机/" itemprop="url" rel="index">
+                    <span itemprop="name">虚拟机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="posts/2017/10/09/虚拟机NAT模式使用静态IP上网/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="1-VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192-168-115-xxx，子网IP配为192-168-10-xxx来避开主机的ip段"><a href="#1-VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192-168-115-xxx，子网IP配为192-168-10-xxx来避开主机的ip段" class="headerlink" title="1. VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192.168.115.xxx，子网IP配为192.168.10.xxx来避开主机的ip段"></a>1. VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192.168.115.xxx，子网IP配为192.168.10.xxx来避开主机的ip段</h4><p><img src="http://7xsh47.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170408182216.png" alt="配置图片"></p>
+<p>点击上图中的<code>NAT 设置</code>，设置网关IP，如图：<br><img src="http://7xsh47.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170408183157.png" alt="配置图片"></p>
+<h4 id="2-配置ifcfg-ethXX文件"><a href="#2-配置ifcfg-ethXX文件" class="headerlink" title="2. 配置ifcfg-ethXX文件"></a>2. 配置ifcfg-ethXX文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">DEVICE=<span class="string">"eth0"</span></div><div class="line">BOOTPROTO=<span class="string">"static"</span></div><div class="line">HWADDR=<span class="string">"00:0C:29:93:F1:48"</span></div><div class="line">IPV6INIT=<span class="string">"yes"</span></div><div class="line">NM_CONTROLLED=<span class="string">"yes"</span></div><div class="line">ONBOOT=<span class="string">"yes"</span></div><div class="line">TYPE=<span class="string">"Ethernet"</span></div><div class="line">UUID=<span class="string">"b2b2b49b-6be0-480e-a026-ee7c3a4aca28"</span></div><div class="line">IPADDR=<span class="string">"192.168.11.100"</span></div><div class="line">NETMASK=<span class="string">"255.255.255.0"</span></div><div class="line">GATEWAY=<span class="string">"192.168.11.2"</span></div><div class="line">DNS1=8.8.8.8</div></pre></td></tr></table></figure>
+<ul>
+<li><code>BOOTPROTO</code>：改为<code>static</code></li>
+<li><code>GATEWAY</code>：设为刚才设置的</li>
+<li><code>IPADDR</code>：配置ip，在第一步已经设置ip处于192.168.11.xxx这个范围，这里设置为100，只要不和网关相同均可<h4 id="3-保存，如果没有自动重启网卡，运行service-network-restart，应该就能上网了"><a href="#3-保存，如果没有自动重启网卡，运行service-network-restart，应该就能上网了" class="headerlink" title="3. 保存，如果没有自动重启网卡，运行service network restart，应该就能上网了"></a>3. 保存，如果没有自动重启网卡，运行<code>service network restart</code>，应该就能上网了</h4></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/06/docker清空容器日志/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/2017/10/06/docker清空容器日志/" itemprop="url">docker清空容器日志</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-06T10:42:09+08:00">
+                2017-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/2017/10/06/docker清空容器日志/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="posts/2017/10/06/docker清空容器日志/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="查看运行容器"><a href="#查看运行容器" class="headerlink" title="查看运行容器"></a>查看运行容器</h3><p><code>docker ps</code></p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@localhost <span class="number">6.0</span><span class="meta">.43</span>]# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES</div><div class="line">efaa84e26005        <span class="number">001</span>-tomcat:<span class="number">6.0</span><span class="meta">.43</span>   <span class="string">"/bin/sh -c '$CATA..."</span>   About a minute ago   <span class="meta">Up</span> About a minute   <span class="number">0.0</span><span class="meta">.0</span><span class="meta">.0</span>:<span class="number">8080</span>-&gt;<span class="number">8080</span>/tcp   tomcat</div></pre></td></tr></table></figure>
+<h3 id="找到日志位置"><a href="#找到日志位置" class="headerlink" title="找到日志位置"></a>找到日志位置</h3><p><code>docker inspect ContainerID</code></p>
+<p>找到<code>LogPath</code>对应的日志路径/var/log/……log-json.log</p>
+<h3 id="清空日志文件"><a href="#清空日志文件" class="headerlink" title="清空日志文件"></a>清空日志文件</h3><p><code>cat /dev/null &gt; /var/log/......log-json.log</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/06/linux-sed命令介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/2017/10/06/linux-sed命令介绍/" itemprop="url">linux sed命令介绍</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-06T10:19:48+08:00">
+                2017-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/sed/" itemprop="url" rel="index">
+                    <span itemprop="name">sed</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/2017/10/06/linux-sed命令介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="posts/2017/10/06/linux-sed命令介绍/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>删除第三行：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'3d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
+<p>删除以winter开头的行<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'/^winter/d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
+<p>删除包含winter（特殊字符需要转义）的行<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'/winter/d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>在14行下插入新的一行：<code>aaaaaa</code><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i <span class="number">14</span>a\aaaaaaa <span class="number">1.</span>txt</div></pre></td></tr></table></figure></p>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>查询<code>winter</code>在文件中的行号<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="keyword">ne</span> <span class="string">'/winter/='</span> <span class="number">1.</span>txt</div></pre></td></tr></table></figure></p>
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><p>将文件中的<code>_SUPERMODELIPPORT</code>替换为<code>$SMIPPORT</code>，<code>g</code>代表全局替换，不加g替换第一个<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i <span class="string">"s%_SUPERMODELIPPORT%$SMIPPORT%g"</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
+<p>修改第<code>$ROW</code>行为<code>&#39;$HOST&#39; &#39;$HOSTNAME</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed  -i -e  <span class="variable">$ROW</span><span class="string">'c\'</span><span class="variable">$HOST</span><span class="string">' '</span><span class="variable">$HOSTNAME</span> 1.txt</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/06/新机器检查基础环境/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/2017/10/06/新机器检查基础环境/" itemprop="url">新机器检查基础环境</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-06T10:15:04+08:00">
+                2017-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/2017/10/06/新机器检查基础环境/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="posts/2017/10/06/新机器检查基础环境/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>系统信息：<code>uname -a</code>, <code>lsb_release -a</code></li>
+<li>cpu信息： <code>cat /proc/cpuinfo</code>，是否升级内核</li>
+<li>内存信息： <code>free -h</code></li>
+<li>磁盘信息： <code>df -h</code>，挂载路径</li>
+<li>网卡信息： <code>ip a</code>, <code>ifconfig</code></li>
+<li><p>Linux系统时间设置： <code>date</code></p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TZ=Asia/Shanghai</div><div class="line">ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime</div><div class="line"><span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</div></pre></td></tr></table></figure>
+</li>
+<li><p>主机名，ip和主机名映射: <code>hostname</code>,<code>vim /etc/hosts</code></p>
+</li>
+<li>yum源： 是否修改<code>/etc/yum.repos.d</code></li>
+<li>时钟同步：web服务器、solr机器（必须）</li>
+<li>ssh互信：web服务器、solr机器</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/02/Linux系统基础环境设置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -732,643 +1910,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/02/uninstalldocker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="blueHaw">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blueHaw's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/2017/10/02/uninstalldocker/" itemprop="url">uninstall docker</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T19:38:29+08:00">
-                2017-10-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/posts/2017/10/02/uninstalldocker/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="posts/2017/10/02/uninstalldocker/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum list installed | grep docker</div><div class="line">yum -y remove docker-engine.x86_64</div><div class="line">rm -rf /var/lib/docker</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/02/install docker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="blueHaw">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blueHaw's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/2017/10/02/install docker/" itemprop="url">install docker</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T19:34:58+08:00">
-                2017-10-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/posts/2017/10/02/install docker/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="posts/2017/10/02/install docker/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="安装docker："><a href="#安装docker：" class="headerlink" title="安装docker："></a>安装docker：</h3><h4 id="1-Uninstall-old-versions"><a href="#1-Uninstall-old-versions" class="headerlink" title="1. Uninstall old versions"></a>1. Uninstall old versions</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sudo yum remove docker \</div><div class="line">                  docker-common \</div><div class="line">                  docker-selinux \</div><div class="line">                  docker-engine</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/2017/10/02/install docker/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/02/github学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="blueHaw">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blueHaw's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/2017/10/02/github学习/" itemprop="url">github学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T19:31:53+08:00">
-                2017-10-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/github/" itemprop="url" rel="index">
-                    <span itemprop="name">github</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/posts/2017/10/02/github学习/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="posts/2017/10/02/github学习/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>##1. 为<code>github</code>帐号添加<code>SSH keys</code><br>使用<code>git clone</code>命令从github上同步github上的代码库时，如果使用SSH链接（如我自己的beagleOS项 目：<code>git@github.com:DamonDeng/beagleOS.git</code>），而你的SSH key没有添加到github帐号设置中，系统会报下面的错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Permission denied (publickey).</div><div class="line">fatal: The remote end hung up unexpectedly</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/2017/10/02/github学习/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/01/Linux下任务调度crond笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="blueHaw">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blueHaw's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/2017/10/01/Linux下任务调度crond笔记/" itemprop="url">Linux下任务调度crond笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-01T22:44:03+08:00">
-                2017-10-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/crond/" itemprop="url" rel="index">
-                    <span itemprop="name">crond</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/posts/2017/10/01/Linux下任务调度crond笔记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="posts/2017/10/01/Linux下任务调度crond笔记/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum <span class="keyword">install</span> -y vixie-cron crond</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/2017/10/01/Linux下任务调度crond笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1416,7 +1964,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1427,7 +1975,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1438,7 +1986,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
