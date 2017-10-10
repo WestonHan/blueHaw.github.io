@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="使用root用户进行操作，涉及所有服务器。 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。 123[root@docker2 ~]# rpm -qa | grep ntpntpdate-4.2.6p5-5.el6.centos.x86_64ntp-4.2.6p5-5.el6.centos.x86_64  如果没安装，使用： yum">
+<meta name="description" content="使用root用户进行操作，涉及所有服务器。 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@docker2 ~]# rpm -qa | grep ntpntpdate-4.2.6p5-5.el6.centos.x86_64ntp-4.2.6p5-5.el6.centos.x86_64">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux集群时钟同步ntp（NetworkTimeProtocol）">
+<meta property="og:title" content="linux集群时钟同步ntp（NetworkTimeProtocol）安装指南">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="使用root用户进行操作，涉及所有服务器。 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。 123[root@docker2 ~]# rpm -qa | grep ntpntpdate-4.2.6p5-5.el6.centos.x86_64ntp-4.2.6p5-5.el6.centos.x86_64  如果没安装，使用： yum">
+<meta property="og:description" content="使用root用户进行操作，涉及所有服务器。 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@docker2 ~]# rpm -qa | grep ntpntpdate-4.2.6p5-5.el6.centos.x86_64ntp-4.2.6p5-5.el6.centos.x86_64">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-09T09:25:58.541Z">
+<meta property="og:updated_time" content="2017-10-10T02:25:37.283Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux集群时钟同步ntp（NetworkTimeProtocol）">
-<meta name="twitter:description" content="使用root用户进行操作，涉及所有服务器。 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。 123[root@docker2 ~]# rpm -qa | grep ntpntpdate-4.2.6p5-5.el6.centos.x86_64ntp-4.2.6p5-5.el6.centos.x86_64  如果没安装，使用： yum">
+<meta name="twitter:title" content="linux集群时钟同步ntp（NetworkTimeProtocol）安装指南">
+<meta name="twitter:description" content="使用root用户进行操作，涉及所有服务器。 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@docker2 ~]# rpm -qa | grep ntpntpdate-4.2.6p5-5.el6.centos.x86_64ntp-4.2.6p5-5.el6.centos.x86_64">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>linux集群时钟同步ntp（NetworkTimeProtocol） | blueHaw's Notes</title>
+  <title>linux集群时钟同步ntp（NetworkTimeProtocol）安装指南 | blueHaw's Notes</title>
   
 
 
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">linux集群时钟同步ntp（NetworkTimeProtocol）</h1>
+          <h1 class="post-title" itemprop="name headline">linux集群时钟同步ntp（NetworkTimeProtocol）安装指南</h1>
         
 
         <div class="post-meta">
@@ -390,11 +390,12 @@
       
         <p>使用root用户进行操作，涉及所有服务器。</p>
 <h3 id="1-安装ntp服务"><a href="#1-安装ntp服务" class="headerlink" title="1.    安装ntp服务"></a>1.    安装ntp服务</h3><ul>
-<li><p>查看是否已经安装：<code>rpm -qa | grep ntp</code>。 如果已安装就不需要再安装了。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@docker2 ~]# rpm -qa | grep ntp</div><div class="line">ntpdate-4.2.6p5-5.el6.centos.x86_64</div><div class="line">ntp-4.2.6p5-5.el6.centos.x86_64</div></pre></td></tr></table></figure>
+<li>查看是否已经安装：<code>rpm -qa | grep ntp</code>。 如果已安装就不需要再安装了。<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@docker2 ~]# rpm -qa | grep ntp</div><div class="line">ntpdate-4.2.6p5-5.el6.centos.x86_64</div><div class="line">ntp-4.2.6p5-5.el6.centos.x86_64</div></pre></td></tr></table></figure>
 </li>
-<li><p>如果没安装，使用： <code>yum install ntp</code> 安装</p>
-<h3 id="2-设置开机启动：-chkconfig-ntpd-on"><a href="#2-设置开机启动：-chkconfig-ntpd-on" class="headerlink" title="2.    设置开机启动： chkconfig ntpd on"></a>2.    设置开机启动： <code>chkconfig ntpd on</code></h3><h3 id="3-修改-etc-ntp-conf"><a href="#3-修改-etc-ntp-conf" class="headerlink" title="3.    修改/etc/ntp.conf"></a>3.    修改<code>/etc/ntp.conf</code></h3></li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>如果没安装，使用： <code>yum install ntp</code> 安装<h3 id="2-设置开机启动：-chkconfig-ntpd-on"><a href="#2-设置开机启动：-chkconfig-ntpd-on" class="headerlink" title="2.    设置开机启动： chkconfig ntpd on"></a>2.    设置开机启动： <code>chkconfig ntpd on</code></h3><h3 id="3-修改-etc-ntp-conf"><a href="#3-修改-etc-ntp-conf" class="headerlink" title="3.    修改/etc/ntp.conf"></a>3.    修改<code>/etc/ntp.conf</code></h3></li>
 <li>将<code>restrict default kod nomodify notrap nopeer noquery</code>注释掉，这个对客户端的限制太多。<strong>ntp 4.2之前版本</strong>添加<code>restrict default nomodify notrust</code>（允许任何IP的客户机都可以进行时间同步）以允许所有客户端获取时间数据。<code>notrust</code> 参数的功能是并需通过认证才能同步，也就是客户端同步命令中必须有<code>keyid</code>和<code>key</code>才能通过。</li>
 <li>注释掉所有的<code>trustedkey</code>， 添加 <code>trustedkey 1 2 3</code>，后边指定数字任意，但必须与<code>/etc/ntp/keys</code>文件中的 值保持一致。也就是说<code>1 2 3</code> 这三个数分别作为认证的<code>keyid</code>。</li>
 <li><p>配置时间源， 指定同步参考的服务器时间。如果连接不了外网就把所有外网时间服务器都注释掉</p>
@@ -448,7 +449,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/" title="linux集群时钟同步ntp（NetworkTimeProtocol）">https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/</a>
+    <a href="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/" title="linux集群时钟同步ntp（NetworkTimeProtocol）安装指南">https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -485,6 +486,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/2017/10/09/docker问题/" rel="prev" title="docker问题">
+                docker问题 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -572,7 +577,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -583,7 +588,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -594,7 +599,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -801,7 +806,7 @@
         var disqus_config = function () {
           this.page.url = 'https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/';
           this.page.identifier = 'posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/';
-          this.page.title = 'linux集群时钟同步ntp（NetworkTimeProtocol）';
+          this.page.title = 'linux集群时钟同步ntp（NetworkTimeProtocol）安装指南';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://bluehaw.disqus.com/embed.js';

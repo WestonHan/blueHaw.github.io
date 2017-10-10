@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="虚拟机," />
+  <meta name="keywords" content="tomcat," />
 
 
 
@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="1. VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192.168.115.xxx，子网IP配为192.168.10.xxx来避开主机的ip段">
-<meta name="keywords" content="虚拟机">
+<meta name="description" content="一、 设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍：use memcached session share（这里使用kryo 策略）">
+<meta name="keywords" content="tomcat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="虚拟机NAT模式使用静态IP上网">
-<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/index.html">
+<meta property="og:title" content="tomcat7.0.79镜像定制说明">
+<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/09/tomcat7-0-79镜像定制说明/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="1. VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192.168.115.xxx，子网IP配为192.168.10.xxx来避开主机的ip段">
+<meta property="og:description" content="一、 设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍：use memcached session share（这里使用kryo 策略）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7xsh47.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170408182216.png">
-<meta property="og:image" content="http://7xsh47.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170408183157.png">
-<meta property="og:updated_time" content="2017-10-09T13:25:54.900Z">
+<meta property="og:updated_time" content="2017-10-09T13:37:23.663Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="虚拟机NAT模式使用静态IP上网">
-<meta name="twitter:description" content="1. VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192.168.115.xxx，子网IP配为192.168.10.xxx来避开主机的ip段">
-<meta name="twitter:image" content="http://7xsh47.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170408182216.png">
+<meta name="twitter:title" content="tomcat7.0.79镜像定制说明">
+<meta name="twitter:description" content="一、 设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍：use memcached session share（这里使用kryo 策略）">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/"/>
+  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/09/tomcat7-0-79镜像定制说明/"/>
 
 
 
 
 
-  <title>虚拟机NAT模式使用静态IP上网 | blueHaw's Notes</title>
+  <title>tomcat7.0.79镜像定制说明 | blueHaw's Notes</title>
   
 
 
@@ -280,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/tomcat7-0-79镜像定制说明/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blueHaw">
@@ -297,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">虚拟机NAT模式使用静态IP上网</h1>
+          <h1 class="post-title" itemprop="name headline">tomcat7.0.79镜像定制说明</h1>
         
 
         <div class="post-meta">
@@ -309,7 +306,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T17:16:11+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T21:33:35+08:00">
                 2017-10-09
               </time>
             
@@ -332,8 +329,30 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/虚拟机/" itemprop="url" rel="index">
-                    <span itemprop="name">虚拟机</span>
+                  <a href="/categories/中间件/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/中间件/应用服务器/" itemprop="url" rel="index">
+                    <span itemprop="name">应用服务器</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/中间件/应用服务器/tomcat/" itemprop="url" rel="index">
+                    <span itemprop="name">tomcat</span>
                   </a>
                 </span>
 
@@ -350,9 +369,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/#comments" itemprop="discussionUrl">
+                <a href="/posts/2017/10/09/tomcat7-0-79镜像定制说明/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="posts/2017/10/09/虚拟机NAT模式使用静态IP上网/" itemprop="commentCount"></span>
+                        data-disqus-identifier="posts/2017/10/09/tomcat7-0-79镜像定制说明/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -380,15 +399,34 @@
       
 
       
-        <h4 id="1-VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192-168-115-xxx，子网IP配为192-168-10-xxx来避开主机的ip段"><a href="#1-VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192-168-115-xxx，子网IP配为192-168-10-xxx来避开主机的ip段" class="headerlink" title="1. VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192.168.115.xxx，子网IP配为192.168.10.xxx来避开主机的ip段"></a>1. VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192.168.115.xxx，子网IP配为192.168.10.xxx来避开主机的ip段</h4><a id="more"></a>
-<p><img src="http://7xsh47.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170408182216.png" alt="配置图片"></p>
-<p>点击上图中的<code>NAT 设置</code>，设置网关IP，如图：<br><img src="http://7xsh47.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170408183157.png" alt="配置图片"></p>
-<h4 id="2-配置ifcfg-ethXX文件"><a href="#2-配置ifcfg-ethXX文件" class="headerlink" title="2. 配置ifcfg-ethXX文件"></a>2. 配置ifcfg-ethXX文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">DEVICE=<span class="string">"eth0"</span></div><div class="line">BOOTPROTO=<span class="string">"static"</span></div><div class="line">HWADDR=<span class="string">"00:0C:29:93:F1:48"</span></div><div class="line">IPV6INIT=<span class="string">"yes"</span></div><div class="line">NM_CONTROLLED=<span class="string">"yes"</span></div><div class="line">ONBOOT=<span class="string">"yes"</span></div><div class="line">TYPE=<span class="string">"Ethernet"</span></div><div class="line">UUID=<span class="string">"b2b2b49b-6be0-480e-a026-ee7c3a4aca28"</span></div><div class="line">IPADDR=<span class="string">"192.168.11.100"</span></div><div class="line">NETMASK=<span class="string">"255.255.255.0"</span></div><div class="line">GATEWAY=<span class="string">"192.168.11.2"</span></div><div class="line">DNS1=8.8.8.8</div></pre></td></tr></table></figure>
-<ul>
-<li><code>BOOTPROTO</code>：改为<code>static</code></li>
-<li><code>GATEWAY</code>：设为刚才设置的</li>
-<li><code>IPADDR</code>：配置ip，在第一步已经设置ip处于192.168.11.xxx这个范围，这里设置为100，只要不和网关相同均可<h4 id="3-保存，如果没有自动重启网卡，运行service-network-restart，应该就能上网了"><a href="#3-保存，如果没有自动重启网卡，运行service-network-restart，应该就能上网了" class="headerlink" title="3. 保存，如果没有自动重启网卡，运行service network restart，应该就能上网了"></a>3. 保存，如果没有自动重启网卡，运行<code>service network restart</code>，应该就能上网了</h4></li>
+        <h2 id="一、-设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍："><a href="#一、-设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍：" class="headerlink" title="一、 设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍："></a>一、 设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍：</h2><h3 id="use-memcached-session-share（这里使用kryo-策略）"><a href="#use-memcached-session-share（这里使用kryo-策略）" class="headerlink" title="use memcached session share（这里使用kryo 策略）"></a>use memcached session share（这里使用<code>kryo</code> 策略）</h3><a id="more"></a>
+<h4 id="1-添加jar包到tomcat的lib目录下支持memcache共享："><a href="#1-添加jar包到tomcat的lib目录下支持memcache共享：" class="headerlink" title="1. 添加jar包到tomcat的lib目录下支持memcache共享："></a>1. 添加jar包到tomcat的lib目录下支持memcache共享：</h4><ul>
+<li>asm-5.0.3.jar</li>
+<li>kryo-3.0.3.jar</li>
+<li>kryo-serializers-0.37.jar</li>
+<li>memcached-session-manager-1.9.5.jar</li>
+<li>memcached-session-manager-tc7-1.9.5.jar</li>
+<li>minlog-1.3.0.jar</li>
+<li>msm-kryo-serializer-1.9.5.jar</li>
+<li>objenesis-2.1.jar</li>
+<li>reflectasm-1.10.1.jar</li>
+<li>spymemcached-2.12.0.jar<h4 id="2-添加下面的配置文件到content-xml中"><a href="#2-添加下面的配置文件到content-xml中" class="headerlink" title="2. 添加下面的配置文件到content.xml中"></a>2. 添加下面的配置文件到<code>content.xml</code>中</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">transcoderFactoryClass</span>=<span class="string">"de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"</span>        </span></div><div class="line"><span class="tag">    <span class="attr">sessionBackupTimeout</span>=<span class="string">"180000"</span> </span></div><div class="line"><span class="tag">    <span class="attr">sessionBackupAsync</span>=<span class="string">"false"</span> </span></div><div class="line"><span class="tag">    <span class="attr">requestUriIgnorePattern</span>=<span class="string">".*\.(png|gif|jpg|css|js)$"</span> </span></div><div class="line"><span class="tag">    <span class="attr">lockingMode</span>=<span class="string">"auto"</span> </span></div><div class="line"><span class="tag">    <span class="attr">sticky</span>=<span class="string">"false"</span> </span></div><div class="line"><span class="tag">    <span class="attr">memcachedNodes</span>=<span class="string">"n1:172.31.1.73:11211"</span> </span></div><div class="line"><span class="tag">    <span class="attr">className</span>=<span class="string">"de.javakaffee.web.msm.MemcachedBackupSessionManager"</span>/&gt;</span></div></pre></td></tr></table></figure>
+</li>
 </ul>
+<h4 id="3-Reboot-the-server-and-sessions-should-now-be-stored-in-Memcached"><a href="#3-Reboot-the-server-and-sessions-should-now-be-stored-in-Memcached" class="headerlink" title="3. Reboot the server, and sessions should now be stored in Memcached."></a>3. Reboot the server, and sessions should now be stored in Memcached.</h4><h3 id="use-redis-session-share"><a href="#use-redis-session-share" class="headerlink" title="use redis session share"></a>use redis session share</h3><h4 id="1-添加jar包到tomcat的lib目录下支持redis共享："><a href="#1-添加jar包到tomcat的lib目录下支持redis共享：" class="headerlink" title="1. 添加jar包到tomcat的lib目录下支持redis共享："></a>1. 添加jar包到tomcat的lib目录下支持redis共享：</h4><ul>
+<li>commons-pool-2.2.2.jar</li>
+<li>jedis-2.5.2.jar</li>
+<li>tomcat-redis-session-manager-1.2-tomcat-7.jar<h4 id="2-添加下面的配置文件到content-xml中-1"><a href="#2-添加下面的配置文件到content-xml中-1" class="headerlink" title="2. 添加下面的配置文件到content.xml中"></a>2. 添加下面的配置文件到<code>content.xml</code>中</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">"com.radiadesign.catalina.session.RedisSessionHandlerValve"</span> /&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"com.radiadesign.catalina.session.RedisSessionManager"</span></span></div><div class="line">        host="172.31.1.73"&lt;!-- optional: defaults to "localhost" --&gt;</div><div class="line">        port="6379"<span class="comment">&lt;!-- optional: defaults to "6379" --&gt;</span></div><div class="line">        database="0"<span class="comment">&lt;!-- optional: defaults to "0" --&gt;</span></div><div class="line">        maxInactiveInterval="60"<span class="comment">&lt;!-- optional: defaults to "60" (in seconds) --&gt;</span>/&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-Reboot-the-server-and-sessions-should-now-be-stored-in-Redis"><a href="#3-Reboot-the-server-and-sessions-should-now-be-stored-in-Redis" class="headerlink" title="3. Reboot the server, and sessions should now be stored in Redis."></a>3. Reboot the server, and sessions should now be stored in Redis.</h4><h3 id="测试session共享是否成功"><a href="#测试session共享是否成功" class="headerlink" title="测试session共享是否成功"></a>测试session共享是否成功</h3><p>访问<a href="http://tomcatip:port/sesstest.jsp，观察sessionid是否有变化" target="_blank" rel="external">http://tomcatip:port/sesstest.jsp，观察sessionid是否有变化</a></p>
+<h2 id="二、-使用log4j作为默认日志"><a href="#二、-使用log4j作为默认日志" class="headerlink" title="二、 使用log4j作为默认日志"></a>二、 使用log4j作为默认日志</h2><ul>
+<li>拷贝<code>log4j-1.2.11.jar、tomcat-juli-adapters.jar、log4j.properties</code>到<code>%TOMCAT_HOME%/lib/</code>目录</li>
+<li>拷贝<code>tomcat-juli.jar</code>到<code>%TOMCAT_HOME%/bin/</code>目录</li>
+<li>删除<code>%TOMCAT_HOME%/conf/logging.properties</code></li>
+</ul>
+<p>jar包下载地址见(这是tomcat6):<a href="https://tomcat.apache.org/tomcat-6.0-doc/logging.html#Using_Log4j" target="_blank" rel="external">https://tomcat.apache.org/tomcat-6.0-doc/logging.html#Using_Log4j</a></p>
+<p>我的<code>log4j.properties</code>文件如下,这样设为<strong>按照大小分割,每5MB分割，最多分割为30个文件，超过了循环覆盖</strong><br><figure class="highlight roboconf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">log4j.rootLogger=INFO, CATALINA</div><div class="line"></div><div class="line"><span class="comment"># Define all the appenders</span></div><div class="line">log4j.appender.CATALINA=org.apache.log4j.RollingFileAppender</div><div class="line">log4j.appender.CATALINA.File=$&#123;<span class="attribute">catalina.home&#125;/logs/catalina.out</span></div><div class="line"><span class="attribute">log4j.appender.CATALINA.Append=true</span></div><div class="line"><span class="attribute">log4j.appender.CATALINA.Encoding=UTF-8</span></div><div class="line"><span class="attribute">log4j.appender.CATALINA.layout=org.apache.log4j.PatternLayout</span></div><div class="line"><span class="attribute">log4j.appender.CATALINA.layout.ConversionPattern=%d&#123;yyyy.MM.dd HH</span>:mm:ss&#125; %p-%c&#123;1&#125;: [%m]%n</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.CATALINA</span><span class="variable">.MaxFileSize</span>=5MB</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.CATALINA</span><span class="variable">.MaxBackupIndex</span>=30</div><div class="line"></div><div class="line"># Roll-over the log by size</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.LOCALHOST</span>=org<span class="variable">.apache</span><span class="variable">.log</span>4j<span class="variable">.RollingFileAppender</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.LOCALHOST</span><span class="variable">.File</span>=$&#123;catalina<span class="variable">.home</span>&#125;/logs/localhost<span class="variable">.log</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.LOCALHOST</span><span class="variable">.Append</span>=true</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.LOCALHOST</span><span class="variable">.Encoding</span>=UTF-8</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.LOCALHOST</span><span class="variable">.layout</span>=org<span class="variable">.apache</span><span class="variable">.log</span>4j<span class="variable">.PatternLayout</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.LOCALHOST</span><span class="variable">.layout</span><span class="variable">.ConversionPattern</span>=%d&#123;yyyy<span class="variable">.MM</span><span class="variable">.dd</span> HH:mm:ss&#125; %p-%c&#123;1&#125;: [%m]%n</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.LOCALHOST</span><span class="variable">.MaxFileSize</span>=5MB</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.LOCALHOST</span><span class="variable">.MaxBackupIndex</span>=30</div><div class="line"></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.MANAGER</span>=org<span class="variable">.apache</span><span class="variable">.log</span>4j<span class="variable">.RollingFileAppender</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.MANAGER</span><span class="variable">.File</span>=$&#123;catalina<span class="variable">.home</span>&#125;/logs/manager<span class="variable">.log</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.MANAGER</span><span class="variable">.Append</span>=true</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.MANAGER</span><span class="variable">.Encoding</span>=UTF-8</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.MANAGER</span><span class="variable">.layout</span>=org<span class="variable">.apache</span><span class="variable">.log</span>4j<span class="variable">.PatternLayout</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.MANAGER</span><span class="variable">.layout</span><span class="variable">.ConversionPattern</span>=%d&#123;yyyy<span class="variable">.MM</span><span class="variable">.dd</span> HH:mm:ss&#125; %p-%c&#123;1&#125;: [%m]%n</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.MANAGER</span><span class="variable">.MaxFileSize</span>=5MB</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.MANAGER</span><span class="variable">.MaxBackupIndex</span>=30</div><div class="line"></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.HOST-MANAGER</span>=org<span class="variable">.apache</span><span class="variable">.log</span>4j<span class="variable">.RollingFileAppender</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.HOST-MANAGER</span><span class="variable">.File</span>=$&#123;catalina<span class="variable">.home</span>&#125;/logs/host-manager<span class="variable">.log</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.HOST-MANAGER</span><span class="variable">.Append</span>=true</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.HOST-MANAGER</span><span class="variable">.Encoding</span>=UTF-8</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.HOST-MANAGER</span><span class="variable">.layout</span>=org<span class="variable">.apache</span><span class="variable">.log</span>4j<span class="variable">.PatternLayout</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.HOST-MANAGER</span><span class="variable">.layout</span><span class="variable">.ConversionPattern</span>=%d&#123;yyyy<span class="variable">.MM</span><span class="variable">.dd</span> HH:mm:ss&#125; %p-%c&#123;1&#125;: [%m]%n</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.HOST-MANAGER</span><span class="variable">.MaxFileSize</span>=5MB</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.HOST-MANAGER</span><span class="variable">.MaxBackupIndex</span>=30</div><div class="line"></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.CONSOLE</span>=org<span class="variable">.apache</span><span class="variable">.log</span>4j<span class="variable">.ConsoleAppender</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.CONSOLE</span><span class="variable">.Encoding</span>=UTF-8</div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.CONSOLE</span><span class="variable">.layout</span> = org<span class="variable">.apache</span><span class="variable">.log</span>4j<span class="variable">.PatternLayout</span></div><div class="line">log4j<span class="variable">.appender</span><span class="variable">.CONSOLE</span><span class="variable">.layout</span><span class="variable">.ConversionPattern</span> = %d [%t] %-30p %c- %m%n</div><div class="line"></div><div class="line"># Configure which loggers log to which appenders</div><div class="line">log4j<span class="variable">.logger</span><span class="variable">.org</span><span class="variable">.apache</span><span class="variable">.catalina</span><span class="variable">.core</span><span class="variable">.ContainerBase</span>.[Catalina].[localhost]=INFO, LOCALHOST</div><div class="line">log4j<span class="variable">.logger</span><span class="variable">.org</span><span class="variable">.apache</span><span class="variable">.catalina</span><span class="variable">.core</span><span class="variable">.ContainerBase</span>.[Catalina].[localhost].[/manager]=INFO, MANAGER</div><div class="line">log4j<span class="variable">.logger</span><span class="variable">.org</span><span class="variable">.apache</span><span class="variable">.catalina</span><span class="variable">.core</span><span class="variable">.ContainerBase</span>.[Catalina].[localhost].[/host-manager]=INFO, HOST-MANAGER</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -409,7 +447,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://bluehaw.github.io/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/" title="虚拟机NAT模式使用静态IP上网">https://bluehaw.github.io/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/</a>
+    <a href="https://bluehaw.github.io/posts/2017/10/09/tomcat7-0-79镜像定制说明/" title="tomcat7.0.79镜像定制说明">https://bluehaw.github.io/posts/2017/10/09/tomcat7-0-79镜像定制说明/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -424,7 +462,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/虚拟机/" rel="tag"># 虚拟机</a>
+            <a href="/tags/tomcat/" rel="tag"># tomcat</a>
           
         </div>
       
@@ -437,8 +475,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/2017/10/06/docker清空容器日志/" rel="next" title="docker清空容器日志">
-                <i class="fa fa-chevron-left"></i> docker清空容器日志
+              <a href="/posts/2017/10/09/docker问题/" rel="next" title="docker问题">
+                <i class="fa fa-chevron-left"></i> docker问题
               </a>
             
           </div>
@@ -447,8 +485,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/2017/10/09/虚拟机网络模式/" rel="prev" title="虚拟机网络模式">
-                虚拟机网络模式 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/2017/10/09/InstallMongoDBCommunityEdition/" rel="prev" title="InstallMongoDBCommunityEdition">
+                InstallMongoDBCommunityEdition <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -608,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192-168-115-xxx，子网IP配为192-168-10-xxx来避开主机的ip段"><span class="nav-number">1.</span> <span class="nav-text">1. VMnet8虚拟网卡设置界面：这里不要勾选使用DHCP服务分配IP地址给虚拟机选项。然后配置子网IP，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。例如主机的ip段是192.168.115.xxx，子网IP配为192.168.10.xxx来避开主机的ip段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-配置ifcfg-ethXX文件"><span class="nav-number">2.</span> <span class="nav-text">2. 配置ifcfg-ethXX文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-保存，如果没有自动重启网卡，运行service-network-restart，应该就能上网了"><span class="nav-number">3.</span> <span class="nav-text">3. 保存，如果没有自动重启网卡，运行service network restart，应该就能上网了</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、-设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍："><span class="nav-number">1.</span> <span class="nav-text">一、 设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#use-memcached-session-share（这里使用kryo-策略）"><span class="nav-number">1.1.</span> <span class="nav-text">use memcached session share（这里使用kryo 策略）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-添加jar包到tomcat的lib目录下支持memcache共享："><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 添加jar包到tomcat的lib目录下支持memcache共享：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-添加下面的配置文件到content-xml中"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 添加下面的配置文件到content.xml中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Reboot-the-server-and-sessions-should-now-be-stored-in-Memcached"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. Reboot the server, and sessions should now be stored in Memcached.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-redis-session-share"><span class="nav-number">1.2.</span> <span class="nav-text">use redis session share</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-添加jar包到tomcat的lib目录下支持redis共享："><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 添加jar包到tomcat的lib目录下支持redis共享：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-添加下面的配置文件到content-xml中-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 添加下面的配置文件到content.xml中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Reboot-the-server-and-sessions-should-now-be-stored-in-Redis"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. Reboot the server, and sessions should now be stored in Redis.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试session共享是否成功"><span class="nav-number">1.3.</span> <span class="nav-text">测试session共享是否成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、-使用log4j作为默认日志"><span class="nav-number">2.</span> <span class="nav-text">二、 使用log4j作为默认日志</span></a></li></ol></div>
             
 
           </div>
@@ -764,9 +802,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://bluehaw.github.io/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/';
-          this.page.identifier = 'posts/2017/10/09/虚拟机NAT模式使用静态IP上网/';
-          this.page.title = '虚拟机NAT模式使用静态IP上网';
+          this.page.url = 'https://bluehaw.github.io/posts/2017/10/09/tomcat7-0-79镜像定制说明/';
+          this.page.identifier = 'posts/2017/10/09/tomcat7-0-79镜像定制说明/';
+          this.page.title = 'tomcat7.0.79镜像定制说明';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://bluehaw.disqus.com/embed.js';

@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="删除删除第三行：1sed -i &apos;3d&apos; 1.txt 删除以winter开头的行1sed -i &apos;/^winter/d&apos; 1.txt 删除包含winter（特殊字符需要转义）的行1sed -i &apos;/winter/d&apos; 1.txt 插入在14行下插入新的一行：aaaaaa1sed -i 14a\aaaaaaa 1.txt 查询查询winter在文件中的行号1sed -ne &apos;/winter/=&apos; 1">
+<meta name="description" content="删除删除第三行：1sed -i &apos;3d&apos; 1.txt">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux sed命令介绍">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/06/linux-sed命令介绍/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="删除删除第三行：1sed -i &apos;3d&apos; 1.txt 删除以winter开头的行1sed -i &apos;/^winter/d&apos; 1.txt 删除包含winter（特殊字符需要转义）的行1sed -i &apos;/winter/d&apos; 1.txt 插入在14行下插入新的一行：aaaaaa1sed -i 14a\aaaaaaa 1.txt 查询查询winter在文件中的行号1sed -ne &apos;/winter/=&apos; 1">
+<meta property="og:description" content="删除删除第三行：1sed -i &apos;3d&apos; 1.txt">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-09T09:21:58.528Z">
+<meta property="og:updated_time" content="2017-10-09T13:25:45.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux sed命令介绍">
-<meta name="twitter:description" content="删除删除第三行：1sed -i &apos;3d&apos; 1.txt 删除以winter开头的行1sed -i &apos;/^winter/d&apos; 1.txt 删除包含winter（特殊字符需要转义）的行1sed -i &apos;/winter/d&apos; 1.txt 插入在14行下插入新的一行：aaaaaa1sed -i 14a\aaaaaaa 1.txt 查询查询winter在文件中的行号1sed -ne &apos;/winter/=&apos; 1">
+<meta name="twitter:description" content="删除删除第三行：1sed -i &apos;3d&apos; 1.txt">
 
 
 
@@ -389,12 +389,13 @@
 
       
         <h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>删除第三行：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'3d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>删除以winter开头的行<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'/^winter/d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
 <p>删除包含winter（特殊字符需要转义）的行<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'/winter/d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
 <h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>在14行下插入新的一行：<code>aaaaaa</code><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i <span class="number">14</span>a\aaaaaaa <span class="number">1.</span>txt</div></pre></td></tr></table></figure></p>
 <h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>查询<code>winter</code>在文件中的行号<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="keyword">ne</span> <span class="string">'/winter/='</span> <span class="number">1.</span>txt</div></pre></td></tr></table></figure></p>
 <h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><p>将文件中的<code>_SUPERMODELIPPORT</code>替换为<code>$SMIPPORT</code>，<code>g</code>代表全局替换，不加g替换第一个<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i <span class="string">"s%_SUPERMODELIPPORT%$SMIPPORT%g"</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
-<p>修改第<code>$ROW</code>行为<code>&#39;$HOST&#39; &#39;$HOSTNAME</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed  -i -e  <span class="variable">$ROW</span><span class="string">'c\'</span><span class="variable">$HOST</span><span class="string">' '</span><span class="variable">$HOSTNAME</span> 1.txt</div></pre></td></tr></table></figure></p>
+<p>修改第<code>$ROW</code>行为<code>&#39;$HOST&#39; &#39;$HOSTNAME</code><br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed  -i -e  $ROW<span class="string">'c\'</span>$HOST<span class="string">' '</span>$HOSTNAME <span class="number">1.</span>txt</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -543,7 +544,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -554,7 +555,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -565,7 +566,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
