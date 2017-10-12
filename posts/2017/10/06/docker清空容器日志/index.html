@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Docker," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="查看运行容器docker ps 123[root@localhost 6.0.43]# docker psCONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMESefaa84e2600">
+<meta name="description" content="查看运行容器docker ps">
+<meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker清空容器日志">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/06/docker清空容器日志/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="查看运行容器docker ps 123[root@localhost 6.0.43]# docker psCONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMESefaa84e2600">
+<meta property="og:description" content="查看运行容器docker ps">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-06T02:43:24.912Z">
+<meta property="og:updated_time" content="2017-10-12T15:48:07.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker清空容器日志">
-<meta name="twitter:description" content="查看运行容器docker ps 123[root@localhost 6.0.43]# docker psCONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMESefaa84e2600">
+<meta name="twitter:description" content="查看运行容器docker ps">
 
 
 
@@ -316,6 +317,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -354,8 +377,7 @@
       
 
       
-        <h3 id="查看运行容器"><a href="#查看运行容器" class="headerlink" title="查看运行容器"></a>查看运行容器</h3><p><code>docker ps</code></p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@localhost <span class="number">6.0</span><span class="meta">.43</span>]# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES</div><div class="line">efaa84e26005        <span class="number">001</span>-tomcat:<span class="number">6.0</span><span class="meta">.43</span>   <span class="string">"/bin/sh -c '$CATA..."</span>   About a minute ago   <span class="meta">Up</span> About a minute   <span class="number">0.0</span><span class="meta">.0</span><span class="meta">.0</span>:<span class="number">8080</span>-&gt;<span class="number">8080</span>/tcp   tomcat</div></pre></td></tr></table></figure>
+        <h3 id="查看运行容器"><a href="#查看运行容器" class="headerlink" title="查看运行容器"></a>查看运行容器</h3><p><code>docker ps</code><br><a id="more"></a><br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@localhost <span class="number">6.0</span><span class="meta">.43</span>]# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES</div><div class="line">efaa84e26005        <span class="number">001</span>-tomcat:<span class="number">6.0</span><span class="meta">.43</span>   <span class="string">"/bin/sh -c '$CATA..."</span>   About a minute ago   <span class="meta">Up</span> About a minute   <span class="number">0.0</span><span class="meta">.0</span><span class="meta">.0</span>:<span class="number">8080</span>-&gt;<span class="number">8080</span>/tcp   tomcat</div></pre></td></tr></table></figure></p>
 <h3 id="找到日志位置"><a href="#找到日志位置" class="headerlink" title="找到日志位置"></a>找到日志位置</h3><p><code>docker inspect ContainerID</code></p>
 <p>找到<code>LogPath</code>对应的日志路径/var/log/……log-json.log</p>
 <h3 id="清空日志文件"><a href="#清空日志文件" class="headerlink" title="清空日志文件"></a>清空日志文件</h3><p><code>cat /dev/null &gt; /var/log/......log-json.log</code></p>
@@ -392,6 +414,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+        </div>
+      
 
       
       
@@ -401,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/2017/10/06/linux-sed命令介绍/" rel="next" title="linux sed命令介绍">
-                <i class="fa fa-chevron-left"></i> linux sed命令介绍
+              <a href="/posts/2017/10/06/linux-sed命令介绍/" rel="next" title="Linux sed命令介绍">
+                <i class="fa fa-chevron-left"></i> Linux sed命令介绍
               </a>
             
           </div>
@@ -501,7 +529,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -512,7 +540,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -523,7 +551,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
