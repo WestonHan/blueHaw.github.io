@@ -73,11 +73,11 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux SSH免密码登录配置指南]]></title>
+    <title><![CDATA[Linux SSH免密码登录配置指南]]></title>
     <url>%2Fposts%2F2017%2F10%2F12%2FSSH%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97%2F</url>
     <content type="text"><![CDATA[一、配置SSH免密码登录我用的是root用户，每台服务器都生成公钥，合并到authorized_keys后，分发到集群内各节点 。 1. 生成公钥/私钥每台机器上运行1ssh-keygen -t rsa -P '' 2. 收集所有公钥写入authorized_keys 分别复件docker2 docker3密钥文件到docker1 12scp /root/.ssh/id_rsa.pub docker1:/root/.ssh/docker2_id_rsa.pub // docker2 机器上执行scp /root/.ssh/id_rsa.pub docker1:/root/.ssh/docker3_id_rsa.pub // docker3 机器上执行 查看docker1上， 已复制的文件 12345678910[root@docker1 ~]# ls -al ~/.ssh/total 32drwxr-xr-x 2 root root 4096 May 12 10:28 .dr-xr-x---. 3 root root 4096 May 12 10:22 ..-rw-r--r-- 1 root root 2364 May 12 10:28 authorized_keys-rw-r--r-- 1 root root 394 May 12 10:28 cdh2_id_rsa.pub-rw-r--r-- 1 root root 394 May 12 10:27 cdh3_id_rsa.pub-rw------- 1 root root 1675 May 12 10:22 id_rsa-rw-r--r-- 1 root root 394 May 12 10:22 id_rsa.pub-rw-r--r-- 1 root root 1596 May 12 10:15 known_hosts 之前拷贝的名字为cdh2_id_rsa.pub、cdh3_id_rsa.pub 将复制来的密钥添加到docker1上的authorized_keys 123cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keyscat /root/.ssh/docker2_id_rsa.pub &gt;&gt; /root/.ssh/authorized_keyscat /root/.ssh/docker3_id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys 3. 分发authorized_keys到集群内节点将docker1上的authorized_keys文件， 分发到集群内其它机器12scp /root/.ssh/authorized_keys docker2:/root/.ssh/authorized_keysscp /root/.ssh/authorized_keys docker3:/root/.ssh/authorized_keys 4. 验证配置是否成功12345[root@docker1 ~]# ssh docker2Last login: Fri May 12 10:57:04 2017 from 192.168.75.11[root@docker2 ~]# ssh docker1Last login: Fri May 12 10:56:30 2017 from 192.168.75.11[root@docker1 ~]# 二、 常见问题1. SSH互信配置完成，仍然要输入密码原因分析 .ssh目录的权限必须是700，同时本机的私钥的权限必须设置成600： /root目录权限不对,要设置为755，/root的用户和用户组必须为root 查看日志/var/log/secure]]></content>
       <categories>
-        <category>linux</category>
+        <category>Linux</category>
         <category>SSH</category>
       </categories>
       <tags>
@@ -206,10 +206,10 @@
     <url>%2Fposts%2F2017%2F10%2F06%2F%E6%96%B0%E6%9C%BA%E5%99%A8%E6%A3%80%E6%9F%A5%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%2F</url>
     <content type="text"><![CDATA[系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -h，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： date 123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &gt; /etc/timezone 主机名，ip和主机名映射: hostname,vim /etc/hosts yum源： 是否修改/etc/yum.repos.d 时钟同步：web服务器、solr机器（必须） ssh互信：web服务器、solr机器]]></content>
       <categories>
-        <category>linux</category>
+        <category>Linux</category>
       </categories>
       <tags>
-        <tag>linux</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -217,10 +217,10 @@
     <url>%2Fposts%2F2017%2F10%2F02%2FLinux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE%2F</url>
     <content type="text"><![CDATA[1. 更换本地yum源1. 从ustc下载.repo文件，切换源1cd /etc/yum.repos.d/ 将原有xx.repo文件全部改名为xx.repo.bak(rename .repo .repo.bak *.repo)1234567wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=1-O CentOS-ustc.repo 【centos5 ustc源】wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=2 -O CentOS-ustc.repo【centos6 ustc源】wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=3 -O CentOS-ustc.repo 【centos7 ustc源】yum clean allyum makecache 2. 检查源是否切换成功12yum list#看到很多列表表示成功 2. 修改主机名永久修改，需重启12345[root@docker1 ~]# vim /etc/sysconfig/network#NETWORKING=yesNETWORKING=yesNETWORKING_IPV6=noHOSTNAME=docker1 临时修改，立即生效（重启失效）123[root@docker1 ~]# hostname hh[root@docker1 ~]# hostnamehh 3. 修改host文件（ip地址和主机名绑定）123456[root@docker1 ~]# vim /etc/hosts127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4::1 localhost localhost.localdomain localhost6 localhost6.localdomain6172.31.1.73 docker1172.31.1.85 docker2 172.31.1.86 docker3 4. 禁用IP6没有做过12345678910111213141516vi /etc/sysconfig/network在最后增加一句：IPV6INIT=nocat /etc/sysconfig/networkNETWORKING=yesIPV6INIT=no//修改hosts文件，注释ip6#vi /etc/hosts127.0.0.1 localhost.localdomain localhost #::1 localhost6.localdomain6 localhost6//立即停止IP6服务service ip6tables stop//永久停止ipv6的iptableschkconfig ip6tables off 5. 关闭防火墙1234#立即停止 （暂时停止，重启失效）service iptables stop#永久停止chkconfig iptables off #禁用 6. 禁用SELINUX1vim /etc/selinux/config 将SELINUX=enforcing改为SELINUX=disabled 7. 修改默认启动级别1234vim /etc/inittab#默认为5：图形界面的多用户#修改为3：带网络的多用户id:3:initdefault:]]></content>
       <categories>
-        <category>linux</category>
+        <category>Linux</category>
       </categories>
       <tags>
-        <tag>linux</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
