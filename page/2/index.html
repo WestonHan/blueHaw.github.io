@@ -523,6 +523,7 @@
       
         
           <p>使用root用户进行操作，涉及所有服务器。</p>
+<h3 id="0-设置所有服务器在同一时区"><a href="#0-设置所有服务器在同一时区" class="headerlink" title="0.    设置所有服务器在同一时区"></a>0.    设置所有服务器在同一时区</h3><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TZ=Asia/Shanghai</div><div class="line">ln -snf <span class="meta-keyword">/usr/</span>share<span class="meta-keyword">/zoneinfo/</span>$TZ <span class="meta-keyword">/etc/</span>localtime</div><div class="line">echo $TZ &gt; <span class="meta-keyword">/etc/</span>timezone</div></pre></td></tr></table></figure>
 <h3 id="1-安装ntp服务"><a href="#1-安装ntp服务" class="headerlink" title="1.    安装ntp服务"></a>1.    安装ntp服务</h3><ul>
 <li>查看是否已经安装：<code>rpm -qa | grep ntp</code>。 如果已安装就不需要再安装了。<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@docker2 ~]# rpm -qa | grep ntp</div><div class="line">ntpdate-4.2.6p5-5.el6.centos.x86_64</div><div class="line">ntp-4.2.6p5-5.el6.centos.x86_64</div></pre></td></tr></table></figure>
 </li>
@@ -580,7 +581,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/centos7minimal方式安装笔记/">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/CentOS7minimal方式安装笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blueHaw">
@@ -599,7 +600,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/2017/10/09/centos7minimal方式安装笔记/" itemprop="url">CentOS7 minimal方式安装笔记</a></h1>
+                <a class="post-title-link" href="/posts/2017/10/09/CentOS7minimal方式安装笔记/" itemprop="url">CentOS7 minimal方式安装笔记</a></h1>
         
 
         <div class="post-meta">
@@ -676,7 +677,7 @@
 <h3 id="1-修改网卡名称为eth0"><a href="#1-修改网卡名称为eth0" class="headerlink" title="1. 修改网卡名称为eth0"></a>1. 修改网卡名称为eth0</h3><p>从<code>CentOS/RHEL7</code>起，可预见的命名规则变成了默认。这一规则，接口名称被自动基于固件，拓扑结构和位置信息来确定。出于习惯等一些原因，修改为熟悉的<code>eth0</code>.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/posts/2017/10/09/centos7minimal方式安装笔记/#more" rel="contents">
+            <a class="btn" href="/posts/2017/10/09/CentOS7minimal方式安装笔记/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="使用root用户进行操作，涉及所有服务器。 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@docker2 ~]# rpm -qa | grep ntpntpdate-4.2.6p5-5.el6.centos.x86_64ntp-4.2.6p5-5.el6.centos.x86_64">
+<meta name="description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux集群时钟同步ntp（NetworkTimeProtocol）安装指南">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="使用root用户进行操作，涉及所有服务器。 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@docker2 ~]# rpm -qa | grep ntpntpdate-4.2.6p5-5.el6.centos.x86_64ntp-4.2.6p5-5.el6.centos.x86_64">
+<meta property="og:description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T15:46:55.499Z">
+<meta property="og:updated_time" content="2017-10-13T07:24:05.092Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux集群时钟同步ntp（NetworkTimeProtocol）安装指南">
-<meta name="twitter:description" content="使用root用户进行操作，涉及所有服务器。 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@docker2 ~]# rpm -qa | grep ntpntpdate-4.2.6p5-5.el6.centos.x86_64ntp-4.2.6p5-5.el6.centos.x86_64">
+<meta name="twitter:description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
 
 
 
@@ -378,6 +378,7 @@
 
       
         <p>使用root用户进行操作，涉及所有服务器。</p>
+<h3 id="0-设置所有服务器在同一时区"><a href="#0-设置所有服务器在同一时区" class="headerlink" title="0.    设置所有服务器在同一时区"></a>0.    设置所有服务器在同一时区</h3><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TZ=Asia/Shanghai</div><div class="line">ln -snf <span class="meta-keyword">/usr/</span>share<span class="meta-keyword">/zoneinfo/</span>$TZ <span class="meta-keyword">/etc/</span>localtime</div><div class="line">echo $TZ &gt; <span class="meta-keyword">/etc/</span>timezone</div></pre></td></tr></table></figure>
 <h3 id="1-安装ntp服务"><a href="#1-安装ntp服务" class="headerlink" title="1.    安装ntp服务"></a>1.    安装ntp服务</h3><ul>
 <li>查看是否已经安装：<code>rpm -qa | grep ntp</code>。 如果已安装就不需要再安装了。<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@docker2 ~]# rpm -qa | grep ntp</div><div class="line">ntpdate-4.2.6p5-5.el6.centos.x86_64</div><div class="line">ntp-4.2.6p5-5.el6.centos.x86_64</div></pre></td></tr></table></figure>
 </li>
@@ -416,6 +417,7 @@
 </li>
 </ol>
 <h4 id="问题二：-10-148-27-166-Server-dropped-Strata-too-high"><a href="#问题二：-10-148-27-166-Server-dropped-Strata-too-high" class="headerlink" title="问题二： 10.148.27.166: Server dropped: Strata too high"></a>问题二： <code>10.148.27.166: Server dropped: Strata too high</code></h4><p><code>startum</code>的值正常情况下为<code>0~15</code>，修改<code>/etc/ntp.conf</code>中：startum后面的值在0~15之间即可。</p>
+<h4 id="问题三：-一直提示step-time-server"><a href="#问题三：-一直提示step-time-server" class="headerlink" title="问题三： 一直提示step time server"></a>问题三： 一直提示<code>step time server</code></h4><p>重启一下，<code>service ntpd restart</code></p>
 <p>成功返回<code>adjust time server 10.148.27.166 offset 0.000073 sec</code></p>
 <h3 id="8-常用命令"><a href="#8-常用命令" class="headerlink" title="8. 常用命令"></a>8. 常用命令</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看ntp版本</span></div><div class="line">ntpq -c version</div><div class="line">ntpdate -u ip</div><div class="line"><span class="comment"># NTP服务状态</span></div><div class="line">ntpstat</div><div class="line">ntpq -p</div><div class="line"><span class="comment"># 查看NTP服务的运行状况</span></div><div class="line">watch ntpq -p</div></pre></td></tr></table></figure>
 
@@ -466,7 +468,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/2017/10/09/centos7minimal方式安装笔记/" rel="next" title="CentOS7 minimal方式安装笔记">
+              <a href="/posts/2017/10/09/CentOS7minimal方式安装笔记/" rel="next" title="CentOS7 minimal方式安装笔记">
                 <i class="fa fa-chevron-left"></i> CentOS7 minimal方式安装笔记
               </a>
             
@@ -628,7 +630,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装ntp服务"><span class="nav-number">1.</span> <span class="nav-text">1.    安装ntp服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-设置开机启动：-chkconfig-ntpd-on"><span class="nav-number">2.</span> <span class="nav-text">2.    设置开机启动： chkconfig ntpd on</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-修改-etc-ntp-conf"><span class="nav-number">3.</span> <span class="nav-text">3.    修改/etc/ntp.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-修改-etc-ntp-keys文件（集群内所在节点）"><span class="nav-number">4.</span> <span class="nav-text">4.    修改/etc/ntp/keys文件（集群内所在节点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-修改时区"><span class="nav-number">5.</span> <span class="nav-text">5.    修改时区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-重启-ntp-服务-service-ntpd-restart"><span class="nav-number">6.</span> <span class="nav-text">6.    重启 ntp 服务    service ntpd restart</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-常见问题"><span class="nav-number">7.</span> <span class="nav-text">7. 常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一：-10-148-27-166-Server-dropped-no-data"><span class="nav-number">7.1.</span> <span class="nav-text">问题一： 10.148.27.166: Server dropped: no data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题二：-10-148-27-166-Server-dropped-Strata-too-high"><span class="nav-number">7.2.</span> <span class="nav-text">问题二： 10.148.27.166: Server dropped: Strata too high</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-常用命令"><span class="nav-number">8.</span> <span class="nav-text">8. 常用命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-设置所有服务器在同一时区"><span class="nav-number">1.</span> <span class="nav-text">0.    设置所有服务器在同一时区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装ntp服务"><span class="nav-number">2.</span> <span class="nav-text">1.    安装ntp服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-设置开机启动：-chkconfig-ntpd-on"><span class="nav-number">3.</span> <span class="nav-text">2.    设置开机启动： chkconfig ntpd on</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-修改-etc-ntp-conf"><span class="nav-number">4.</span> <span class="nav-text">3.    修改/etc/ntp.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-修改-etc-ntp-keys文件（集群内所在节点）"><span class="nav-number">5.</span> <span class="nav-text">4.    修改/etc/ntp/keys文件（集群内所在节点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-修改时区"><span class="nav-number">6.</span> <span class="nav-text">5.    修改时区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-重启-ntp-服务-service-ntpd-restart"><span class="nav-number">7.</span> <span class="nav-text">6.    重启 ntp 服务    service ntpd restart</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-常见问题"><span class="nav-number">8.</span> <span class="nav-text">7. 常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一：-10-148-27-166-Server-dropped-no-data"><span class="nav-number">8.1.</span> <span class="nav-text">问题一： 10.148.27.166: Server dropped: no data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题二：-10-148-27-166-Server-dropped-Strata-too-high"><span class="nav-number">8.2.</span> <span class="nav-text">问题二： 10.148.27.166: Server dropped: Strata too high</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题三：-一直提示step-time-server"><span class="nav-number">8.3.</span> <span class="nav-text">问题三： 一直提示step time server</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-常用命令"><span class="nav-number">9.</span> <span class="nav-text">8. 常用命令</span></a></li></ol></div>
             
 
           </div>
