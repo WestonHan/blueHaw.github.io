@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -h，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： date   123TZ=Asia/Shanghailn -snf /usr/share/z">
+<meta name="description" content="系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -lhT，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： dateTZ=Asia/Shanghai ln -snf /usr/share/zone">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="新机器检查基础环境">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/06/新机器检查基础环境/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -h，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： date   123TZ=Asia/Shanghailn -snf /usr/share/z">
+<meta property="og:description" content="系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -lhT，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： dateTZ=Asia/Shanghai ln -snf /usr/share/zone">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T00:41:51.068Z">
+<meta property="og:updated_time" content="2017-10-17T01:48:26.782Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="新机器检查基础环境">
-<meta name="twitter:description" content="系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -h，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： date   123TZ=Asia/Shanghailn -snf /usr/share/z">
+<meta name="twitter:description" content="系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -lhT，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： dateTZ=Asia/Shanghai ln -snf /usr/share/zone">
 
 
 
@@ -370,13 +370,14 @@
 <li>系统信息： <code>cat /etc/redhat-release</code>, <code>uname -a</code>, <code>lsb_release -a</code></li>
 <li>cpu信息： <code>cat /proc/cpuinfo</code>，是否升级内核</li>
 <li>内存信息： <code>free -h</code></li>
-<li>磁盘信息： <code>df -h</code>，挂载路径</li>
+<li>磁盘信息： <code>df -lhT</code>，挂载路径</li>
 <li>网卡信息： <code>ip a</code>, <code>ifconfig</code></li>
-<li><p>Linux系统时间设置： <code>date</code></p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TZ=Asia/Shanghai</div><div class="line">ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime</div><div class="line"><span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</div></pre></td></tr></table></figure>
+<li>Linux系统时间设置： <code>date</code><pre><code class="bash">TZ=Asia/Shanghai
+ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime
+<span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone
+</code></pre>
 </li>
-<li><p>主机名，ip和主机名映射: <code>hostname</code>,<code>vim /etc/hosts</code></p>
-</li>
+<li>主机名，ip和主机名映射: <code>hostname</code>,<code>vim /etc/hosts</code></li>
 <li>yum源： 是否修改<code>/etc/yum.repos.d</code></li>
 <li>时钟同步：web服务器、solr机器（必须）</li>
 <li>ssh互信：web服务器、solr机器</li>
@@ -511,7 +512,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -522,7 +523,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -533,7 +534,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

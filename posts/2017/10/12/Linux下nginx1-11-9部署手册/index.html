@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="要求：  确保已经安装了PCRE ANSI-C编译器:gcc gcc-c++">
+<meta name="description" content="1. 安装PCRE1yum -y install pcre-devel">
 <meta name="keywords" content="Nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux下nginx1.11.9部署手册">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/12/Linux下nginx1-11-9部署手册/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="要求：  确保已经安装了PCRE ANSI-C编译器:gcc gcc-c++">
+<meta property="og:description" content="1. 安装PCRE1yum -y install pcre-devel">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T15:06:42.216Z">
+<meta property="og:updated_time" content="2017-10-19T07:51:21.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下nginx1.11.9部署手册">
-<meta name="twitter:description" content="要求：  确保已经安装了PCRE ANSI-C编译器:gcc gcc-c++">
+<meta name="twitter:description" content="1. 安装PCRE1yum -y install pcre-devel">
 
 
 
@@ -388,13 +388,8 @@
       
 
       
-        <p>要求：</p>
-<ul>
-<li>确保已经安装了PCRE</li>
-<li>ANSI-C编译器:gcc gcc-c++<a id="more"></a>
-<h3 id="1-安装PCRE"><a href="#1-安装PCRE" class="headerlink" title="1. 安装PCRE"></a>1. 安装PCRE</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y <span class="keyword">install</span> pcre-devel</div></pre></td></tr></table></figure>
-</li>
-</ul>
+        <h3 id="1-安装PCRE"><a href="#1-安装PCRE" class="headerlink" title="1. 安装PCRE"></a>1. 安装PCRE</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y <span class="keyword">install</span> pcre-devel</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="2-安装nginx，放到-usr-local目录下，解压："><a href="#2-安装nginx，放到-usr-local目录下，解压：" class="headerlink" title="2. 安装nginx，放到/usr/local目录下，解压："></a>2. 安装nginx，放到/usr/local目录下，解压：</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-zxvf</span> <span class="selector-tag">nginx-1</span><span class="selector-class">.11</span><span class="selector-class">.9</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></div></pre></td></tr></table></figure>
 <p>接着进行安装步骤了，进入到解压的目录下执行如下命令<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">./configure</div><div class="line"></div><div class="line">nginx path prefix: <span class="string">"/usr/local/nginx"</span></div><div class="line">nginx binary file: <span class="string">"/usr/local/nginx/sbin/nginx"</span></div><div class="line"><span class="comment"># 注意binary file为启动nginx时的路径。</span></div><div class="line">nginx modules path: <span class="string">"/usr/local/nginx/modules"</span></div><div class="line">nginx configuration prefix: <span class="string">"/usr/local/nginx/conf"</span></div><div class="line">nginx configuration file: <span class="string">"/usr/local/nginx/conf/nginx.conf"</span></div><div class="line">nginx pid file: <span class="string">"/usr/local/nginx/logs/nginx.pid"</span></div><div class="line">nginx <span class="builtin-name">error</span> log file: <span class="string">"/usr/local/nginx/logs/error.log"</span></div><div class="line">nginx http access log file: <span class="string">"/usr/local/nginx/logs/access.log"</span></div><div class="line">nginx http<span class="built_in"> client </span>request body temporary files: <span class="string">"client_body_temp"</span></div><div class="line">nginx http<span class="built_in"> proxy </span>temporary files: <span class="string">"proxy_temp"</span></div><div class="line">nginx http fastcgi temporary files: <span class="string">"fastcgi_temp"</span></div><div class="line">nginx http uwsgi temporary files: <span class="string">"uwsgi_temp"</span></div><div class="line">nginx http scgi temporary files: <span class="string">"scgi_temp"</span></div><div class="line"></div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure></p>
 <h3 id="3-在浏览器中输入IP：端口号"><a href="#3-在浏览器中输入IP：端口号" class="headerlink" title="3. 在浏览器中输入IP：端口号"></a>3. 在浏览器中输入IP：端口号</h3><p>启动，<code>./nginx</code>看到安装成功</p>
@@ -541,7 +536,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -552,7 +547,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -563,7 +558,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

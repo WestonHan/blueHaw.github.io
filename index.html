@@ -273,6 +273,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/19/Linux下MySQL5-7安装指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/2017/10/19/Linux下MySQL5-7安装指南/" itemprop="url">Linux下MySQL5.7安装指南</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-19T15:45:53+08:00">
+                2017-10-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Linux下MySQL5-7安装指南"><a href="#Linux下MySQL5-7安装指南" class="headerlink" title="Linux下MySQL5.7安装指南"></a>Linux下MySQL5.7安装指南</h2><h3 id="1、配置YUM源"><a href="#1、配置YUM源" class="headerlink" title="1、配置YUM源"></a>1、配置YUM源</h3><p>在<font color="red">MySQL</font>官网中下载YUM源rpm安装包：<a href="http://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="external">http://dev.mysql.com/downloads/repo/yum/</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 下载mysql源安装包</span></div><div class="line"><span class="meta">shell&gt;</span><span class="bash"> wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</span></div><div class="line"><span class="meta">#</span><span class="bash"> 安装mysql源</span></div><div class="line"><span class="meta">shell&gt;</span><span class="bash"> yum localinstall mysql57-community-release-el7-8.noarch.rpm</span></div></pre></td></tr></table></figure></p>
+<p>检查mysql源是否安装成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@iZsqo0q6xrrbl8Z etc]# yum repolist enabled | grep "mysql.*-community.*"</div><div class="line">mysql-connectors-community/x86_64 MySQL Connectors Community                  30</div><div class="line">mysql-tools-community/x86_64      MySQL Tools Community                       40</div><div class="line">mysql57-community/x86_64          MySQL 5.7 Community Server                 164</div></pre></td></tr></table></figure>
+<p>看到上图所示表示安装成功</p>
+<h3 id="2、安装MySQL"><a href="#2、安装MySQL" class="headerlink" title="2、安装MySQL"></a>2、安装MySQL</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">shell&gt;</span><span class="bash"> yum install mysql-community-server</span></div></pre></td></tr></table></figure>
+<h3 id="3-启动MySql服务"><a href="#3-启动MySql服务" class="headerlink" title="3. 启动MySql服务"></a>3. 启动MySql服务</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">shell</span><span class="bash">&gt; systemctl start mysqld</span></div></pre></td></tr></table></figure>
+<p>查看MySql的启动状态<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">shell&gt; systemctl status mysqld</div><div class="line">● mysqld.service - MySQL Server</div><div class="line">   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; disabled; vendor preset: disabled)</div><div class="line">   Active: active (running) since 五 2016-06-24 04:37:37 CST; 35min ago</div><div class="line"> Main PID: 2888 (mysqld)</div><div class="line">   CGroup: /system.slice/mysqld.service</div><div class="line">           └─2888 /usr/sbin/mysqld --daemonize <span class="attribute">--pid-file</span>=/var/run/mysqld/mysqld.pid</div><div class="line"></div><div class="line">6月 24 04:37:36 localhost.localdomain systemd[1]: Starting MySQL Server<span class="built_in">..</span>.</div><div class="line">6月 24 04:37:37 localhost.localdomain systemd[1]: Started MySQL Server.</div></pre></td></tr></table></figure></p>
+<h3 id="4-开机启动"><a href="#4-开机启动" class="headerlink" title="4. 开机启动"></a>4. 开机启动</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">shell</span><span class="bash">&gt; systemctl <span class="built_in">enable</span> mysqld</span></div><div class="line"><span class="bash">shell&gt; systemctl daemon-reload</span></div></pre></td></tr></table></figure>
+<h3 id="5、修改root默认密码"><a href="#5、修改root默认密码" class="headerlink" title="5、修改root默认密码"></a>5、修改root默认密码</h3><p>mysql安装完成之后，在/var/log/mysqld.log文件中给root生成了一个默认密码。通过下面的方式找到root默认密码，然后登录mysql进行修改<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">shell</span>&gt; <span class="keyword">grep</span> <span class="string">'temporary password'</span> /var/<span class="built_in">log</span>/mysqld.<span class="built_in">log</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://7xsh47.com1.z0.glb.clouddn.com/1-160626010T0Z8.jpg.png" alt=""><br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">shell</span><span class="bash">&gt; mysql -uroot -p</span></div><div class="line"><span class="bash">mysql&gt; ALTER USER <span class="string">'root'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'MyNewPass4!'</span>;</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：mysql5.7默认安装了密码安全检查插件（validate_password），默认密码检查策略要求密码必须包含：大小写字母、数字和特殊符号，并且长度不能少于8位。否则会提示ERROR 1819 (HY000): Your password does not satisfy the current policy requirements错误，如下图所示</p>
+</blockquote>
+<p><img src="http://7xsh47.com1.z0.glb.clouddn.com/1-160626010U5133.jpg.png" alt=""></p>
+<p><b>如果不需要密码策略，添加my.cnf文件中添加如下配置禁用即可：</b><br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">validate_password</span> = <span class="literal">off</span></div></pre></td></tr></table></figure></p>
+<p>重新启动mysql服务使配置生效：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">systemctl restart mysqld</span></div></pre></td></tr></table></figure></p>
+<h3 id="6、添加远程登录用户"><a href="#6、添加远程登录用户" class="headerlink" title="6、添加远程登录用户"></a>6、添加远程登录用户</h3><p>默认只允许root帐户在本地登录，如果要在其它机器上连接mysql，必须修改root允许远程连接，或者添加一个允许远程连接的帐户，为了安全起见，我添加一个新的帐户：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> 数据库名.表名 <span class="keyword">to</span> 创建的用户名 @<span class="string">"%"</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">"密码"</span>;  <span class="comment">/* 数据库名.表名 如果写成*.*代表授权所有的数据库  */</span></div><div class="line"></div><div class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>; <span class="comment">/* 刷新刚才的内容*/</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mysql&gt; use mysql;</div><div class="line">Reading table information for completion of table and column names</div><div class="line">You can turn off this feature to get a quicker startup with -A</div><div class="line"></div><div class="line">Database changed</div><div class="line">mysql&gt; select host,user from user;</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">| host      | user      |</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">| localhost | mysql.sys |</div><div class="line">| localhost | root      |</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div></pre></td></tr></table></figure>
+<p>默认root用户只能在本地登录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">mysql&gt; grant all privileges on *.* to blue  @"%" identified by "justdoit";</div><div class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; flush privileges;  /* 刷新刚才的内容*/ </div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; select host,user from user;</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">| host      | user      |</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">| %         | blue      |</div><div class="line">| localhost | mysql.sys |</div><div class="line">| localhost | root      |</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div><div class="line"></div><div class="line">mysql&gt;</div></pre></td></tr></table></figure>
+<p>添加blue远程登录用户</p>
+<p>同时也可以为现有的用户设置是否具有远程访问权限。如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">use</span> mysql;</div><div class="line"></div><div class="line"><span class="keyword">update</span> db <span class="keyword">set</span> host = <span class="string">'%'</span> <span class="keyword">where</span> <span class="keyword">user</span> = <span class="string">'用户名'</span>; <span class="comment">/*（如果写成 host=localhost 那此用户就不具有远程访问权限）*/</span></div><div class="line"></div><div class="line"><span class="keyword">FLUSH</span> <span class="keyword">PRIVILEGES</span>;</div></pre></td></tr></table></figure>
+<h3 id="7、配置默认编码为utf8"><a href="#7、配置默认编码为utf8" class="headerlink" title="7、配置默认编码为utf8"></a>7、配置默认编码为utf8</h3><p>修改/etc/my.cnf配置文件，在[mysqld]下添加编码配置，如下所示：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="section">[mysqld]</span></div><div class="line"><span class="attr">character_set_server</span>=utf8</div><div class="line"><span class="attr">init_connect</span>=<span class="string">'SET NAMES utf8'</span></div></pre></td></tr></table></figure>
+<p>重新启动mysql服务，查看数据库默认编码如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show variables like '%character%';</div><div class="line">+<span class="comment">--------------------------+----------------------------+</span></div><div class="line">| Variable_name            | Value                      |</div><div class="line">+<span class="comment">--------------------------+----------------------------+</span></div><div class="line">| character_set_client     | utf8                       |</div><div class="line">| character_set_connection | utf8                       |</div><div class="line">| character_set_database   | latin1                     |</div><div class="line">| character_set_filesystem | binary                     |</div><div class="line">| character_set_results    | utf8                       |</div><div class="line">| character_set_server     | utf8                       |</div><div class="line">| character_set_system     | utf8                       |</div><div class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</div><div class="line">+<span class="comment">--------------------------+----------------------------+</span></div><div class="line">8 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div></pre></td></tr></table></figure>
+<p><b>默认配置文件路径：</b>  配置文件：/etc/my.cnf  日志文件：/var/log//var/log/mysqld.log  服务启动脚本：/usr/lib/systemd/system/mysqld.service  socket文件：/var/run/mysqld/mysqld.pid</p>
+<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/12/CentOS6-7下新建XFS文件系统指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -878,10 +1058,7 @@
 
       
         
-          <p>要求：</p>
-<ul>
-<li>确保已经安装了PCRE</li>
-<li>ANSI-C编译器:gcc gcc-c++
+          <h3 id="1-安装PCRE"><a href="#1-安装PCRE" class="headerlink" title="1. 安装PCRE"></a>1. 安装PCRE</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y <span class="keyword">install</span> pcre-devel</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/posts/2017/10/12/Linux下nginx1-11-9部署手册/#more" rel="contents">
@@ -1698,174 +1875,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/tomcat7-0-79镜像定制说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="blueHaw">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blueHaw's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/2017/10/09/tomcat7-0-79镜像定制说明/" itemprop="url">Tomcat7.0.79镜像定制说明</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T21:33:35+08:00">
-                2017-10-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件/应用服务器/" itemprop="url" rel="index">
-                    <span itemprop="name">应用服务器</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件/应用服务器/Tomcat/" itemprop="url" rel="index">
-                    <span itemprop="name">Tomcat</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="一、-设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍："><a href="#一、-设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍：" class="headerlink" title="一、 设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍："></a>一、 设置session共享，可使用memcached或Redis（实际部署只能使用其中一个），下面详细介绍：</h2><h3 id="use-memcached-session-share（这里使用kryo-策略）"><a href="#use-memcached-session-share（这里使用kryo-策略）" class="headerlink" title="use memcached session share（这里使用kryo 策略）"></a>use memcached session share（这里使用<code>kryo</code> 策略）</h3>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/2017/10/09/tomcat7-0-79镜像定制说明/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1920,7 +1929,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1931,7 +1940,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1942,7 +1951,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
 <meta property="og:description" content="一、 安装指南1. 解压安装1234567tar -zxvf keepalived-1.2.13.tar.gzcd keepalived-1.2.13#安装依赖yum install –y openssl openssl-devel#配置、编译安装./configure --disable-fwmarkmake &amp;amp;&amp;amp; make install">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T15:46:29.136Z">
+<meta property="og:updated_time" content="2017-10-18T10:59:39.662Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="keepalived安装指南">
 <meta name="twitter:description" content="一、 安装指南1. 解压安装1234567tar -zxvf keepalived-1.2.13.tar.gzcd keepalived-1.2.13#安装依赖yum install –y openssl openssl-devel#配置、编译安装./configure --disable-fwmarkmake &amp;amp;&amp;amp; make install">
@@ -414,9 +414,9 @@
 <h3 id="1-改成：KEEPALIVED-OPTIONS-quot-D-d-S-0-quot"><a href="#1-改成：KEEPALIVED-OPTIONS-quot-D-d-S-0-quot" class="headerlink" title="1. 改成：KEEPALIVED_OPTIONS=&quot;-D -d -S 0&quot;"></a>1. 改成：<code>KEEPALIVED_OPTIONS=&quot;-D -d -S 0&quot;</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim /etc/rsyslog.conf</div><div class="line"><span class="comment">#如果没有/etc/rsyslog.conf文件，使用yum安装yum install rsyslog</span></div></pre></td></tr></table></figure>
 <h3 id="2-最后一行追加："><a href="#2-最后一行追加：" class="headerlink" title="2. 最后一行追加："></a>2. 最后一行追加：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">local0.*                                        /var/<span class="built_in">log</span>/keepalived.log</div></pre></td></tr></table></figure>
 <h3 id="3-最后重启"><a href="#3-最后重启" class="headerlink" title="3. 最后重启"></a>3. 最后重启</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service rsyslog restart</div><div class="line">service keepalived restart</div></pre></td></tr></table></figure>
-<h2 id="三、-常见问题"><a href="#三、-常见问题" class="headerlink" title="三、 常见问题"></a>三、 常见问题</h2><h3 id="1-日志报one-or-more-VIP-associated-with-VRID-mismatch-actual-MASTER-advert"><a href="#1-日志报one-or-more-VIP-associated-with-VRID-mismatch-actual-MASTER-advert" class="headerlink" title="1. 日志报one or more VIP associated with VRID mismatch actual MASTER advert"></a>1. 日志报<strong>one or more VIP associated with VRID mismatch actual MASTER advert</strong></h3><p>是同一网段部署了多个keepalived集群，导致<code>virtual_router_id</code>值冲突了，均使用了默认的值：51，修改其中一个<code>virtual_router_id</code>值为88（新数字就可以）解决</p>
+<h2 id="三、-常见问题"><a href="#三、-常见问题" class="headerlink" title="三、 常见问题"></a>三、 常见问题</h2><h3 id="1-日志报one-or-more-VIP-associated-with-VRID-mismatch-actual-MASTER-advert"><a href="#1-日志报one-or-more-VIP-associated-with-VRID-mismatch-actual-MASTER-advert" class="headerlink" title="1. 日志报one or more VIP associated with VRID mismatch actual MASTER advert"></a>1. 日志报<strong>one or more VIP associated with VRID mismatch actual MASTER advert</strong></h3><p>是同一网段部署了多个keepalived集群，导致<code>virtual_router_id</code>值冲突了，均使用了默认的值：51，修改其中一个<code>virtual_router_id</code>值<strong>（取值范围1~255）</strong>为88（新数字就可以）解决</p>
 <h3 id="2-keepalived日志报错狂刷：IPVS-Can’t-initialize-ipvs-Protocol-not-available"><a href="#2-keepalived日志报错狂刷：IPVS-Can’t-initialize-ipvs-Protocol-not-available" class="headerlink" title="2. keepalived日志报错狂刷：IPVS: Can’t initialize ipvs: Protocol not available"></a>2. keepalived日志报错狂刷：IPVS: Can’t initialize ipvs: Protocol not available</h3><p>原因是<code>ip_vs</code>模块系统默认没有自动加载，可以通过<code>lsmod | grep ip_vs</code> 命令查看一下，如果没有任何输出则表示ip_vs模块并没有被内核加载，那必须手动加载一下：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">modprobe</span> ip_vs</div><div class="line">modprobe ip_vs_wrr</div></pre></td></tr></table></figure></p>
-<p>然后再查看系统日志发现keepalived已经正常工作了。如果要让系统开机加载此模块的话得讲刚才那两句话写到<code>/etc/rc.local</code>文件中，这样开机就能自动加载了。</p>
+<p>然后再查看系统日志发现keepalived已经正常工作了。如果要让系统开机加载此模块的话得讲刚才那两句话写到<code>/etc/rc.local</code>文件中，这样开机就能自动加载了。<strong>有时候会报错</strong></p>
 <h3 id="3-报错IPVS-Can’t-initialize-ipvs-Permission-denied-you-must-be-root"><a href="#3-报错IPVS-Can’t-initialize-ipvs-Permission-denied-you-must-be-root" class="headerlink" title="3. 报错IPVS: Can’t initialize ipvs: Permission denied (you must be root)"></a>3. 报错IPVS: Can’t initialize ipvs: Permission denied (you must be root)</h3><p>使用<code>root</code>用户。若使用容器在<code>container</code>运行时加上<code>--privileged=true</code></p>
 
       
@@ -557,7 +557,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -568,7 +568,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -579,7 +579,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
