@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
 <meta property="og:description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T07:24:05.092Z">
+<meta property="og:updated_time" content="2017-11-03T01:28:25.022Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux集群时钟同步ntp（NetworkTimeProtocol）安装指南">
 <meta name="twitter:description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
@@ -389,7 +389,7 @@
 <li>将<code>restrict default kod nomodify notrap nopeer noquery</code>注释掉，这个对客户端的限制太多。<strong>ntp 4.2之前版本</strong>添加<code>restrict default nomodify notrust</code>（允许任何IP的客户机都可以进行时间同步）以允许所有客户端获取时间数据。<code>notrust</code> 参数的功能是并需通过认证才能同步，也就是客户端同步命令中必须有<code>keyid</code>和<code>key</code>才能通过。</li>
 <li>注释掉所有的<code>trustedkey</code>， 添加 <code>trustedkey 1 2 3</code>，后边指定数字任意，但必须与<code>/etc/ntp/keys</code>文件中的 值保持一致。也就是说<code>1 2 3</code> 这三个数分别作为认证的<code>keyid</code>。</li>
 <li><p>配置时间源， 指定同步参考的服务器时间。如果连接不了外网就把所有外网时间服务器都注释掉</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server <span class="number">10.148</span>.<span class="number">27.166</span> <span class="comment">// 局域网（GA网）内，客户机（slaver）配置为集群内master服务器IP</span></div><div class="line">server ntp<span class="selector-class">.api</span><span class="selector-class">.bz</span> <span class="comment">// 连接不了外网就注释掉</span></div><div class="line">server <span class="number">2</span><span class="selector-class">.centos</span><span class="selector-class">.pool</span><span class="selector-class">.ntp</span><span class="selector-class">.org</span> <span class="comment">// 连接不了外网就注释掉</span></div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server <span class="number">10.148</span>.<span class="number">27.166</span> <span class="comment">// 局域网内，客户机（slaver）配置为集群内master服务器IP</span></div><div class="line">server ntp<span class="selector-class">.api</span><span class="selector-class">.bz</span> <span class="comment">// 连接不了外网就注释掉</span></div><div class="line">server <span class="number">2</span><span class="selector-class">.centos</span><span class="selector-class">.pool</span><span class="selector-class">.ntp</span><span class="selector-class">.org</span> <span class="comment">// 连接不了外网就注释掉</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>添加如下配置项目，以让<code>NTP Server</code>和其自身保持同步，如果在<code>/etc/ntp.conf</code>中定义的server都不可用时，将使用local时间作为ntp服务提供给ntp客户端。 客户端不需要配置，只在服务端配置即可</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">server <span class="number">127.127</span><span class="number">.1</span><span class="number">.0</span> # local clock <span class="comment">//服务端如果连接不了外网，使用本地时间提供给客户端同步</span></div><div class="line">fudge <span class="number">127.127</span><span class="number">.1</span><span class="number">.0</span> stratum <span class="number">2</span></div></pre></td></tr></table></figure>
@@ -559,7 +559,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

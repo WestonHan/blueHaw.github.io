@@ -82,14 +82,14 @@
 <meta name="description" content="1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级12345678910rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm```	### 2. 修改启动项&amp;gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1`  修改为0```bashvim /boot/grub/grub.confdef">
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker1.7.1在CentosOS6.7上的安装指南">
+<meta property="og:title" content="Docker1.7.1在CentosOS6.7上安装指南">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/12/Docker1-7-1在CentosOS6-7上的安装指南/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
 <meta property="og:description" content="1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级12345678910rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm```	### 2. 修改启动项&amp;gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1`  修改为0```bashvim /boot/grub/grub.confdef">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T14:15:12.427Z">
+<meta property="og:updated_time" content="2017-11-03T01:23:37.125Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker1.7.1在CentosOS6.7上的安装指南">
+<meta name="twitter:title" content="Docker1.7.1在CentosOS6.7上安装指南">
 <meta name="twitter:description" content="1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级12345678910rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm```	### 2. 修改启动项&amp;gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1`  修改为0```bashvim /boot/grub/grub.confdef">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>Docker1.7.1在CentosOS6.7上的安装指南 | blueHaw's Notes</title>
+  <title>Docker1.7.1在CentosOS6.7上安装指南 | blueHaw's Notes</title>
   
 
 
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Docker1.7.1在CentosOS6.7上的安装指南</h1>
+          <h1 class="post-title" itemprop="name headline">Docker1.7.1在CentosOS6.7上安装指南</h1>
         
 
         <div class="post-meta">
@@ -371,7 +371,7 @@
 </blockquote>
 <p>rpm -ivh libcgroup-0.40.rc1-23.el6.x86_64.rpm<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">### 4. 安装<span class="selector-tag">docker</span> 1<span class="selector-class">.7</span><span class="selector-class">.1</span></div><div class="line">```<span class="selector-tag">bash</span></div><div class="line"><span class="selector-tag">rpm</span> <span class="selector-tag">-ivh</span> <span class="selector-tag">docker-engine-1</span><span class="selector-class">.7</span><span class="selector-class">.1-1</span><span class="selector-class">.el6</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></div></pre></td></tr></table></figure></p>
 <h3 id="5-Docker配置文件修改-主要为docker仓库和4243服务端口外放"><a href="#5-Docker配置文件修改-主要为docker仓库和4243服务端口外放" class="headerlink" title="5. Docker配置文件修改,主要为docker仓库和4243服务端口外放"></a>5. Docker配置文件修改,主要为docker仓库和4243服务端口外放</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/docker</div></pre></td></tr></table></figure>
-<p><code>--insecure-registry</code>后面是私人仓库地址<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">other_args</span>=<span class="string">"-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock --graph=/iflytek/containers --insecure-registry 192.168.76.53:5000"</span></div></pre></td></tr></table></figure></p>
+<p><code>--insecure-registry</code>后面是私人仓库地址，根据实际修改<br><code>--graph</code>指定Docker默认存放路径<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">other_args</span>=<span class="string">"-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock --graph=/var/lib/docker --insecure-registry 192.168.1.100:5000"</span></div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -392,7 +392,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://bluehaw.github.io/posts/2017/10/12/Docker1-7-1在CentosOS6-7上的安装指南/" title="Docker1.7.1在CentosOS6.7上的安装指南">https://bluehaw.github.io/posts/2017/10/12/Docker1-7-1在CentosOS6-7上的安装指南/</a>
+    <a href="https://bluehaw.github.io/posts/2017/10/12/Docker1-7-1在CentosOS6-7上的安装指南/" title="Docker1.7.1在CentosOS6.7上安装指南">https://bluehaw.github.io/posts/2017/10/12/Docker1-7-1在CentosOS6-7上的安装指南/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -511,7 +511,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
