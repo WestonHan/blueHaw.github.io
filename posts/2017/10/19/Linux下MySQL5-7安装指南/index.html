@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7xsh47.com1.z0.glb.clouddn.com/1-160626010T0Z8.jpg.png">
 <meta property="og:image" content="http://7xsh47.com1.z0.glb.clouddn.com/1-160626010U5133.jpg.png">
-<meta property="og:updated_time" content="2017-10-19T07:47:20.307Z">
+<meta property="og:updated_time" content="2017-11-03T01:35:21.368Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下MySQL5.7安装指南">
 <meta name="twitter:description" content="Linux下MySQL5.7安装指南1、配置YUM源在MySQL官网中下载YUM源rpm安装包：http://dev.mysql.com/downloads/repo/yum/1234# 下载mysql源安装包shell&amp;gt; wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm# 安装mysql源she">
@@ -381,6 +381,7 @@
 
       
         <h2 id="Linux下MySQL5-7安装指南"><a href="#Linux下MySQL5-7安装指南" class="headerlink" title="Linux下MySQL5.7安装指南"></a>Linux下MySQL5.7安装指南</h2><h3 id="1、配置YUM源"><a href="#1、配置YUM源" class="headerlink" title="1、配置YUM源"></a>1、配置YUM源</h3><p>在<font color="red">MySQL</font>官网中下载YUM源rpm安装包：<a href="http://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="external">http://dev.mysql.com/downloads/repo/yum/</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 下载mysql源安装包</span></div><div class="line"><span class="meta">shell&gt;</span><span class="bash"> wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</span></div><div class="line"><span class="meta">#</span><span class="bash"> 安装mysql源</span></div><div class="line"><span class="meta">shell&gt;</span><span class="bash"> yum localinstall mysql57-community-release-el7-8.noarch.rpm</span></div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>检查mysql源是否安装成功</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@iZsqo0q6xrrbl8Z etc]# yum repolist enabled | grep "mysql.*-community.*"</div><div class="line">mysql-connectors-community/x86_64 MySQL Connectors Community                  30</div><div class="line">mysql-tools-community/x86_64      MySQL Tools Community                       40</div><div class="line">mysql57-community/x86_64          MySQL 5.7 Community Server                 164</div></pre></td></tr></table></figure>
 <p>看到上图所示表示安装成功</p>
@@ -547,7 +548,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -558,7 +559,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -569,7 +570,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

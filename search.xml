@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Error occurred during initialization of VM问题]]></title>
+    <url>%2Fposts%2F2017%2F11%2F14%2Fjvm%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[12345[root@8b408b62a5e2 jdk1.7.0_80]# javaError occurred during initialization of VMCould not reserve enough space for object heapError: Could not create the Java Virtual Machine.Error: A fatal exception has occurred. Program will exit. 今天遇到 jvm 问题，花费了一天才解决。是安装过 Greenplum 的原因。 查看内核参数 overcommit_memory12[root@localhost local]# cat /etc/sysctl.conf | grep overcommit_memoryvm.overcommit_memory=2 它是内存分配策略，可选值： 0、1 、2 。 0， 表示内核将检查是否有足够的可用内存供应用进程使用；如果有足够的可用内存，内存申请允许；否则，内存申请失败，并把错误返回给应用进程。 1， 表示内核允许分配所有的物理内存，而不管当前的内存状态如何。 2， 表示内核允许分配超过所有物理内存和交换空间总和的内存 Greenplum 要求 vm.overcommit_memory 值为 2 。修改vm.overcommit_memory=1，然后sysctl -p 使配置文件生效即可。]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CentOS6.7磁盘分区操作指南]]></title>
+    <url>%2Fposts%2F2017%2F11%2F10%2FCentOS6-7%E4%B8%8B%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97%2F</url>
+    <content type="text"><![CDATA[1. 前言本文介绍使用 fdisk 和 parted 进行磁盘分区，其中 fdisk 只能对 2T 以下磁盘分区。 2. 操作流程2.1 总体说明磁盘分区的步骤为首先新建分区，然后格式化分区，最后挂载到目录。 2.2 新建分区运行1fdisk -l 2.2 格式化分区2.2 挂载到目录3. 注意事项]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux下except命令使用指南]]></title>
+    <url>%2Fposts%2F2017%2F11%2F10%2FLinux%E4%B8%8Bexcept%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97%2F</url>
+    <content type="text"><![CDATA[安装Except：1yum -y install expect Expect中最关键的四个命令 send：用于向进程发送字符串 expect：从进程接收字符串 spawn：启动新的进程 interact：允许用户交互 Except脚本运行命令例一：12345678910111213141516#!/usr/bin/expectset timeout 5set user rootset ip 192.168.1.116set password simplespawn ssh $&#123;user&#125;@$&#123;ip&#125; -p 22expect &#123;"(yes/no)" &#123; send "yes\r"; exp_continue &#125;"password:" &#123; send "$password\r"; exp_continue &#125;"*#" &#123; send "ssh-keygen -t rsa &amp;&gt;/dev/null\n" &#125;"*#" &#123; send "ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop-0\n" &#125;"*#" &#123; send "exit\n" &#125;&#125;expect eof ; 注意第一行使用的是#!/usr/bin/expect而不是普通的bash脚本那样 expect都是使用{}，且{、}使用时，前后需要留空格 例子使用花括号，表示使用一组并列表达式，只要其中一项符合，就会执行该项，类似switchExcept脚本运行命令例二：1234#!/usr/bin/expectexpect "hi\n"send "you typed $expect_out(buffer)"send "but I only expected $expect_out(0,string)" 这两行代码的意思是：从标准输入中等到hi和换行键后，向标准输出输出hello there。 tips： $expect_out(buffer)存储了所有对expect的输入，&lt;$expect_out(0,string)&gt;存储了匹配到expect参数的输入。 12345expect &#123;"hi" &#123; send "You said hi\n"&#125;"hello" &#123; send "Hello yourself\n"&#125;"bye" &#123; send "That was unexpected\n"&#125;&#125; &lt;&lt;EOF：我们输入完成后，需要在一个新的一行输入EOF结束stdin的输入。EOF必须顶行写，前面不能用制表符或者空格&lt;&lt;-EOF：EOF前面的空格和制表符会被替换掉。 ${uaacconf//&quot;\r\n&quot;/ }把$uaacconf的所有换行替换为空格sed -ne &#39;/&#39;$HOST&#39;/=&#39; /etc/hosts 打印字符串匹配的行号&#39;awk &#39;{print $NF}&#39; 打印出一行中的最后一个字段&quot;$CONTAIN_NAME&quot;x = &quot;$name&quot;x 当变量为空会产生语法错误1&gt;/dev/null 2&gt;&amp;1 /dev/null 首先表示标准输出重定向到空设备文件，也就是不输出任何信息到终端，说白了就是不显示任何信息。 &amp;1 接着，标准错误输出重定向等同于标准输出，因为之前标准输出已经重定向到了空设备文件，所以标准错误输出也重定向到空设备文件。 /dev/null 代表空设备文件 代表重定向到哪里，例如：echo “123” &gt; /home/123.txt1 表示stdout标准输出，系统默认值是1，所以”&gt;/dev/null”等同于”1&gt;/dev/null”2 表示stderr标准错误&amp; 表示等同于的意思，2&gt;&amp;1，表示2的输出重定向等同于1]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Linux下用fdisk磁盘分区]]></title>
     <url>%2Fposts%2F2017%2F10%2F23%2FLinux%E4%B8%8B%E7%94%A8fdisk%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%2F</url>
     <content type="text"></content>
@@ -103,7 +136,7 @@
   <entry>
     <title><![CDATA[Docker1.7.1在CentosOS6.7上安装指南]]></title>
     <url>%2Fposts%2F2017%2F10%2F12%2FDocker1-7-1%E5%9C%A8CentosOS6-7%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%2F</url>
-    <content type="text"><![CDATA[1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级12345678910rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm``` ### 2. 修改启动项&gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1` 修改为0```bashvim /boot/grub/grub.confdefault=0``` ### 3. 安装cgroups,docker依赖项 rpm -ivh libcgroup-0.40.rc1-23.el6.x86_64.rpm123### 4. 安装docker 1.7.1```bashrpm -ivh docker-engine-1.7.1-1.el6.x86_64.rpm 5. Docker配置文件修改,主要为docker仓库和4243服务端口外放1vim /etc/sysconfig/docker --insecure-registry后面是私人仓库地址，根据实际修改--graph指定Docker默认存放路径1other_args="-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock --graph=/var/lib/docker --insecure-registry 192.168.1.100:5000"]]></content>
+    <content type="text"><![CDATA[1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级1234567891011rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm``` &lt;!--more --&gt;### 2. 修改启动项&gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1` 修改为0```bashvim /boot/grub/grub.confdefault=0``` ### 3. 安装cgroups,docker依赖项 rpm -ivh libcgroup-0.40.rc1-23.el6.x86_64.rpm123### 4. 安装docker 1.7.1```bashrpm -ivh docker-engine-1.7.1-1.el6.x86_64.rpm 5. Docker配置文件修改,主要为docker仓库和4243服务端口外放1vim /etc/sysconfig/docker --insecure-registry后面是私人仓库地址，根据实际修改--graph指定Docker默认存放路径1other_args="-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock --graph=/var/lib/docker --insecure-registry 192.168.1.100:5000"]]></content>
       <categories>
         <category>Docker</category>
       </categories>
@@ -162,9 +195,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[docker问题]]></title>
+    <title><![CDATA[Docker问题]]></title>
     <url>%2Fposts%2F2017%2F10%2F09%2Fdocker%E9%97%AE%E9%A2%98%2F</url>
-    <content type="text"><![CDATA[1. 运行容器报错：Error response from daemon: Error running DeviceCreate (createSnapDevice) dm_task_run failedmetadata目录在docker info查看1234service docker stopthin_check /var/lib/docker/devicemapper/devicemapper/metadatathin_check --clear-needs-check-flag /var/lib/docker/devicemapper/devicemapper/metadataservice docker start 2. Error running DeviceCreate (ActivateDevice) dm_task_run failed3. 重启docker服务器后 遇到 ‘device or resource busy’错误如果有container在运行的时候重启 docker 服务， 可能会导致 container无法启动， 错误信息类似于12Error response from daemon: Cannot start container zookeeper: Error getting container ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c from driver devicemapper: Error mounting '/dev/mapper/docker-8:1-525372-ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c' on '/var/lib/docker/devicemapper/mnt/ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c': device or resource busy 2015/01/26 04:42:07 Error: failed to start one or more containers 或者12d2859bd1f84b: Error pulling image (latest) from xxxxxx, Driver devicemapper failed to create image rootfs e6158e7962db43274de40fc3db65ad64811d43fe342dea633df20639f5a4e3cd: device e6158e7962db43274de40fc3db65ad64811d43fe342dea633df20639f5a4e3cd already exists 43fe342dea633df20639f5a4e3cd already exists c049b2b: Download complete e6158e7962db: Error downloading dependent layers 这是一个Docker的 bug ，解决方式是先找出没有umount的路径1cat /proc/mounts | grep "mapper/docker" | awk '&#123;print $2&#125;' 然后依次umount]]></content>
+    <content type="text"><![CDATA[1. 运行容器报错：Error response from daemon: Error running DeviceCreate (createSnapDevice) dm_task_run failedmetadata目录在docker info查看1234service docker stopthin_check /var/lib/docker/devicemapper/devicemapper/metadatathin_check --clear-needs-check-flag /var/lib/docker/devicemapper/devicemapper/metadataservice docker start 2. Error running DeviceCreate (ActivateDevice) dm_task_run failed3. 重启docker服务器后 遇到 ‘device or resource busy’错误如果有container在运行的时候重启 docker 服务， 可能会导致 container无法启动， 错误信息类似于12Error response from daemon: Cannot start container zookeeper: Error getting container ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c from driver devicemapper: Error mounting '/dev/mapper/docker-8:1-525372-ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c' on '/var/lib/docker/devicemapper/mnt/ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c': device or resource busy 2015/01/26 04:42:07 Error: failed to start one or more containers 或者12d2859bd1f84b: Error pulling image (latest) from xxxxxx, Driver devicemapper failed to create image rootfs e6158e7962db43274de40fc3db65ad64811d43fe342dea633df20639f5a4e3cd: device e6158e7962db43274de40fc3db65ad64811d43fe342dea633df20639f5a4e3cd already exists 43fe342dea633df20639f5a4e3cd already exists c049b2b: Download complete e6158e7962db: Error downloading dependent layers 这是一个Docker的 bug ，解决方式是先找出没有umount的路径1cat /proc/mounts | grep "mapper/docker" | awk '&#123;print $2&#125;' 然后依次umount 4. [8] System error: fork/exec /usr/bin/docker: cannot allocate memory问题The fix for me was to add swapspace. By default my digitalocean droplet didn’t come with any swap!1234dd if=/dev/zero of=/root/myswapfile bs=1M count=1024chmod 600 /root/myswapfilemkswap -f /root/myswapfileswapon /root/myswapfile]]></content>
       <categories>
         <category>Docker</category>
       </categories>
@@ -232,7 +265,7 @@
   <entry>
     <title><![CDATA[新机器检查基础环境]]></title>
     <url>%2Fposts%2F2017%2F10%2F06%2F%E6%96%B0%E6%9C%BA%E5%99%A8%E6%A3%80%E6%9F%A5%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%2F</url>
-    <content type="text"><![CDATA[系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -lhT，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： date 123456789101112131415 TZ=Asia/Shanghai ln -snf /usr/share/zoneinfo/$TZ /etc/localtime echo $TZ &gt; /etc/timezone ``` * 主机名，ip和主机名映射: `hostname`,`vim /etc/hosts`* yum源： 是否修改`/etc/yum.repos.d`* 时钟同步：web服务器、solr机器（必须）* ssh互信：web服务器、solr机器### 1. 查看系统信息### 2. 查看CPU信息#### 查看CPU信息（型号）```bashcat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c 查看物理CPU个数1cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l 查看每个物理CPU中core的个数(即核数)1cat /proc/cpuinfo| grep "cpu cores"| uniq 查看逻辑CPU的个数1cat /proc/cpuinfo| grep "processor"| wc -l 总核数 = 物理CPU个数 X 每颗物理CPU的核数 总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数 2. 查看内存信息]]></content>
+    <content type="text"><![CDATA[系统信息： cat /etc/redhat-release , uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo ，是否升级内核 内存信息： free -h， cat /proc/meminfo 磁盘信息： df -lhT ，挂载路径 网卡信息： ip a , ifconfig Linux系统时间： date 主机名，ip和主机名映射: hostname,vim /etc/hosts yum源： 是否修改/etc/yum.repos.d 时钟同步：web服务器、solr机器（必须） ssh互信：web服务器、solr机器 1. 查看系统信息2. 查看CPU信息查看CPU信息（型号）1cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c 查看物理CPU个数1cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l 查看每个物理CPU中core的个数(即核数)1cat /proc/cpuinfo| grep "cpu cores"| uniq 查看逻辑CPU的个数1cat /proc/cpuinfo| grep "processor"| wc -l 总核数 = 物理CPU个数 X 每颗物理CPU的核数 总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数 2. 查看内存信息运行 grep -i commit /proc/meminfo 查看系统内存分配状态12345[root@localhost local]# grep -i commit /proc/meminfoCommitLimit: 15550904 kBCommitted_AS: 15098404 kB# CommitLimit是一个内存分配上限,CommitLimit = 物理内存 * overcommit_ratio(默认50，即50%) + swap大小# Committed_As是已经分配的内存大小。]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -243,23 +276,12 @@
   <entry>
     <title><![CDATA[Linux系统基础环境设置]]></title>
     <url>%2Fposts%2F2017%2F10%2F02%2FLinux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[1. 更换本地yum源1. 从ustc下载.repo文件，切换源1cd /etc/yum.repos.d/ 将原有xx.repo文件全部改名为xx.repo.bak(rename .repo .repo.bak *.repo)1234567# wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=1-O CentOS-ustc.repo 【centos5 ustc源】wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=2 -O CentOS-ustc.repo【centos6 ustc源】# wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=3 -O CentOS-ustc.repo 【centos7 ustc源】yum clean allyum makecache 2. 检查源是否切换成功12yum list#看到很多列表表示成功 2. 修改主机名永久修改，需重启12345[root@hadoop-01 ~]# vim /etc/sysconfig/network#NETWORKING=yesNETWORKING=yesNETWORKING_IPV6=noHOSTNAME=hadoop-01 临时修改，立即生效（重启失效）123[root@hadoop-01 ~]# hostname hh[root@hadoop-01 ~]# hostnamehh 3. 修改host文件（ip地址和主机名绑定）123456[root@hadoop-01 ~]# vim /etc/hosts127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4::1 localhost localhost.localdomain localhost6 localhost6.localdomain6192.168.1.115 hadoop-01192.168.1.116 hadoop-02 192.168.1.117 hadoop-03 4. 禁用IP6没有做过12345678910111213141516vi /etc/sysconfig/network在最后增加一句：IPV6INIT=nocat /etc/sysconfig/networkNETWORKING=yesIPV6INIT=no//修改hosts文件，注释ip6#vi /etc/hosts127.0.0.1 localhost.localdomain localhost #::1 localhost6.localdomain6 localhost6//立即停止IP6服务service ip6tables stop//永久停止ipv6的iptableschkconfig ip6tables off 5. 关闭防火墙1234#立即停止 （暂时停止，重启失效）service iptables stop#永久停止chkconfig iptables off #禁用 6. 禁用SELINUX1vim /etc/selinux/config 将SELINUX=enforcing改为SELINUX=disabled 7. 修改默认启动级别1234vim /etc/inittab#默认为5：图形界面的多用户#修改为3：带网络的多用户id:3:initdefault:]]></content>
+    <content type="text"><![CDATA[1. 更换本地yum源1. 从ustc下载.repo文件，切换源1cd /etc/yum.repos.d/ 将原有xx.repo文件全部改名为xx.repo.bak(rename .repo .repo.bak *.repo)1234567# wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=1-O CentOS-ustc.repo 【centos5 ustc源】wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=2 -O CentOS-ustc.repo【centos6 ustc源】# wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/centos?codeblock=3 -O CentOS-ustc.repo 【centos7 ustc源】yum clean allyum makecache 2. 检查源是否切换成功12yum list#看到很多列表表示成功 2. 修改主机名永久修改，需重启12345[root@hadoop-01 ~]# vim /etc/sysconfig/network#NETWORKING=yesNETWORKING=yesNETWORKING_IPV6=noHOSTNAME=hadoop-01 临时修改，立即生效（重启失效）123[root@hadoop-01 ~]# hostname hh[root@hadoop-01 ~]# hostnamehh 3. 修改host文件（ip地址和主机名绑定）123456[root@hadoop-01 ~]# vim /etc/hosts127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4::1 localhost localhost.localdomain localhost6 localhost6.localdomain6192.168.1.115 hadoop-01192.168.1.116 hadoop-02 192.168.1.117 hadoop-03 4. 禁用IP6没有做过12345678910111213141516vi /etc/sysconfig/network在最后增加一句：IPV6INIT=nocat /etc/sysconfig/networkNETWORKING=yesIPV6INIT=no//修改hosts文件，注释ip6#vi /etc/hosts127.0.0.1 localhost.localdomain localhost #::1 localhost6.localdomain6 localhost6//立即停止IP6服务service ip6tables stop//永久停止ipv6的iptableschkconfig ip6tables off 5. 关闭防火墙1234#立即停止 （暂时停止，重启失效）service iptables stop#永久停止chkconfig iptables off #禁用 6. 禁用SELINUX1vim /etc/selinux/config 将SELINUX=enforcing改为SELINUX=disabled 7. 修改默认启动级别1234vim /etc/inittab#默认为5：图形界面的多用户#修改为3：带网络的多用户id:3:initdefault: 8. 设置Linux系统时区TZ=Asia/Shanghai ln -snf /usr/share/zoneinfo/$TZ /etc/localtime echo $TZ &gt; /etc/timezone]]></content>
       <categories>
         <category>Linux</category>
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Docker遇到的问题]]></title>
-    <url>%2Fposts%2F2017%2F10%2F02%2Fdocker%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
-    <content type="text"><![CDATA[1. 运行容器报错：Error response from daemon: Error running DeviceCreate (createSnapDevice) dm_task_run failed metadata目录在docker info查看1234service docker stopthin_check /var/lib/docker/devicemapper/devicemapper/metadatathin_check --clear-needs-check-flag /var/lib/docker/devicemapper/devicemapper/metadataservice docker start 2. Error running DeviceCreate (ActivateDevice) dm_task_run failed3. 重启docker服务器后 遇到 ‘device or resource busy’错误如果有container在运行的时候重启 docker 服务， 可能会导致 container无法启动， 错误信息类似于12Error response from daemon: Cannot start container zookeeper: Error getting container ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c from driver devicemapper: Error mounting '/dev/mapper/docker-8:1-525372-ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c' on '/var/lib/docker/devicemapper/mnt/ddf1dd91bbf46dc648268327f8f7c6fffaf2f19cda5cf1d97fdc701016d4332c': device or resource busy 2015/01/26 04:42:07 Error: failed to start one or more containers 或者12d2859bd1f84b: Error pulling image (latest) from xxxxxx, Driver devicemapper failed to create image rootfs e6158e7962db43274de40fc3db65ad64811d43fe342dea633df20639f5a4e3cd: device e6158e7962db43274de40fc3db65ad64811d43fe342dea633df20639f5a4e3cd already exists 43fe342dea633df20639f5a4e3cd already exists c049b2b: Download complete e6158e7962db: Error downloading dependent layers 这是一个Docker的 bug ，解决方式是先找出没有umount的路径1cat /proc/mounts | grep "mapper/docker" | awk '&#123;print $2&#125;' 然后依次umount]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -296,15 +318,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Linux下任务调度crond笔记]]></title>
+    <title><![CDATA[CentOS6.7下任务调度crond笔记]]></title>
     <url>%2Fposts%2F2017%2F10%2F01%2FLinux%E4%B8%8B%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6crond%E7%AC%94%E8%AE%B0%2F</url>
-    <content type="text"><![CDATA[安装1yum install -y vixie-cron crond 添加调度计划调度表达式介绍12345678# Example of job definition:# .---------------- minute (0 - 59)# | .------------- hour (0 - 23)# | | .---------- day of month (1 - 31)# | | | .------- month (1 - 12) OR jan,feb,mar,apr ...# | | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat# | | | | |# * * * * * user-name command to be executed 栗子：1234* * * * * /bin/bash /home/crontab.sh #每分钟执行/home/crontab.sh0 * * * * /bin/bash /home/crontab.sh #每小时执行/home/crontab.sh0 0 * * * /bin/bash /home/crontab.sh #每天凌晨执行/home/crontab.sh*/2 * * * * /bin/bash /home/crontab.sh #每两分钟执行/home/crontab.sh 表达式最小支持分钟，如果想按照秒执行呢？12345step=5 #间隔的秒数for (( i = 0; i &lt; 60; i=(i+step) )); do restartShutdownTomcat sleep $step done 脚本里通过for循环，能够按秒执行。 如果60不能整除间隔的秒数，则需要调整执行的时间。例如需要每7秒执行一次，就需要找到7与60的最小公倍数，7与60的最小公倍数是420（即7分钟）。则crontab.sh中step的值为7，循环结束条件i&lt;420， crontab -e可以输入以下语句来实现1*/7 * * * * /home/crontab.sh 添加调度计划 一种是直接编辑，执行crontab -e，然后输入调度表达式 另一种是编辑文件，然后执行crontab absolutePath，我使用是这种 注意：使用编辑文件方式添加会覆盖原来的crontab任务 crond不执行原因分析：1. 没有使用绝对路径包括crond命令和脚本 2. crontab不提供所执行用户的环境变量解决方法：在脚本中加入下面这一行：1. /etc/profile 或者导入环境变量(例如Java环境)：1export JAVA_HOME=/usr/local/java 3. 脚本没有可执行权限在crontab中建议使用 sh 或 bash 来执行shell脚本，避免因脚本文件的执行权限丢失导致任务失败。 4. 放大招：查看日志1tail /var/log/cron]]></content>
+    <content type="text"><![CDATA[安装123456# 安装yum install -y vixie-cron crond# 设置开机自启chkconfig crond on# 启动service crond start 添加调度计划调度表达式介绍12345678# Example of job definition:# .---------------- minute (0 - 59)# | .------------- hour (0 - 23)# | | .---------- day of month (1 - 31)# | | | .------- month (1 - 12) OR jan,feb,mar,apr ...# | | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat# | | | | |# * * * * * user-name command to be executed 栗子：1234* * * * * /bin/bash /home/crontab.sh #每分钟执行/home/crontab.sh0 * * * * /bin/bash /home/crontab.sh #每小时执行/home/crontab.sh0 0 * * * /bin/bash /home/crontab.sh #每天凌晨执行/home/crontab.sh*/2 * * * * /bin/bash /home/crontab.sh #每两分钟执行/home/crontab.sh 表达式最小支持分钟，如果想按照秒执行呢？12345step=5 #间隔的秒数for (( i = 0; i &lt; 60; i=(i+step) )); do restartShutdownTomcat sleep $step done 脚本里通过for循环，能够按秒执行。 如果60不能整除间隔的秒数，则需要调整执行的时间。例如需要每7秒执行一次，就需要找到7与60的最小公倍数，7与60的最小公倍数是420（即7分钟）。则crontab.sh中step的值为7，循环结束条件i&lt;420， crontab -e可以输入以下语句来实现1*/7 * * * * /home/crontab.sh 添加调度计划 一种是直接编辑，执行crontab -e，然后输入调度表达式 另一种是编辑文件，然后执行crontab absolutePath，我使用是这种 注意：使用编辑文件方式添加会覆盖原来的crontab任务 crond不执行原因分析：1. 没有使用绝对路径包括crond命令和脚本 2. crontab不提供所执行用户的环境变量解决方法：在脚本中加入下面这一行：1. /etc/profile 或者导入环境变量(例如Java环境)：1export JAVA_HOME=/usr/local/java 3. 脚本没有可执行权限在crontab中建议使用 sh 或 bash 来执行shell脚本，避免因脚本文件的执行权限丢失导致任务失败。 4. 放大招：查看日志1tail /var/log/cron]]></content>
       <categories>
-        <category>Linux</category>
+        <category>CentOS</category>
         <category>crond</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
+        <tag>CentOS</tag>
         <tag>crond</tag>
       </tags>
   </entry>

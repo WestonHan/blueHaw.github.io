@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1. Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。 2. 虚拟机设置打开虚拟机界面，单击【编辑虚拟机设置】，点击左侧【网络适配器">
+<meta name="description" content="1. Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。">
 <meta name="keywords" content="虚拟机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟机（Vmware）桥接模式CentOS 6系统下使用静态IP上外网配置指南">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/22/虚拟机（Vmware）桥接模式使用静态IP上网/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="1. Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。 2. 虚拟机设置打开虚拟机界面，单击【编辑虚拟机设置】，点击左侧【网络适配器">
+<meta property="og:description" content="1. Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-26T02:13:06.110Z">
+<meta property="og:updated_time" content="2017-11-03T01:34:42.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟机（Vmware）桥接模式CentOS 6系统下使用静态IP上外网配置指南">
-<meta name="twitter:description" content="1. Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。 2. 虚拟机设置打开虚拟机界面，单击【编辑虚拟机设置】，点击左侧【网络适配器">
+<meta name="twitter:description" content="1. Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。">
 
 
 
@@ -366,7 +366,7 @@
       
 
       
-        <h3 id="1-Vmware设置"><a href="#1-Vmware设置" class="headerlink" title="1. Vmware设置"></a>1. Vmware设置</h3><p>打开<code>Vmware</code>，单击 【编辑】 -&gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中<code>VMnet0</code>，在<code>VMnet信息</code>里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择<code>Qualcomm Atheros AR9485 Wireless Network Adapter</code>无线网卡。</p>
+        <h3 id="1-Vmware设置"><a href="#1-Vmware设置" class="headerlink" title="1. Vmware设置"></a>1. Vmware设置</h3><p>打开<code>Vmware</code>，单击 【编辑】 -&gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中<code>VMnet0</code>，在<code>VMnet信息</code>里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择<code>Qualcomm Atheros AR9485 Wireless Network Adapter</code>无线网卡。<br><a id="more"></a></p>
 <h3 id="2-虚拟机设置"><a href="#2-虚拟机设置" class="headerlink" title="2. 虚拟机设置"></a>2. 虚拟机设置</h3><p>打开虚拟机界面，单击【编辑虚拟机设置】，点击左侧【网络适配器】，选择【桥接模式】（<em>复制物理网络连接状态我没选过，不知道选了怎样</em>），或者 【自定义】 –&gt; VMnet0。</p>
 <h3 id="3-CentOS系统网卡设置静态IP地址"><a href="#3-CentOS系统网卡设置静态IP地址" class="headerlink" title="3. CentOS系统网卡设置静态IP地址"></a>3. CentOS系统网卡设置静态IP地址</h3><p>首先查看物理主机ip地址，我连接的是无线网，信息如下：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">无线局域网适配器 WLAN:</div><div class="line"></div><div class="line">   连接特定的<span class="built_in"> DNS </span>后缀 . . . . . . . :</div><div class="line">   本地链接<span class="built_in"> IPv6 </span>地址. . . . . . . . : fe80::796c:6c41:254c:b8b4%12</div><div class="line">   IPv4 地址 . . . . . . . . . . . . : 192.168.0.105</div><div class="line">   子网掩码  . . . . . . . . . . . . : 255.255.255.0</div><div class="line">   默认网关. . . . . . . . . . . . . : 192.168.0.1</div></pre></td></tr></table></figure></p>
 <p>然后进行设置Linux系统的静态IP地址，CentOS文件路径是 <code>/etc/sysconfig/network-scripts/ifcfg-eth0</code>，修改<code>ONBOOT</code>为<code>yes</code>，<code>BOOTPROTO</code>为<code>static</code>，然后添加四行，值根据实际情况修改。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">IPADDR=192.168.0.108</div><div class="line">NETMASK=255.255.255.0</div><div class="line">GATEWAY=192.168.0.1</div><div class="line">DNS1=8.8.8.8</div></pre></td></tr></table></figure></p>
@@ -517,7 +517,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -528,7 +528,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -539,7 +539,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

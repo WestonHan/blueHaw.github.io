@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级12345678910rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm```	### 2. 修改启动项&amp;gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1`  修改为0```bashvim /boot/grub/grub.confdef">
+<meta name="description" content="1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级1234567891011rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm```	&amp;lt;!--more --&amp;gt;### 2. 修改启动项&amp;gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1`  修改为0```bashvim /bo">
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker1.7.1在CentosOS6.7上安装指南">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/12/Docker1-7-1在CentosOS6-7上的安装指南/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级12345678910rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm```	### 2. 修改启动项&amp;gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1`  修改为0```bashvim /boot/grub/grub.confdef">
+<meta property="og:description" content="1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级1234567891011rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm```	&amp;lt;!--more --&amp;gt;### 2. 修改启动项&amp;gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1`  修改为0```bashvim /bo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-03T01:23:37.125Z">
+<meta property="og:updated_time" content="2017-11-03T01:36:12.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker1.7.1在CentosOS6.7上安装指南">
-<meta name="twitter:description" content="1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级12345678910rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm```	### 2. 修改启动项&amp;gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1`  修改为0```bashvim /boot/grub/grub.confdef">
+<meta name="twitter:description" content="1. 安装新版本内核 注意：V4 CPU升级有问题，不要升级1234567891011rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm```	&amp;lt;!--more --&amp;gt;### 2. 修改启动项&amp;gt;**注意：V4 CPU不要修改**编辑内核配置文件，将默认的 `default=1`  修改为0```bashvim /bo">
 
 
 
@@ -367,7 +367,7 @@
 
       
         <h3 id="1-安装新版本内核"><a href="#1-安装新版本内核" class="headerlink" title="1. 安装新版本内核"></a>1. 安装新版本内核</h3><blockquote>
-<p><strong>注意：V4 CPU升级有问题，不要升级</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">rpm -ivh kernel<span class="_">-lt</span>-devel-3.10.104-1.el6.elrepo.x86_64.rpm</div><div class="line">```	</div><div class="line"><span class="comment">### 2. 修改启动项</span></div><div class="line">&gt;**注意：V4 CPU不要修改**</div><div class="line">编辑内核配置文件，将默认的 `default=1`  修改为0</div><div class="line">```bash</div><div class="line">vim /boot/grub/grub.conf</div><div class="line">default=0</div><div class="line">```	</div><div class="line"><span class="comment">### 3. 安装cgroups,docker依赖项</span></div></pre></td></tr></table></figure></p>
+<p><strong>注意：V4 CPU升级有问题，不要升级</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">rpm -ivh kernel<span class="_">-lt</span>-devel-3.10.104-1.el6.elrepo.x86_64.rpm</div><div class="line">```	</div><div class="line">&lt;!--more --&gt;</div><div class="line"><span class="comment">### 2. 修改启动项</span></div><div class="line">&gt;**注意：V4 CPU不要修改**</div><div class="line">编辑内核配置文件，将默认的 `default=1`  修改为0</div><div class="line">```bash</div><div class="line">vim /boot/grub/grub.conf</div><div class="line">default=0</div><div class="line">```	</div><div class="line"><span class="comment">### 3. 安装cgroups,docker依赖项</span></div></pre></td></tr></table></figure></p>
 </blockquote>
 <p>rpm -ivh libcgroup-0.40.rc1-23.el6.x86_64.rpm<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">### 4. 安装<span class="selector-tag">docker</span> 1<span class="selector-class">.7</span><span class="selector-class">.1</span></div><div class="line">```<span class="selector-tag">bash</span></div><div class="line"><span class="selector-tag">rpm</span> <span class="selector-tag">-ivh</span> <span class="selector-tag">docker-engine-1</span><span class="selector-class">.7</span><span class="selector-class">.1-1</span><span class="selector-class">.el6</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></div></pre></td></tr></table></figure></p>
 <h3 id="5-Docker配置文件修改-主要为docker仓库和4243服务端口外放"><a href="#5-Docker配置文件修改-主要为docker仓库和4243服务端口外放" class="headerlink" title="5. Docker配置文件修改,主要为docker仓库和4243服务端口外放"></a>5. Docker配置文件修改,主要为docker仓库和4243服务端口外放</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/docker</div></pre></td></tr></table></figure>
@@ -511,7 +511,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -522,7 +522,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -533,7 +533,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

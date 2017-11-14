@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -lhT，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： date  123456789101112131415    TZ=Asia/Shang">
+<meta name="description" content="系统信息： cat /etc/redhat-release ,  uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo ，是否升级内核 内存信息： free -h， cat /proc/meminfo 磁盘信息： df -lhT ，挂载路径 网卡信息： ip a ,  ifconfig">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="新机器检查基础环境">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/06/新机器检查基础环境/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -lhT，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： date  123456789101112131415    TZ=Asia/Shang">
+<meta property="og:description" content="系统信息： cat /etc/redhat-release ,  uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo ，是否升级内核 内存信息： free -h， cat /proc/meminfo 磁盘信息： df -lhT ，挂载路径 网卡信息： ip a ,  ifconfig">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-01T03:14:35.983Z">
+<meta property="og:updated_time" content="2017-11-14T09:51:21.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="新机器检查基础环境">
-<meta name="twitter:description" content="系统信息： cat /etc/redhat-release, uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo，是否升级内核 内存信息： free -h 磁盘信息： df -lhT，挂载路径 网卡信息： ip a, ifconfig Linux系统时间设置： date  123456789101112131415    TZ=Asia/Shang">
+<meta name="twitter:description" content="系统信息： cat /etc/redhat-release ,  uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo ，是否升级内核 内存信息： free -h， cat /proc/meminfo 磁盘信息： df -lhT ，挂载路径 网卡信息： ip a ,  ifconfig">
 
 
 
@@ -367,20 +367,25 @@
 
       
         <ul>
-<li>系统信息： <code>cat /etc/redhat-release</code>, <code>uname -a</code>, <code>lsb_release -a</code></li>
-<li>cpu信息： <code>cat /proc/cpuinfo</code>，是否升级内核</li>
-<li>内存信息： <code>free -h</code></li>
-<li>磁盘信息： <code>df -lhT</code>，挂载路径</li>
-<li>网卡信息： <code>ip a</code>, <code>ifconfig</code></li>
-<li>Linux系统时间设置： <code>date</code>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">    TZ=Asia/Shanghai</div><div class="line">    ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime</div><div class="line">    <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</div><div class="line">    ``` </div><div class="line">* 主机名，ip和主机名映射: `hostname`,`vim /etc/hosts`</div><div class="line">* yum源： 是否修改`/etc/yum.repos.d`</div><div class="line">* 时钟同步：web服务器、solr机器（必须）</div><div class="line">* ssh互信：web服务器、solr机器</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">### 1. 查看系统信息</span></div><div class="line"><span class="comment">### 2. 查看CPU信息</span></div><div class="line"><span class="comment">#### 查看CPU信息（型号）</span></div><div class="line">```bash</div><div class="line">cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c</div></pre></td></tr></table></figure>
-</li>
+<li>系统信息： <code>cat /etc/redhat-release</code> ,  <code>uname -a</code>, <code>lsb_release -a</code></li>
+<li>cpu信息： <code>cat /proc/cpuinfo</code> ，是否升级内核</li>
+<li>内存信息： <code>free -h</code>， <code>cat /proc/meminfo</code></li>
+<li>磁盘信息： <code>df -lhT</code> ，挂载路径</li>
+<li>网卡信息： <code>ip a</code> ,  <code>ifconfig</code><a id="more"></a></li>
+<li>Linux系统时间： <code>date</code></li>
+<li>主机名，ip和主机名映射: <code>hostname</code>,<code>vim /etc/hosts</code></li>
+<li>yum源： 是否修改<code>/etc/yum.repos.d</code></li>
+<li>时钟同步：web服务器、solr机器（必须）</li>
+<li>ssh互信：web服务器、solr机器</li>
 </ul>
+<h3 id="1-查看系统信息"><a href="#1-查看系统信息" class="headerlink" title="1. 查看系统信息"></a>1. 查看系统信息</h3><h3 id="2-查看CPU信息"><a href="#2-查看CPU信息" class="headerlink" title="2. 查看CPU信息"></a>2. 查看CPU信息</h3><h4 id="查看CPU信息（型号）"><a href="#查看CPU信息（型号）" class="headerlink" title="查看CPU信息（型号）"></a>查看CPU信息（型号）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c</div></pre></td></tr></table></figure>
 <h4 id="查看物理CPU个数"><a href="#查看物理CPU个数" class="headerlink" title="查看物理CPU个数"></a>查看物理CPU个数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo| grep <span class="string">"physical id"</span>| sort| uniq| wc -l</div></pre></td></tr></table></figure>
 <h4 id="查看每个物理CPU中core的个数-即核数"><a href="#查看每个物理CPU中core的个数-即核数" class="headerlink" title="查看每个物理CPU中core的个数(即核数)"></a>查看每个物理CPU中core的个数(即核数)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo| grep <span class="string">"cpu cores"</span>| uniq</div></pre></td></tr></table></figure>
 <h4 id="查看逻辑CPU的个数"><a href="#查看逻辑CPU的个数" class="headerlink" title="查看逻辑CPU的个数"></a>查看逻辑CPU的个数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo| grep <span class="string">"processor"</span>| wc -l</div></pre></td></tr></table></figure>
 <p>总核数 = 物理CPU个数 X 每颗物理CPU的核数 </p>
 <p>总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数</p>
-<h3 id="2-查看内存信息"><a href="#2-查看内存信息" class="headerlink" title="2. 查看内存信息"></a>2. 查看内存信息</h3>
+<h3 id="2-查看内存信息"><a href="#2-查看内存信息" class="headerlink" title="2. 查看内存信息"></a>2. 查看内存信息</h3><p>运行 <code>grep -i commit /proc/meminfo</code> 查看系统内存分配状态<br><figure class="highlight tcl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost local]# grep -i commit /<span class="keyword">proc</span>/meminfo</div><div class="line">CommitLimit:    15550904<span class="title"> kB</span></div><div class="line"><span class="title">Committed_AS:</span>   15098404<span class="title"> kB</span></div><div class="line"><span class="title">#</span> CommitLimit是一个内存分配上限,CommitLimit = 物理内存 *<span class="title"> overcommit_ratio(默认50，即50%)</span> +<span class="title"> swap大小</span></div><div class="line"><span class="title">#</span> Committed_As是已经分配的内存大小。</div></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -519,7 +524,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -530,7 +535,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -541,7 +546,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -590,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看物理CPU个数"><span class="nav-number">1.</span> <span class="nav-text">查看物理CPU个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看每个物理CPU中core的个数-即核数"><span class="nav-number">2.</span> <span class="nav-text">查看每个物理CPU中core的个数(即核数)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看逻辑CPU的个数"><span class="nav-number">3.</span> <span class="nav-text">查看逻辑CPU的个数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查看内存信息"><span class="nav-number"></span> <span class="nav-text">2. 查看内存信息</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-查看系统信息"><span class="nav-number">1.</span> <span class="nav-text">1. 查看系统信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查看CPU信息"><span class="nav-number">2.</span> <span class="nav-text">2. 查看CPU信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看CPU信息（型号）"><span class="nav-number">2.1.</span> <span class="nav-text">查看CPU信息（型号）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看物理CPU个数"><span class="nav-number">2.2.</span> <span class="nav-text">查看物理CPU个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看每个物理CPU中core的个数-即核数"><span class="nav-number">2.3.</span> <span class="nav-text">查看每个物理CPU中core的个数(即核数)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看逻辑CPU的个数"><span class="nav-number">2.4.</span> <span class="nav-text">查看逻辑CPU的个数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查看内存信息"><span class="nav-number">3.</span> <span class="nav-text">2. 查看内存信息</span></a></li></ol></div>
             
 
           </div>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
 <meta property="og:description" content="1. 更换本地yum源1. 从ustc下载.repo文件，切换源1cd /etc/yum.repos.d/ 将原有xx.repo文件全部改名为xx.repo.bak(rename .repo  .repo.bak *.repo)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-03T00:52:14.308Z">
+<meta property="og:updated_time" content="2017-11-14T09:51:28.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux系统基础环境设置">
 <meta name="twitter:description" content="1. 更换本地yum源1. 从ustc下载.repo文件，切换源1cd /etc/yum.repos.d/ 将原有xx.repo文件全部改名为xx.repo.bak(rename .repo  .repo.bak *.repo)">
@@ -377,6 +377,11 @@
 <h3 id="6-禁用SELINUX"><a href="#6-禁用SELINUX" class="headerlink" title="6. 禁用SELINUX"></a>6. 禁用SELINUX</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim  /etc/selinux/config</div></pre></td></tr></table></figure>
 <p>将<code>SELINUX=enforcing</code>改为<code>SELINUX=disabled</code></p>
 <h3 id="7-修改默认启动级别"><a href="#7-修改默认启动级别" class="headerlink" title="7. 修改默认启动级别"></a>7. 修改默认启动级别</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /etc/inittab</div><div class="line"><span class="comment">#默认为5：图形界面的多用户</span></div><div class="line"><span class="comment">#修改为3：带网络的多用户</span></div><div class="line">id:3:initdefault:</div></pre></td></tr></table></figure>
+<h3 id="8-设置Linux系统时区"><a href="#8-设置Linux系统时区" class="headerlink" title="8. 设置Linux系统时区"></a>8. 设置Linux系统时区</h3><pre><code class="bash">TZ=Asia/Shanghai
+ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime
+<span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone
+</code></pre>
+
       
     </div>
     
@@ -424,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/2017/10/02/docker遇到的问题/" rel="next" title="Docker遇到的问题">
-                <i class="fa fa-chevron-left"></i> Docker遇到的问题
+              <a href="/posts/2017/10/02/uninstalldocker/" rel="next" title="uninstall Docker">
+                <i class="fa fa-chevron-left"></i> uninstall Docker
               </a>
             
           </div>
@@ -515,7 +520,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -526,7 +531,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -537,7 +542,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -586,7 +591,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-更换本地yum源"><span class="nav-number">1.</span> <span class="nav-text">1. 更换本地yum源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-从ustc下载-repo文件，切换源"><span class="nav-number">1.1.</span> <span class="nav-text">1. 从ustc下载.repo文件，切换源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-检查源是否切换成功"><span class="nav-number">1.2.</span> <span class="nav-text">2. 检查源是否切换成功</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-修改主机名"><span class="nav-number">2.</span> <span class="nav-text">2. 修改主机名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-修改host文件（ip地址和主机名绑定）"><span class="nav-number">3.</span> <span class="nav-text">3. 修改host文件（ip地址和主机名绑定）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-禁用IP6"><span class="nav-number">4.</span> <span class="nav-text">4. 禁用IP6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-关闭防火墙"><span class="nav-number">5.</span> <span class="nav-text">5. 关闭防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-禁用SELINUX"><span class="nav-number">6.</span> <span class="nav-text">6. 禁用SELINUX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-修改默认启动级别"><span class="nav-number">7.</span> <span class="nav-text">7. 修改默认启动级别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-更换本地yum源"><span class="nav-number">1.</span> <span class="nav-text">1. 更换本地yum源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-从ustc下载-repo文件，切换源"><span class="nav-number">1.1.</span> <span class="nav-text">1. 从ustc下载.repo文件，切换源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-检查源是否切换成功"><span class="nav-number">1.2.</span> <span class="nav-text">2. 检查源是否切换成功</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-修改主机名"><span class="nav-number">2.</span> <span class="nav-text">2. 修改主机名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-修改host文件（ip地址和主机名绑定）"><span class="nav-number">3.</span> <span class="nav-text">3. 修改host文件（ip地址和主机名绑定）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-禁用IP6"><span class="nav-number">4.</span> <span class="nav-text">4. 禁用IP6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-关闭防火墙"><span class="nav-number">5.</span> <span class="nav-text">5. 关闭防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-禁用SELINUX"><span class="nav-number">6.</span> <span class="nav-text">6. 禁用SELINUX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-修改默认启动级别"><span class="nav-number">7.</span> <span class="nav-text">7. 修改默认启动级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-设置Linux系统时区"><span class="nav-number">8.</span> <span class="nav-text">8. 设置Linux系统时区</span></a></li></ol></div>
             
 
           </div>

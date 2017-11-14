@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Linux,crond," />
+  <meta name="keywords" content="CentOS,crond," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="安装1yum install -y vixie-cron crond">
-<meta name="keywords" content="Linux,crond">
+<meta name="description" content="安装123456# 安装yum install -y vixie-cron crond# 设置开机自启chkconfig crond on# 启动service crond start">
+<meta name="keywords" content="CentOS,crond">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux下任务调度crond笔记">
+<meta property="og:title" content="CentOS6.7下任务调度crond笔记">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/01/Linux下任务调度crond笔记/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="安装1yum install -y vixie-cron crond">
+<meta property="og:description" content="安装123456# 安装yum install -y vixie-cron crond# 设置开机自启chkconfig crond on# 启动service crond start">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T15:49:01.131Z">
+<meta property="og:updated_time" content="2017-11-06T04:08:23.997Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下任务调度crond笔记">
-<meta name="twitter:description" content="安装1yum install -y vixie-cron crond">
+<meta name="twitter:title" content="CentOS6.7下任务调度crond笔记">
+<meta name="twitter:description" content="安装123456# 安装yum install -y vixie-cron crond# 设置开机自启chkconfig crond on# 启动service crond start">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>Linux下任务调度crond笔记 | blueHaw's Notes</title>
+  <title>CentOS6.7下任务调度crond笔记 | blueHaw's Notes</title>
   
 
 
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux下任务调度crond笔记</h1>
+          <h1 class="post-title" itemprop="name headline">CentOS6.7下任务调度crond笔记</h1>
         
 
         <div class="post-meta">
@@ -329,8 +329,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/CentOS/" itemprop="url" rel="index">
+                    <span itemprop="name">CentOS</span>
                   </a>
                 </span>
 
@@ -340,7 +340,7 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/crond/" itemprop="url" rel="index">
+                  <a href="/categories/CentOS/crond/" itemprop="url" rel="index">
                     <span itemprop="name">crond</span>
                   </a>
                 </span>
@@ -377,7 +377,7 @@
       
 
       
-        <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum <span class="keyword">install</span> -y vixie-cron crond</div></pre></td></tr></table></figure>
+        <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 安装</span></div><div class="line">yum install -y vixie-cron crond</div><div class="line"><span class="comment"># 设置开机自启</span></div><div class="line">chkconfig crond on</div><div class="line"><span class="comment"># 启动</span></div><div class="line">service crond start</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <h2 id="添加调度计划"><a href="#添加调度计划" class="headerlink" title="添加调度计划"></a>添加调度计划</h2><h3 id="调度表达式介绍"><a href="#调度表达式介绍" class="headerlink" title="调度表达式介绍"></a>调度表达式介绍</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Example of job definition:</span></div><div class="line"><span class="comment"># .---------------- minute (0 - 59)</span></div><div class="line"><span class="comment"># |  .------------- hour (0 - 23)</span></div><div class="line"><span class="comment"># |  |  .---------- day of month (1 - 31)</span></div><div class="line"><span class="comment"># |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span></div><div class="line"><span class="comment"># |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span></div><div class="line"><span class="comment"># |  |  |  |  |</span></div><div class="line"><span class="comment"># *  *  *  *  * user-name command to be executed</span></div></pre></td></tr></table></figure>
 <p>栗子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">*  *  *  *  *  /bin/bash /home/crontab.sh    <span class="comment">#每分钟执行/home/crontab.sh</span></div><div class="line">0  *  *  *  *  /bin/bash /home/crontab.sh    <span class="comment">#每小时执行/home/crontab.sh</span></div><div class="line">0  0  *  *  *  /bin/bash /home/crontab.sh    <span class="comment">#每天凌晨执行/home/crontab.sh</span></div><div class="line">*/2  *  *  *  *  /bin/bash /home/crontab.sh  <span class="comment">#每两分钟执行/home/crontab.sh</span></div></pre></td></tr></table></figure></p>
@@ -418,7 +418,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://bluehaw.github.io/posts/2017/10/01/Linux下任务调度crond笔记/" title="Linux下任务调度crond笔记">https://bluehaw.github.io/posts/2017/10/01/Linux下任务调度crond笔记/</a>
+    <a href="https://bluehaw.github.io/posts/2017/10/01/Linux下任务调度crond笔记/" title="CentOS6.7下任务调度crond笔记">https://bluehaw.github.io/posts/2017/10/01/Linux下任务调度crond笔记/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -433,7 +433,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/CentOS/" rel="tag"># CentOS</a>
           
             <a href="/tags/crond/" rel="tag"># crond</a>
           
@@ -535,7 +535,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -546,7 +546,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -557,7 +557,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -82,14 +82,14 @@
 <meta name="description" content="1. 运行容器报错：Error response from daemon: Error running DeviceCreate (createSnapDevice) dm_task_run failedmetadata目录在docker info查看">
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker问题">
+<meta property="og:title" content="Docker问题">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/09/docker问题/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
 <meta property="og:description" content="1. 运行容器报错：Error response from daemon: Error running DeviceCreate (createSnapDevice) dm_task_run failedmetadata目录在docker info查看">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-03T01:28:51.904Z">
+<meta property="og:updated_time" content="2017-11-14T02:41:39.421Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker问题">
+<meta name="twitter:title" content="Docker问题">
 <meta name="twitter:description" content="1. 运行容器报错：Error response from daemon: Error running DeviceCreate (createSnapDevice) dm_task_run failedmetadata目录在docker info查看">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>docker问题 | blueHaw's Notes</title>
+  <title>Docker问题 | blueHaw's Notes</title>
   
 
 
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">docker问题</h1>
+          <h1 class="post-title" itemprop="name headline">Docker问题</h1>
         
 
         <div class="post-meta">
@@ -371,6 +371,7 @@
 <p>或者<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">d2859bd1f84<span class="variable">b:</span> Error pulling image (latest) from xxxxxx, Driver devicemapper failed <span class="keyword">to</span> create image rootfs e6158e7962db43274de40fc3db65ad64811d43fe342dea633df20639f5a4e3cd: device e6158e7962db43274de40fc3db65ad64811d43fe342dea633df20639f5a4e3cd already <span class="built_in">exists</span> <span class="number">43</span>fe342dea633df20639f5a4e3cd already <span class="built_in">exists</span> c049b2<span class="variable">b:</span> Download <span class="built_in">complete</span>  </div><div class="line">e6158e7962d<span class="variable">b:</span> Error downloading dependent layers</div></pre></td></tr></table></figure></p>
 <p>这是一个<strong><code>Docker</code></strong>的 <strong><code>bug</code></strong> ，解决方式是先找出没有<code>umount</code>的路径<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat <span class="regexp">/proc/m</span>ounts | <span class="keyword">grep</span> <span class="string">"mapper/docker"</span> | awk <span class="string">'&#123;print $2&#125;'</span></div></pre></td></tr></table></figure></p>
 <p>然后依次<code>umount</code></p>
+<h3 id="4-8-System-error-fork-exec-usr-bin-docker-cannot-allocate-memory问题"><a href="#4-8-System-error-fork-exec-usr-bin-docker-cannot-allocate-memory问题" class="headerlink" title="4. [8] System error: fork/exec /usr/bin/docker: cannot allocate memory问题"></a>4. [8] System error: fork/exec /usr/bin/docker: cannot allocate memory问题</h3><p>The fix for me was to add swapspace. By default my digitalocean droplet didn’t come with any swap!<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dd <span class="keyword">if</span>=/dev/zero of=/root/myswapfile bs=1M count=1024</div><div class="line">chmod 600 /root/myswapfile</div><div class="line">mkswap -f /root/myswapfile</div><div class="line">swapon /root/myswapfile</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -391,7 +392,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://bluehaw.github.io/posts/2017/10/09/docker问题/" title="docker问题">https://bluehaw.github.io/posts/2017/10/09/docker问题/</a>
+    <a href="https://bluehaw.github.io/posts/2017/10/09/docker问题/" title="Docker问题">https://bluehaw.github.io/posts/2017/10/09/docker问题/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -510,7 +511,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -521,7 +522,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -532,7 +533,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -581,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-运行容器报错：Error-response-from-daemon-Error-running-DeviceCreate-createSnapDevice-dm-task-run-failed"><span class="nav-number">1.</span> <span class="nav-text">1. 运行容器报错：Error response from daemon: Error running DeviceCreate (createSnapDevice) dm_task_run failed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Error-running-DeviceCreate-ActivateDevice-dm-task-run-failed"><span class="nav-number">2.</span> <span class="nav-text">2. Error running DeviceCreate (ActivateDevice) dm_task_run failed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-重启docker服务器后-遇到-‘device-or-resource-busy’错误"><span class="nav-number">3.</span> <span class="nav-text">3. 重启docker服务器后 遇到 ‘device or resource busy’错误</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-运行容器报错：Error-response-from-daemon-Error-running-DeviceCreate-createSnapDevice-dm-task-run-failed"><span class="nav-number">1.</span> <span class="nav-text">1. 运行容器报错：Error response from daemon: Error running DeviceCreate (createSnapDevice) dm_task_run failed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Error-running-DeviceCreate-ActivateDevice-dm-task-run-failed"><span class="nav-number">2.</span> <span class="nav-text">2. Error running DeviceCreate (ActivateDevice) dm_task_run failed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-重启docker服务器后-遇到-‘device-or-resource-busy’错误"><span class="nav-number">3.</span> <span class="nav-text">3. 重启docker服务器后 遇到 ‘device or resource busy’错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-System-error-fork-exec-usr-bin-docker-cannot-allocate-memory问题"><span class="nav-number">4.</span> <span class="nav-text">4. [8] System error: fork/exec /usr/bin/docker: cannot allocate memory问题</span></a></li></ol></div>
             
 
           </div>
