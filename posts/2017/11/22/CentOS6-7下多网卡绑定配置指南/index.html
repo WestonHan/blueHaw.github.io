@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
 <meta property="og:description" content="前言Linux 网卡绑定 mode 共有七种(0~6) bond0、bond1、bond2、bond3、bond4、bond5、bond6. 常用的有三种 mode=0：平衡负载模式，有自动备援，需要交换机设置。使用mode0时与网卡相连的交换机必须做特殊配置（这两个端口应该采取聚合方式） mode=1：自动备援模式，其中一条线若断线，其他线路将会自动备援。 mode=6：平衡负载模式，有自动备援">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-22T10:08:05.458Z">
+<meta property="og:updated_time" content="2017-11-22T10:11:04.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS6.7下多网卡绑定配置指南">
 <meta name="twitter:description" content="前言Linux 网卡绑定 mode 共有七种(0~6) bond0、bond1、bond2、bond3、bond4、bond5、bond6. 常用的有三种 mode=0：平衡负载模式，有自动备援，需要交换机设置。使用mode0时与网卡相连的交换机必须做特殊配置（这两个端口应该采取聚合方式） mode=1：自动备援模式，其中一条线若断线，其他线路将会自动备援。 mode=6：平衡负载模式，有自动备援">
@@ -370,7 +370,8 @@
 <h3 id="常用的有三种"><a href="#常用的有三种" class="headerlink" title="常用的有三种"></a>常用的有三种</h3><ul>
 <li>mode=0：平衡负载模式，有自动备援，需要交换机设置。<strong>使用mode0时与网卡相连的交换机必须做特殊配置（这两个端口应该采取聚合方式）</strong></li>
 <li>mode=1：自动备援模式，其中一条线若断线，其他线路将会自动备援。</li>
-<li>mode=6：平衡负载模式，有自动备援。<h3 id="七种模式说明"><a href="#七种模式说明" class="headerlink" title="七种模式说明"></a>七种模式说明</h3>mode=0，即：(balance-rr) Round-robin policy（平衡抡循环策略）。</li>
+<li>mode=6：平衡负载模式，有自动备援。<a id="more"></a>
+<h3 id="七种模式说明"><a href="#七种模式说明" class="headerlink" title="七种模式说明"></a>七种模式说明</h3>mode=0，即：(balance-rr) Round-robin policy（平衡抡循环策略）。</li>
 </ul>
 <p>特点：传输数据包顺序是依次传输（即：第1个包走eth0，下一个包就走eth1….一直循环下去，直到最后一个传输完毕），此模式提供负载平衡和容错能力；但是我们知道如果一个连接或者会话的数据包从不同的接口发出的话，中途再经过不同的链路，在客户端很有可能会出现数据包无序到达的问题，而无序到达的数据包需要重新要求被发送，这样网络的吞吐量就会下降</p>
 <p>mode=1，即： (active-backup) Active-backup policy（主-备份策略）。</p>
@@ -496,8 +497,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/2017/11/22/CentOS6-7下双网卡绑定配置指南/" rel="next" title="CentOS6.7下多网卡绑定配置指南">
-                <i class="fa fa-chevron-left"></i> CentOS6.7下多网卡绑定配置指南
+              <a href="/posts/2017/11/14/jvm问题/" rel="next" title="Error occurred during initialization of VM问题">
+                <i class="fa fa-chevron-left"></i> Error occurred during initialization of VM问题
               </a>
             
           </div>
@@ -583,7 +584,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -605,7 +606,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
