@@ -82,14 +82,14 @@
 <meta name="description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux集群时钟同步ntp（NetworkTimeProtocol）安装指南">
+<meta property="og:title" content="Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
 <meta property="og:description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-03T01:28:25.022Z">
+<meta property="og:updated_time" content="2017-11-21T02:00:45.580Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux集群时钟同步ntp（NetworkTimeProtocol）安装指南">
+<meta name="twitter:title" content="Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南">
 <meta name="twitter:description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>Linux集群时钟同步ntp（NetworkTimeProtocol）安装指南 | blueHaw's Notes</title>
+  <title>Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南 | blueHaw's Notes</title>
   
 
 
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux集群时钟同步ntp（NetworkTimeProtocol）安装指南</h1>
+          <h1 class="post-title" itemprop="name headline">Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南</h1>
         
 
         <div class="post-meta">
@@ -385,7 +385,7 @@
 </ul>
 <a id="more"></a>
 <ul>
-<li>如果没安装，使用： <code>yum install ntp</code> 安装<h3 id="2-设置开机启动：-chkconfig-ntpd-on"><a href="#2-设置开机启动：-chkconfig-ntpd-on" class="headerlink" title="2.    设置开机启动： chkconfig ntpd on"></a>2.    设置开机启动： <code>chkconfig ntpd on</code></h3><h3 id="3-修改-etc-ntp-conf"><a href="#3-修改-etc-ntp-conf" class="headerlink" title="3.    修改/etc/ntp.conf"></a>3.    修改<code>/etc/ntp.conf</code></h3></li>
+<li>如果没安装，使用： <code>yum install ntpd</code> 安装<h3 id="2-设置开机启动：-chkconfig-ntpd-on"><a href="#2-设置开机启动：-chkconfig-ntpd-on" class="headerlink" title="2.    设置开机启动： chkconfig ntpd on"></a>2.    设置开机启动： <code>chkconfig ntpd on</code></h3><h3 id="3-修改-etc-ntp-conf"><a href="#3-修改-etc-ntp-conf" class="headerlink" title="3.    修改/etc/ntp.conf"></a>3.    修改<code>/etc/ntp.conf</code></h3></li>
 <li>将<code>restrict default kod nomodify notrap nopeer noquery</code>注释掉，这个对客户端的限制太多。<strong>ntp 4.2之前版本</strong>添加<code>restrict default nomodify notrust</code>（允许任何IP的客户机都可以进行时间同步）以允许所有客户端获取时间数据。<code>notrust</code> 参数的功能是并需通过认证才能同步，也就是客户端同步命令中必须有<code>keyid</code>和<code>key</code>才能通过。</li>
 <li>注释掉所有的<code>trustedkey</code>， 添加 <code>trustedkey 1 2 3</code>，后边指定数字任意，但必须与<code>/etc/ntp/keys</code>文件中的 值保持一致。也就是说<code>1 2 3</code> 这三个数分别作为认证的<code>keyid</code>。</li>
 <li><p>配置时间源， 指定同步参考的服务器时间。如果连接不了外网就把所有外网时间服务器都注释掉</p>
@@ -417,7 +417,7 @@
 </li>
 </ol>
 <h4 id="问题二：-10-148-27-166-Server-dropped-Strata-too-high"><a href="#问题二：-10-148-27-166-Server-dropped-Strata-too-high" class="headerlink" title="问题二： 10.148.27.166: Server dropped: Strata too high"></a>问题二： <code>10.148.27.166: Server dropped: Strata too high</code></h4><p><code>startum</code>的值正常情况下为<code>0~15</code>，修改<code>/etc/ntp.conf</code>中：startum后面的值在0~15之间即可。</p>
-<h4 id="问题三：-一直提示step-time-server"><a href="#问题三：-一直提示step-time-server" class="headerlink" title="问题三： 一直提示step time server"></a>问题三： 一直提示<code>step time server</code></h4><p>重启一下，<code>service ntpd restart</code></p>
+<h4 id="问题三：-一直提示step-time-server"><a href="#问题三：-一直提示step-time-server" class="headerlink" title="问题三： 一直提示step time server"></a>问题三： 一直提示<code>step time server</code></h4><p>重启 ntp <code>service ntpd restart</code> ，还没有解决稍等一下再手动同步</p>
 <p>成功返回<code>adjust time server 10.148.27.166 offset 0.000073 sec</code></p>
 <h3 id="8-常用命令"><a href="#8-常用命令" class="headerlink" title="8. 常用命令"></a>8. 常用命令</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看ntp版本</span></div><div class="line">ntpq -c version</div><div class="line">ntpdate -u ip</div><div class="line"><span class="comment"># NTP服务状态</span></div><div class="line">ntpstat</div><div class="line">ntpq -p</div><div class="line"><span class="comment"># 查看NTP服务的运行状况</span></div><div class="line">watch ntpq -p</div></pre></td></tr></table></figure>
 
@@ -440,7 +440,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/" title="Linux集群时钟同步ntp（NetworkTimeProtocol）安装指南">https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/</a>
+    <a href="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/" title="Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南">https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -570,7 +570,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -581,7 +581,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

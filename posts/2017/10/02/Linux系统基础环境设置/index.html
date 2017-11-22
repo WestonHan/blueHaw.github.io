@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
 <meta property="og:description" content="1. 更换本地yum源1. 从ustc下载.repo文件，切换源1cd /etc/yum.repos.d/ 将原有xx.repo文件全部改名为xx.repo.bak(rename .repo  .repo.bak *.repo)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-14T09:51:28.304Z">
+<meta property="og:updated_time" content="2017-11-15T02:15:41.331Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux系统基础环境设置">
 <meta name="twitter:description" content="1. 更换本地yum源1. 从ustc下载.repo文件，切换源1cd /etc/yum.repos.d/ 将原有xx.repo文件全部改名为xx.repo.bak(rename .repo  .repo.bak *.repo)">
@@ -377,11 +377,7 @@
 <h3 id="6-禁用SELINUX"><a href="#6-禁用SELINUX" class="headerlink" title="6. 禁用SELINUX"></a>6. 禁用SELINUX</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim  /etc/selinux/config</div></pre></td></tr></table></figure>
 <p>将<code>SELINUX=enforcing</code>改为<code>SELINUX=disabled</code></p>
 <h3 id="7-修改默认启动级别"><a href="#7-修改默认启动级别" class="headerlink" title="7. 修改默认启动级别"></a>7. 修改默认启动级别</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /etc/inittab</div><div class="line"><span class="comment">#默认为5：图形界面的多用户</span></div><div class="line"><span class="comment">#修改为3：带网络的多用户</span></div><div class="line">id:3:initdefault:</div></pre></td></tr></table></figure>
-<h3 id="8-设置Linux系统时区"><a href="#8-设置Linux系统时区" class="headerlink" title="8. 设置Linux系统时区"></a>8. 设置Linux系统时区</h3><pre><code class="bash">TZ=Asia/Shanghai
-ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime
-<span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone
-</code></pre>
-
+<h3 id="8-设置Linux系统时区"><a href="#8-设置Linux系统时区" class="headerlink" title="8. 设置Linux系统时区"></a>8. 设置Linux系统时区</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">TZ=Asia/Shanghai</div><div class="line">ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime</div><div class="line"><span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</div><div class="line">``` </div><div class="line"><span class="comment">### 9. 设置系统（CentOS6.7）编码</span></div><div class="line">```bash</div><div class="line">vim /etc/sysconfig/i18n</div><div class="line"></div><div class="line">LANG=<span class="string">"en_US.UTF-8"</span></div><div class="line">LANGUAGE=<span class="string">"en_US:en"</span></div><div class="line">LC_ALL=<span class="string">"en_US.UTF-8"</span></div></pre></td></tr></table></figure>
       
     </div>
     
@@ -531,7 +527,7 @@ ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -542,7 +538,7 @@ ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -273,6 +273,370 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/11/22/CentOS6-7下多网卡绑定配置指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/2017/11/22/CentOS6-7下多网卡绑定配置指南/" itemprop="url">CentOS6.7下多网卡绑定配置指南</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-22T12:19:17+08:00">
+                2017-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Linux 网卡绑定 mode 共有七种(0~6) bond0、bond1、bond2、bond3、bond4、bond5、bond6.</p>
+<h3 id="常用的有三种"><a href="#常用的有三种" class="headerlink" title="常用的有三种"></a>常用的有三种</h3><ul>
+<li>mode=0：平衡负载模式，有自动备援，需要交换机设置。<strong>使用mode0时与网卡相连的交换机必须做特殊配置（这两个端口应该采取聚合方式）</strong></li>
+<li>mode=1：自动备援模式，其中一条线若断线，其他线路将会自动备援。</li>
+<li>mode=6：平衡负载模式，有自动备援。<h3 id="七种模式说明"><a href="#七种模式说明" class="headerlink" title="七种模式说明"></a>七种模式说明</h3>mode=0，即：(balance-rr) Round-robin policy（平衡抡循环策略）。</li>
+</ul>
+<p>特点：传输数据包顺序是依次传输（即：第1个包走eth0，下一个包就走eth1….一直循环下去，直到最后一个传输完毕），此模式提供负载平衡和容错能力；但是我们知道如果一个连接或者会话的数据包从不同的接口发出的话，中途再经过不同的链路，在客户端很有可能会出现数据包无序到达的问题，而无序到达的数据包需要重新要求被发送，这样网络的吞吐量就会下降</p>
+<p>mode=1，即： (active-backup) Active-backup policy（主-备份策略）。</p>
+<p>特点：只有一个设备处于活动状态，当一个宕掉另一个马上由备份转换为主设备。mac地址是外部可见得，从外面看来，bond的MAC地址是唯一的，以避免switch(交换机)发生混乱。此模式只提供了容错能力；由此可见此算法的优点是可以提供高网络连接的可用性，但是它的资源利用率较低，只有一个接口处于工作状态，在有 N 个网络接口的情况下，资源利用率为1/N</p>
+<p>mod=2，即：(balance-xor) XOR policy（平衡策略）</p>
+<p>特点：基于指定的传输HASH策略传输数据包。缺省的策略是：(源MAC地址 XOR 目标MAC地址) % slave数量。其他的传输策略可以通过xmit_hash_policy选项指定，此模式提供负载平衡和容错能力</p>
+<p>mod=3，即：broadcast（广播策略）</p>
+<p>特点：在每个slave接口上传输每个数据包，此模式提供了容错能力</p>
+<p>mod=4，即：(802.3ad) IEEE 802.3ad Dynamic link aggregation（IEEE 802.3ad 动态链接聚合）</p>
+<p>特点：创建一个聚合组，它们共享同样的速率和双工设定。根据802.3ad规范将多个slave工作在同一个激活的聚合体下。外出流量的slave选举是基于传输hash策略，该策略可以通过xmit_hash_policy选项从缺省的XOR策略改变到其他策略。需要注意的 是，并不是所有的传输策略都是802.3ad适应的，尤其考虑到在802.3ad标准43.2.4章节提及的包乱序问题。不同的实现可能会有不同的适应 性。</p>
+<p>必要条件：</p>
+<ul>
+<li>条件1：ethtool支持获取每个slave的速率和双工设定</li>
+<li>条件2：switch(交换机)支持IEEE 802.3ad Dynamic link aggregation</li>
+<li>条件3：大多数switch(交换机)需要经过特定配置才能支持802.3ad模式</li>
+</ul>
+<p>mod=5，即：(balance-tlb) Adaptive transmit load balancing（适配器传输负载均衡）</p>
+<p>特点：不需要任何特别的switch(交换机)支持的通道bonding。在每个slave上根据当前的负载（根据速度计算）分配外出流量。如果正在接受数据的slave出故障了，另一个slave接管失败的slave的MAC地址。<br>该模式的必要条件：ethtool支持获取每个slave的速率</p>
+<p>mode=6，即：(balance-alb) Adaptive load balancing（适配器适应性负载均衡）</p>
+<p>特点：该模式包含了balance-tlb模式，同时加上针对IPV4流量的接收负载均衡(receive load balance, rlb)，而且不需要任何switch(交换机)的支持。接收负载均衡是通过ARP协商实现的。bonding驱动截获本机发送的ARP应答，并把源硬件地址改写为bond中某个slave的唯一硬件地址，从而使得不同的对端使用不同的硬件地址进行通信。</p>
+<p>来自服务器端的接收流量也会被均衡。当本机发送ARP请求时，bonding驱动把对端的IP信息从ARP包中复制并保存下来。当ARP应答从对端到达 时，bonding驱动把它的硬件地址提取出来，并发起一个ARP应答给bond中的某个slave。使用ARP协商进行负载均衡的一个问题是：每次广播 ARP请求时都会使用bond的硬件地址，因此对端学习到这个硬件地址后，接收流量将会全部流向当前的slave。这个问题可以通过给所有的对端发送更新 （ARP应答）来解决，应答中包含他们独一无二的硬件地址，从而导致流量重新分布。当新的slave加入到bond中时，或者某个未激活的slave重新 激活时，接收流量也要重新分布。接收的负载被顺序地分布（round robin）在bond中最高速的slave上。</p>
+<p>当某个链路被重新接上，或者一个新的slave加入到bond中，接收流量在所有当前激活的slave中全部重新分配，通过使用指定的MAC地址给每个 client发起ARP应答。下面介绍的updelay参数必须被设置为某个大于等于switch(交换机)转发延时的值，从而保证发往对端的ARP应答 不会被switch(交换机)阻截。</p>
+<p>必要条件：</p>
+<ul>
+<li>条件1：ethtool支持获取每个slave的速率；</li>
+<li>条件2：底层驱动支持设置某个设备的硬件地址，从而使得总是有个slave(curr_active_slave)使用bond的硬件地址，同时保证每个bond 中的slave都有一个唯一的硬件地址。如果curr_active_slave出故障，它的硬件地址将会被新选出来的 curr_active_slave接管</li>
+</ul>
+<p>mod=6与mod=0的区别：mod=6，先把eth0流量占满，再占eth1，….ethX；而mod=0的话，会发现2个口的流量都很稳定，基本一样的带宽。而mod=6，会发现第一个口流量很高，第2个口只占了小部分流量。</p>
+<h2 id="配置流程"><a href="#配置流程" class="headerlink" title="配置流程"></a>配置流程</h2><h3 id="0-流程说明"><a href="#0-流程说明" class="headerlink" title="0. 流程说明"></a>0. 流程说明</h3><p>2 个物理网口分别是： eth0 , eth1</p>
+<p>绑定后的虚拟口是：bond0</p>
+<p>服务器 IP 是：192.168.1.115</p>
+<h3 id="1-配置网卡"><a href="#1-配置网卡" class="headerlink" title="1. 配置网卡"></a>1. 配置网卡</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service NetworkManager <span class="literal">stop</span> <span class="comment"># 关闭NetworkManager服务，如果没有NetworkManager服务可以忽略</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /etc/sysconfig/network-scripts/</div><div class="line">cp ifcfg-eth0 ifcfg-bond0</div></pre></td></tr></table></figure>
+<p><code>vim /etc/sysconfig/network-scripts/ifcfg-bond0</code><br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="attr">DEVICE</span>=bond0</div><div class="line"><span class="attr">BOOTPROTO</span>=none</div><div class="line"><span class="attr">ONBOOT</span>=<span class="literal">yes</span></div><div class="line"><span class="attr">IPADDR</span>=<span class="number">192.168</span>.<span class="number">1.115</span></div><div class="line"><span class="attr">NETMASK</span>=<span class="number">255.255</span>.<span class="number">255.0</span></div><div class="line"><span class="attr">NETWORK</span>=<span class="number">192.168</span>.<span class="number">0.0</span></div><div class="line"><span class="attr">BROADCAST</span>=<span class="number">192.168</span>.<span class="number">1.255</span></div><div class="line"><span class="comment">#BROADCAST广播地址</span></div></pre></td></tr></table></figure></p>
+<p><code>vim /etc/sysconfig/network-scripts/ifcfg-eth0</code><br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">DEVICE</span>=eth0</div><div class="line"><span class="attr">BOOTPROTO</span>=none</div><div class="line"><span class="attr">MASTER</span>=bond0</div><div class="line"><span class="attr">SLAVE</span>=<span class="literal">yes</span></div></pre></td></tr></table></figure></p>
+<p><code>vim /etc/sysconfig/network-scripts/ifcfg-eth1</code><br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">DEVICE</span>=eth1</div><div class="line"><span class="attr">BOOTPROTO</span>=none</div><div class="line"><span class="attr">MASTER</span>=bond0</div><div class="line"><span class="attr">SLAVE</span>=<span class="literal">yes</span></div></pre></td></tr></table></figure></p>
+<h3 id="2-修改-modprobe-相关设定文件，并加载-bonding-模块"><a href="#2-修改-modprobe-相关设定文件，并加载-bonding-模块" class="headerlink" title="2. 修改 modprobe 相关设定文件，并加载 bonding 模块"></a>2. 修改 <code>modprobe</code> 相关设定文件，并加载 <code>bonding</code> 模块</h3><ol>
+<li>在这里，我们直接创建一个加载 <code>bonding</code> 的专属设定文件 <code>/etc/modprobe.d/bonding.conf</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim /etc/modprobe.d/bonding.conf</div><div class="line"><span class="comment">#追加</span></div><div class="line"><span class="built_in">alias</span> bond0 bonding</div><div class="line"></div><div class="line">options bonding mode=6 miimon=80</div></pre></td></tr></table></figure>
+<ol>
+<li>加载模块(重启系统后就不用手动再加载了)</li>
+</ol>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root<span class="symbol">@test</span> ~]<span class="meta"># modprobe bonding</span></div></pre></td></tr></table></figure>
+<ol>
+<li>确认模块是否加载成功：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@hadoop-01 network-scripts]<span class="comment"># lsmod | grep bonding</span></div><div class="line">bonding               132885  0</div></pre></td></tr></table></figure>
+<h3 id="3-重启一下网络，检查设置是否生效"><a href="#3-重启一下网络，检查设置是否生效" class="headerlink" title="3. 重启一下网络，检查设置是否生效"></a>3. 重启一下网络，检查设置是否生效</h3><p><code>service network restart</code> ，如果没生效，重启试试。<br><figure class="highlight tcl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">[root@hadoop<span class="number">-01</span> network-scripts]# cat /<span class="keyword">proc</span>/net/bonding/bond0</div><div class="line">Ethernet<span class="title"> Channel</span> Bonding<span class="title"> Driver:</span> v3.7.1 (April 27, 2011)</div><div class="line"></div><div class="line">Bonding<span class="title"> Mode:</span> load<span class="title"> balancing</span> (round-robin)</div><div class="line">MII<span class="title"> Status:</span> up</div><div class="line">MII<span class="title"> Polling</span> Interval (ms): 100</div><div class="line">Up<span class="title"> Delay</span> (ms): 0</div><div class="line">Down<span class="title"> Delay</span> (ms): 0</div><div class="line"></div><div class="line">Slave<span class="title"> Interface:</span> eth0</div><div class="line">MII<span class="title"> Status:</span> up</div><div class="line">Speed: 1000<span class="title"> Mbps</span></div><div class="line"><span class="title">Duplex:</span> full</div><div class="line">Link<span class="title"> Failure</span> Count: 0</div><div class="line">Permanent<span class="title"> HW</span> addr: 00:0c:29:ff:5d:a0</div><div class="line">Slave<span class="title"> queue</span> ID: 0</div><div class="line"></div><div class="line">Slave<span class="title"> Interface:</span> eth1</div><div class="line">MII<span class="title"> Status:</span> up</div><div class="line">Speed: 1000<span class="title"> Mbps</span></div><div class="line"><span class="title">Duplex:</span> full</div><div class="line">Link<span class="title"> Failure</span> Count: 0</div><div class="line">Permanent<span class="title"> HW</span> addr: 00:0c:29:ff:5d:aa</div><div class="line">Slave<span class="title"> queue</span> ID: 0</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@hadoop-01 network-scripts]<span class="comment"># ifconfig | grep HWaddr</span></div><div class="line">bond0     Link encap:Ethernet  HWaddr 00:0C:29:FF:5D:A0  </div><div class="line">bond1     Link encap:Ethernet  HWaddr 00:0C:29:FF:5D:B4  </div><div class="line">eth0      Link encap:Ethernet  HWaddr 00:0C:29:FF:5D:A0  </div><div class="line">eth1      Link encap:Ethernet  HWaddr 00:0C:29:FF:5D:A0  </div><div class="line">eth2      Link encap:Ethernet  HWaddr 00:0C:29:FF:5D:B4  </div><div class="line">eth3      Link encap:Ethernet  HWaddr 00:0C:29:FF:5D:B4</div></pre></td></tr></table></figure>
+<p>可以看出：</p>
+<ol>
+<li>现在的 bonding 模式是 round-robin 即 mode = 0</li>
+<li>bond0 , eth1 的物理地址和 eth0 的物理地址相同，这样是为了避免上位交换机发生混乱。</li>
+</ol>
+<h3 id="4-系统启动自动绑定、增加默认网关-etc-rc-d-rc-local"><a href="#4-系统启动自动绑定、增加默认网关-etc-rc-d-rc-local" class="headerlink" title="4. 系统启动自动绑定、增加默认网关 /etc/rc.d/rc.local"></a>4. 系统启动自动绑定、增加默认网关 <code>/etc/rc.d/rc.local</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">#追加</span></div><div class="line">ifenslave bond0 eth0 eth1</div><div class="line">ifenslave bond1 eth2 eth3</div></pre></td></tr></table></figure>
+<blockquote>
+<p>前面只是2个网口绑定成一个bond0的情况，如果我们要设置多个bond口，比如物理网口eth0和eth1组成bond0，eth2和eth3组成bond1，那么网口设置文件的设置方法和上面第1步讲的方法相同，只是 <code>/etc/modprobe.d/bonding.conf</code> 的设定就不能像下面这样简单的叠加了：</p>
+</blockquote>
+<p>正确的设置方法有2种：</p>
+<p>第一种,你可以看到，这种方式的话，多个bond口的模式就只能设成相同的了：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">alias bond0 bonding</div><div class="line"></div><div class="line">alias bond1 bonding</div><div class="line"></div><div class="line">options bonding <span class="attribute">max_bonds</span>=2 <span class="attribute">miimon</span>=80 <span class="attribute">mode</span>=6</div></pre></td></tr></table></figure>
+<p>第二种，这种方式，不同的bond口的mode可以设成不一样：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">alias bond0 bonding</div><div class="line"></div><div class="line">options bonding <span class="attribute">mode</span>=6 <span class="attribute">miimon</span>=80</div><div class="line"></div><div class="line">install bond1 /sbin/modprobe bonding -o bond1 <span class="attribute">miimon</span>=100 <span class="attribute">mode</span>=1</div></pre></td></tr></table></figure>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><ul>
+<li>参考资料： <a href="http://www.cnblogs.com/archoncap/p/6079915.html" target="_blank" rel="external">http://www.cnblogs.com/archoncap/p/6079915.html</a></li>
+<li>mode 1、5、6 不需要交换机设置</li>
+<li>mode 0、2、3、4 需要交换机设置</li>
+<li>缺省使用mode 0</li>
+<li>Mode 0－（balance-rr）轮询模式，所绑定的网卡会针对访问以轮询算法进行平分。第一个请求来了发送给第一块网卡处理，第二个请求来了，就发往第二块网卡进行处理，以此提供负载均衡能力。但此模式没有容错能力，即只要有一块网卡不能正常工作，则会出错。</li>
+<li>Mode 1－（active-backup）高可用模式，运行时只使用一个网卡，其余网卡作为备份，在负载不超过单块网卡带宽或压力时建议使用。只有当正在工作的网卡出故障时备用网卡才会被激活，并及时替换坏了的网卡进行工作，可见这个模式并不能提升数据处理性能，但是有容错能力，因此常运用在实际生产环境中。</li>
+<li>Mode 2－基于HASH算法的负载均衡模式，网卡的分流按照xmit_hash_policy的TCP协议层设置来进行HASH计算分流，使各种不同处理来源的访问都尽量在同一个网卡上进行处理。</li>
+<li>Mode 3－广播模式，所有被绑定的网卡都将得到相同的数据，一般用于十分特殊的网络需求，如需要对两个互相没有连接的交换机发送相同的数据。</li>
+<li>Mode 4－802.3ab负载均衡模式，要求交换机也支持802.3ab模式，理论上服务器及交换机都支持此模式时，网卡带宽最高可以翻倍(如从1Gbps翻到2Gbps)</li>
+<li>Mode 5－适配器输出负载均衡模式，输出的数据会通过所有被绑定的网卡输出，接收数据时则只选定其中一块网卡。如果正在用于接收数据的网卡发生故障，则由其他网卡接管，要求所用的网卡及网卡驱动可通过ethtool命令得到speed信息。</li>
+<li>Mode 6－适配器输入/输出负载均衡模式，在”模式5″的基础上，在接收数据的同时实现负载均衡，除要求ethtool命令可得到speed信息外，还要求支持对网卡MAC地址的动态修改功能。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/11/22/CentOS6-7下双网卡绑定配置指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/2017/11/22/CentOS6-7下双网卡绑定配置指南/" itemprop="url">CentOS6.7下多网卡绑定配置指南</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-22T11:03:40+08:00">
+                2017-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/11/14/jvm问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -438,7 +802,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/2017/11/10/CentOS6-7下磁盘分区操作指南/" itemprop="url">CentOS6.7磁盘分区操作指南</a></h1>
+                <a class="post-title-link" href="/posts/2017/11/10/CentOS6-7下磁盘分区操作指南/" itemprop="url">CentOS6.7磁盘分区与挂载操作指南</a></h1>
         
 
         <div class="post-meta">
@@ -511,12 +875,14 @@
 
       
         
-          
-            <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>本文介绍使用 <code>fdisk</code> 和 <code>parted</code> 进行磁盘分区，其中 <code>fdisk</code> 只能对 <code>2T</code> 以下磁盘分区。</p>
-<h3 id="2-操作流程"><a href="#2-操作流程" class="headerlink" title="2. 操作流程"></a>2. 操作流程</h3><h4 id="2-1-总体说明"><a href="#2-1-总体说明" class="headerlink" title="2.1 总体说明"></a>2.1 总体说明</h4><p>磁盘分区的步骤为首先新建分区，然后格式化分区，最后挂载到目录。</p>
-<h4 id="2-2-新建分区"><a href="#2-2-新建分区" class="headerlink" title="2.2 新建分区"></a>2.2 新建分区</h4><p>运行<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fdisk -l</span></div></pre></td></tr></table></figure></p>
-<h4 id="2-2-格式化分区"><a href="#2-2-格式化分区" class="headerlink" title="2.2 格式化分区"></a>2.2 格式化分区</h4><h4 id="2-2-挂载到目录"><a href="#2-2-挂载到目录" class="headerlink" title="2.2 挂载到目录"></a>2.2 挂载到目录</h4><h3 id="3-注意事项"><a href="#3-注意事项" class="headerlink" title="3. 注意事项"></a>3. 注意事项</h3>
-          
+          <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>本文介绍使用 <code>fdisk</code> 和 <code>parted</code> 进行磁盘分区，其中 <code>fdisk</code> 只能对 <code>2T</code> 以下磁盘分区。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/2017/11/10/CentOS6-7下磁盘分区操作指南/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -687,125 +1053,6 @@
 <p>代表重定向到哪里，例如：echo “123” &gt; /home/123.txt<br>1 表示stdout标准输出，系统默认值是1，所以”&gt;/dev/null”等同于”1&gt;/dev/null”<br>2 表示stderr标准错误<br>&amp; 表示等同于的意思，2&gt;&amp;1，表示2的输出重定向等同于1</p>
 </blockquote>
 
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/23/Linux下用fdisk磁盘分区/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="blueHaw">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blueHaw's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/2017/10/23/Linux下用fdisk磁盘分区/" itemprop="url">Linux下用fdisk磁盘分区</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T18:14:59+08:00">
-                2017-10-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
           
         
       
@@ -1303,163 +1550,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/12/CentOS6-7下新建XFS文件系统指南/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="blueHaw">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blueHaw's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/2017/10/12/CentOS6-7下新建XFS文件系统指南/" itemprop="url">CentOS6.7下新建XFS文件系统指南</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T23:43:04+08:00">
-                2017-10-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/XFS/" itemprop="url" rel="index">
-                    <span itemprop="name">XFS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1-对新磁盘分区"><a href="#1-对新磁盘分区" class="headerlink" title="1. 对新磁盘分区"></a>1. 对新磁盘分区</h3>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/2017/10/12/CentOS6-7下新建XFS文件系统指南/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/12/Linux下SVNServer部署手册/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1846,7 +1936,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1857,7 +1947,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
