@@ -139,7 +139,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Docker1.7.1在CentosOS6.7上安装指南]]></title>
+    <title><![CDATA[Docker1.7.1 在 CentosOS6.7 上安装指南]]></title>
     <url>%2Fposts%2F2017%2F10%2F12%2FDocker1-7-1%E5%9C%A8CentosOS6-7%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%2F</url>
     <content type="text"><![CDATA[安装包 kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm libcgroup-0.40.rc1-23.el6.x86_64.rpm docker-engine-1.7.1-1.el6.x86_64.rpm 安装新版本内核注意：V4 CPU安装新版本内核有问题，不要安装，查看 CPU 型号命令如下，看到 V4 不要安装。12[root@docker1 ~]# cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c 32 Intel(R) Xeon(R) CPU E5-2620 V4 @ 2.10GHz 安装12345678910rpm -ivh kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm``` &lt;!--more --&gt;将新内核作为默认启动的内核，编辑内核配置文件 `/boot/grub/grub.conf`，将默认的 `default=1` 修改为 0。`/boot/grub/grub.conf`配置文件解析```bashdefault=0 # 表示第一个 title 下的内容为默认启动的 kernel 安装 cgroups,docker 依赖项1rpm -ivh libcgroup-0.40.rc1-23.el6.x86_64.rpm 安装 docker 1.7.11rpm -ivh docker-engine-1.7.1-1.el6.x86_64.rpm 修改 Docker 配置文件 /etc/sysconfig/docker,主要为 Docker 仓库和 4243 服务端口外放 --insecure-registry后面是私人仓库地址，根据实际修改 --graph 指定 Docker 默认存放路径 下面是栗子：1other_args="-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock --graph=/var/lib/docker --insecure-registry 192.168.1.100:5000" 启动system docker start，查看版本信息：12[root@docker1 ~]# docker -vDocker version 1.7.1, build 786b29d]]></content>
       <categories>
