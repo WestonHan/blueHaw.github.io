@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1. Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。">
+<meta name="description" content="Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。">
 <meta name="keywords" content="虚拟机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟机（Vmware）桥接模式CentOS 6系统下使用静态IP上外网配置指南">
 <meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/22/虚拟机（Vmware）桥接模式使用静态IP上网/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="1. Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。">
+<meta property="og:description" content="Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-03T01:34:42.438Z">
+<meta property="og:updated_time" content="2017-12-01T05:18:20.924Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟机（Vmware）桥接模式CentOS 6系统下使用静态IP上外网配置指南">
-<meta name="twitter:description" content="1. Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。">
+<meta name="twitter:description" content="Vmware设置打开Vmware，单击 【编辑】 -&amp;gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中VMnet0，在VMnet信息里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择Qualcomm Atheros AR9485 Wireless Network Adapter无线网卡。">
 
 
 
@@ -366,9 +366,9 @@
       
 
       
-        <h3 id="1-Vmware设置"><a href="#1-Vmware设置" class="headerlink" title="1. Vmware设置"></a>1. Vmware设置</h3><p>打开<code>Vmware</code>，单击 【编辑】 -&gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中<code>VMnet0</code>，在<code>VMnet信息</code>里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择<code>Qualcomm Atheros AR9485 Wireless Network Adapter</code>无线网卡。<br><a id="more"></a></p>
-<h3 id="2-虚拟机设置"><a href="#2-虚拟机设置" class="headerlink" title="2. 虚拟机设置"></a>2. 虚拟机设置</h3><p>打开虚拟机界面，单击【编辑虚拟机设置】，点击左侧【网络适配器】，选择【桥接模式】（<em>复制物理网络连接状态我没选过，不知道选了怎样</em>），或者 【自定义】 –&gt; VMnet0。</p>
-<h3 id="3-CentOS系统网卡设置静态IP地址"><a href="#3-CentOS系统网卡设置静态IP地址" class="headerlink" title="3. CentOS系统网卡设置静态IP地址"></a>3. CentOS系统网卡设置静态IP地址</h3><p>首先查看物理主机ip地址，我连接的是无线网，信息如下：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">无线局域网适配器 WLAN:</div><div class="line"></div><div class="line">   连接特定的<span class="built_in"> DNS </span>后缀 . . . . . . . :</div><div class="line">   本地链接<span class="built_in"> IPv6 </span>地址. . . . . . . . : fe80::796c:6c41:254c:b8b4%12</div><div class="line">   IPv4 地址 . . . . . . . . . . . . : 192.168.0.105</div><div class="line">   子网掩码  . . . . . . . . . . . . : 255.255.255.0</div><div class="line">   默认网关. . . . . . . . . . . . . : 192.168.0.1</div></pre></td></tr></table></figure></p>
+        <h1 id="Vmware设置"><a href="#Vmware设置" class="headerlink" title="Vmware设置"></a>Vmware设置</h1><p>打开<code>Vmware</code>，单击 【编辑】 -&gt; 【虚拟网络编辑器】。然后点击 【更改设置】，选中<code>VMnet0</code>，在<code>VMnet信息</code>里选择【桥接模式】，桥接到你上网用的网卡。我电脑连的WiFi，所以选择<code>Qualcomm Atheros AR9485 Wireless Network Adapter</code>无线网卡。<br><a id="more"></a></p>
+<h1 id="虚拟机设置"><a href="#虚拟机设置" class="headerlink" title="虚拟机设置"></a>虚拟机设置</h1><p>打开虚拟机界面，单击【编辑虚拟机设置】，点击左侧【网络适配器】，选择【桥接模式】（<em>复制物理网络连接状态我没选过，不知道选了怎样</em>），或者 【自定义】 –&gt; VMnet0。</p>
+<h1 id="CentOS系统网卡设置静态IP地址"><a href="#CentOS系统网卡设置静态IP地址" class="headerlink" title="CentOS系统网卡设置静态IP地址"></a>CentOS系统网卡设置静态IP地址</h1><p>首先查看物理主机ip地址，我连接的是无线网，信息如下：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">无线局域网适配器 WLAN:</div><div class="line"></div><div class="line">   连接特定的<span class="built_in"> DNS </span>后缀 . . . . . . . :</div><div class="line">   本地链接<span class="built_in"> IPv6 </span>地址. . . . . . . . : fe80::796c:6c41:254c:b8b4%12</div><div class="line">   IPv4 地址 . . . . . . . . . . . . : 192.168.0.105</div><div class="line">   子网掩码  . . . . . . . . . . . . : 255.255.255.0</div><div class="line">   默认网关. . . . . . . . . . . . . : 192.168.0.1</div></pre></td></tr></table></figure></p>
 <p>然后进行设置Linux系统的静态IP地址，CentOS文件路径是 <code>/etc/sysconfig/network-scripts/ifcfg-eth0</code>，修改<code>ONBOOT</code>为<code>yes</code>，<code>BOOTPROTO</code>为<code>static</code>，然后添加四行，值根据实际情况修改。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">IPADDR=192.168.0.108</div><div class="line">NETMASK=255.255.255.0</div><div class="line">GATEWAY=192.168.0.1</div><div class="line">DNS1=8.8.8.8</div></pre></td></tr></table></figure></p>
 <ul>
 <li><code>IPADDR</code>确保和物理主机ip地址在同一网段，<code>ping</code>一下确保是没有使用的后可以随意设置。</li>
@@ -377,7 +377,11 @@
 <li><code>DNS1</code>设置为<code>8.8.8.8</code>。</li>
 </ul>
 <p>修改后文件示例如下<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="attr">DEVICE</span>=eth0</div><div class="line"><span class="attr">HWADDR</span>=<span class="number">00</span>:<span class="number">0</span>C:<span class="number">29</span>:F6:<span class="number">7</span>C:EE</div><div class="line"><span class="attr">TYPE</span>=Ethernet</div><div class="line"><span class="attr">UUID</span>=b1646521-c808-<span class="number">411</span>a-<span class="number">840</span>d-b4a52a458340</div><div class="line"><span class="attr">ONBOOT</span>=<span class="literal">yes</span></div><div class="line"><span class="attr">NM_CONTROLLED</span>=<span class="literal">yes</span></div><div class="line"><span class="attr">BOOTPROTO</span>=static</div><div class="line"><span class="attr">IPADDR</span>=<span class="number">192.168</span>.<span class="number">0.108</span></div><div class="line"><span class="attr">NETMASK</span>=<span class="number">255.255</span>.<span class="number">255.0</span></div><div class="line"><span class="attr">GATEWAY</span>=<span class="number">192.168</span>.<span class="number">0.1</span></div><div class="line"><span class="attr">DNS1</span>=<span class="number">8.8</span>.<span class="number">8.8</span></div></pre></td></tr></table></figure></p>
-<p>最后重启网卡应该就可以上外网了<code>service network restart</code>，如果重启网卡仍不能上网，请重启机器。</p>
+<p>最后重启网卡应该就可以上外网了<code>service network restart</code>。</p>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="重启网卡提示-Active-connection-path-org-freedesktop-NetworkManager-ActiveConnection-23"><a href="#重启网卡提示-Active-connection-path-org-freedesktop-NetworkManager-ActiveConnection-23" class="headerlink" title="重启网卡提示 Active connection path: /org/freedesktop/NetworkManager/ActiveConnection/23"></a>重启网卡提示 <code>Active connection path: /org/freedesktop/NetworkManager/ActiveConnection/23</code></h2><p>此时，当前网卡也是可以通信的，但是通过网络管理工具修改IP之后，当前修改操作是不会生效的。那如何消除这个提示呢？</p>
+<p>其实，问题的原因是 RedHat 自己开发的 NetworkManager 管理工具和 /etc/sysconfig/network-scripts/ifcfg-ethx 配置不同步造成的。如果要消除这个提示，请关闭 NetworkManager 服务即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@vdb1 dev]<span class="comment"># chkconfig NetworkManager off  --永久关闭服务，需要重启</span></div><div class="line">[root@vdb1 dev]<span class="comment"># service NetworkManager stop   --立即关闭服务，不需要重启</span></div><div class="line">Stopping NetworkManager daemon:                            [  OK  ]</div></pre></td></tr></table></figure>
+<p>此时，再重新加载network服务即可：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@cdh1 yum.repos.d]<span class="comment"># service network restart</span></div><div class="line">Shutting down interface eth0:                              [  OK  ]</div><div class="line">Shutting down loopback interface:                          [  OK  ]</div><div class="line">Bringing up loopback interface:                            [  OK  ]</div><div class="line">Bringing up interface eth0:  Determining <span class="keyword">if</span> ip address 192.168.1.110 is already <span class="keyword">in</span> use <span class="keyword">for</span> device eth0...</div><div class="line">                                                           [  OK  ]</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -517,7 +521,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -539,7 +543,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -588,7 +592,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Vmware设置"><span class="nav-number">1.</span> <span class="nav-text">1. Vmware设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-虚拟机设置"><span class="nav-number">2.</span> <span class="nav-text">2. 虚拟机设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-CentOS系统网卡设置静态IP地址"><span class="nav-number">3.</span> <span class="nav-text">3. CentOS系统网卡设置静态IP地址</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vmware设置"><span class="nav-number">1.</span> <span class="nav-text">Vmware设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机设置"><span class="nav-number">2.</span> <span class="nav-text">虚拟机设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CentOS系统网卡设置静态IP地址"><span class="nav-number">3.</span> <span class="nav-text">CentOS系统网卡设置静态IP地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重启网卡提示-Active-connection-path-org-freedesktop-NetworkManager-ActiveConnection-23"><span class="nav-number">4.1.</span> <span class="nav-text">重启网卡提示 Active connection path: /org/freedesktop/NetworkManager/ActiveConnection/23</span></a></li></ol></li></ol></div>
             
 
           </div>
