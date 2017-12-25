@@ -679,25 +679,20 @@
 
       
         
-          
-            <h1 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h1><ul>
+          <h1 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h1><ul>
 <li><a href="http://mirror.rc.usf.edu/compute_lock/elrepo/kernel/el6/x86_64/RPMS/kernel-lt-4.4.104-1.el6.elrepo.x86_64.rpm" target="_blank" rel="external">kernel-lt-devel-3.10.104-1.el6.elrepo.x86_64.rpm</a></li>
 <li><a href="http://mirror.centos.org/centos/6/os/x86_64/Packages/libcgroup-0.40.rc1-23.el6.x86_64.rpm" target="_blank" rel="external">libcgroup-0.40.rc1-23.el6.x86_64.rpm</a></li>
 <li><a href="https://yum.dockerproject.org/repo/main/centos/6/Packages/docker-engine-1.7.1-1.el6.x86_64.rpm" target="_blank" rel="external">docker-engine-1.7.1-1.el6.x86_64.rpm</a></li>
 </ul>
 <h1 id="安装流程"><a href="#安装流程" class="headerlink" title="安装流程"></a>安装流程</h1><h2 id="安装新版本内核"><a href="#安装新版本内核" class="headerlink" title="安装新版本内核"></a>安装新版本内核</h2><p><strong><span style="color:red">注意：V4 CPU安装新版本内核有问题，不要安装</span></strong>，查看 CPU 型号命令如下，看到 V4 不要安装。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@docker1 ~]<span class="comment"># cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c</span></div><div class="line">      32  Intel(R) Xeon(R) CPU E5-2620 V4 @ 2.10GHz</div></pre></td></tr></table></figure></p>
-<p>安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">rpm -ivh kernel<span class="_">-lt</span>-devel-3.10.104-1.el6.elrepo.x86_64.rpm</div><div class="line">```	</div><div class="line">&lt;!--more --&gt;</div><div class="line">将新内核作为默认启动的内核，编辑内核配置文件 `/boot/grub/grub.conf`，将默认的 `default=1`  修改为 0。</div><div class="line"></div><div class="line">`/boot/grub/grub.conf`配置文件解析</div><div class="line"></div><div class="line">```bash</div><div class="line">default=0 </div><div class="line"><span class="comment"># 表示第一个 title 下的内容为默认启动的 kernel</span></div></pre></td></tr></table></figure>
-<h2 id="安装-cgroups-docker-依赖项"><a href="#安装-cgroups-docker-依赖项" class="headerlink" title="安装 cgroups,docker 依赖项"></a>安装 cgroups,docker 依赖项</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">rpm</span> <span class="selector-tag">-ivh</span> <span class="selector-tag">libcgroup-0</span><span class="selector-class">.40</span><span class="selector-class">.rc1-23</span><span class="selector-class">.el6</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></div></pre></td></tr></table></figure>
-<h2 id="安装-docker-1-7-1"><a href="#安装-docker-1-7-1" class="headerlink" title="安装 docker 1.7.1"></a>安装 docker 1.7.1</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rpm -ivh docker-engine-1.7.1-1.el6.x86_64.rpm</div></pre></td></tr></table></figure>
-<h2 id="修改-Docker-配置文件-etc-sysconfig-docker-主要为-Docker-仓库和-4243-服务端口外放"><a href="#修改-Docker-配置文件-etc-sysconfig-docker-主要为-Docker-仓库和-4243-服务端口外放" class="headerlink" title="修改 Docker 配置文件 /etc/sysconfig/docker,主要为 Docker 仓库和 4243 服务端口外放"></a>修改 Docker 配置文件 <code>/etc/sysconfig/docker</code>,主要为 Docker 仓库和 4243 服务端口外放</h2><ul>
-<li><code>--insecure-registry</code>后面是私人仓库地址，根据实际修改</li>
-<li><code>--graph</code> 指定 Docker 默认存放路径</li>
-</ul>
-<p>下面是栗子：<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">other_args</span>=<span class="string">"-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock --graph=/var/lib/docker --insecure-registry 192.168.1.100:5000"</span></div></pre></td></tr></table></figure></p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p><code>system docker start</code>，查看版本信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@docker1 ~]<span class="comment"># docker -v</span></div><div class="line">Docker version 1.7.1, build 786b29d</div></pre></td></tr></table></figure></p>
-
-          
+<p>安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rpm -ivh kernel<span class="_">-lt</span>-devel-3.10.104-1.el6.elrepo.x86_64.rpm</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/2017/10/12/Docker1-7-1在CentosOS6-7上的安装指南/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1901,7 +1896,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1912,7 +1907,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
