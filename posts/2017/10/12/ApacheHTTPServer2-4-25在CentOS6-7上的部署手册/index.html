@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Apache," />
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="blueHaw&#39;s Notes">
-<meta property="og:url" content="https://bluehaw.github.io/archives/2017/10/page/3/index.html">
+<meta name="description" content="前言依赖于gcc、gcc-c++、APR、APR-Util、PCRE(pcre而不是pcre2，pcre2后面出错)">
+<meta name="keywords" content="Apache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ApacheHTTPServer2.4.25在CentOS6.7上的部署手册">
+<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/12/ApacheHTTPServer2-4-25在CentOS6-7上的部署手册/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
+<meta property="og:description" content="前言依赖于gcc、gcc-c++、APR、APR-Util、PCRE(pcre而不是pcre2，pcre2后面出错)">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-27T15:17:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="blueHaw&#39;s Notes">
+<meta name="twitter:title" content="ApacheHTTPServer2.4.25在CentOS6.7上的部署手册">
+<meta name="twitter:description" content="前言依赖于gcc、gcc-c++、APR、APR-Util、PCRE(pcre而不是pcre2，pcre2后面出错)">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://bluehaw.github.io/archives/2017/10/page/3/"/>
+  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/12/ApacheHTTPServer2-4-25在CentOS6-7上的部署手册/"/>
 
 
 
 
 
-  <title>归档 | blueHaw's Notes</title>
+  <title>ApacheHTTPServer2.4.25在CentOS6.7上的部署手册 | blueHaw's Notes</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,78 +263,218 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 28 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/12/ApacheHTTPServer2-4-25在CentOS6-7上的部署手册/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blueHaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blueHaw's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/posts/2017/10/02/github学习/" itemprop="url">
-              
-                <span itemprop="name">github学习</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">ApacheHTTPServer2.4.25在CentOS6.7上的部署手册</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-02T19:31:53+08:00"
-              content="2017-10-02" >
-          10-02
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T23:07:28+08:00">
+                2017-10-12
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/中间件/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/中间件/负载均衡/" itemprop="url" rel="index">
+                    <span itemprop="name">负载均衡</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/中间件/负载均衡/Apache/" itemprop="url" rel="index">
+                    <span itemprop="name">Apache</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>依赖于gcc、gcc-c++、APR、APR-Util、PCRE(<strong>pcre而不是pcre2，pcre2后面出错</strong>)<br><a id="more"></a></p>
+<h1 id="安装流程"><a href="#安装流程" class="headerlink" title="安装流程"></a>安装流程</h1><h2 id="安装gcc编译器"><a href="#安装gcc编译器" class="headerlink" title="安装gcc编译器"></a>安装gcc编译器</h2><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">yum</span> <span class="comment">install</span> <span class="literal">-</span><span class="comment">y</span> <span class="comment">gcc</span> <span class="comment">gcc</span><span class="literal">-</span><span class="comment">c</span><span class="literal">+</span><span class="literal">+</span></div></pre></td></tr></table></figure>
+<h2 id="安装APR，放到-var-local目录下，解压："><a href="#安装APR，放到-var-local目录下，解压：" class="headerlink" title="安装APR，放到/var/local目录下，解压："></a>安装APR，放到/var/local目录下，解压：</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-zxvf</span> <span class="selector-tag">apr-1</span><span class="selector-class">.5</span><span class="selector-class">.2</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></div></pre></td></tr></table></figure>
+<p>接着进行安装步骤了，进入到解压的目录下执行如下命令<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=<span class="meta-keyword">/usr/</span>local<span class="meta-keyword">/apr/</span>   （设置apr安装目录，这里的 <span class="meta-keyword">/usr/</span>local<span class="meta-keyword">/apr/</span> 才是apr真正的安装目录）</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure></p>
+<h2 id="安装apr-util"><a href="#安装apr-util" class="headerlink" title="安装apr-util"></a>安装apr-util</h2><p>到网上卸载apr-util-1.5.1.tar.gz。再次解压缩。。。和上面的一样，不过它的安装需要依赖于apr，<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=<span class="regexp">/usr/local</span><span class="regexp">/apr-util/</span> --<span class="keyword">with</span>-apr=<span class="regexp">/usr/local</span><span class="regexp">/apr/</span> </div><div class="line"> </div><div class="line">make </div><div class="line">make install</div></pre></td></tr></table></figure></p>
+<h2 id="安装pcre，同apr"><a href="#安装pcre，同apr" class="headerlink" title="安装pcre，同apr"></a>安装pcre，同apr</h2><h2 id="apache安装"><a href="#apache安装" class="headerlink" title="apache安装"></a>apache安装</h2><p>添加依赖于apr, apr-util, pcre</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>local<span class="regexp">/apache/</span>bin<span class="regexp">/apachectl start</span></div></pre></td></tr></table></figure>
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    blueHaw
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://bluehaw.github.io/posts/2017/10/12/ApacheHTTPServer2-4-25在CentOS6-7上的部署手册/" title="ApacheHTTPServer2.4.25在CentOS6.7上的部署手册">https://bluehaw.github.io/posts/2017/10/12/ApacheHTTPServer2-4-25在CentOS6-7上的部署手册/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Apache/" rel="tag"># Apache</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/2017/10/12/nginx1-11-9在CentOS6-7上的部署指南/" rel="next" title="nginx1.11.9在CentOS6.7上的部署指南">
+                <i class="fa fa-chevron-left"></i> nginx1.11.9在CentOS6.7上的部署指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/2017/10/12/SVNServer在CentOS6-7上的部署指南/" rel="prev" title="SVNServer在CentOS6.7上的部署指南">
+                SVNServer在CentOS6.7上的部署指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2017/10/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2017/10/">1</a><a class="page-number" href="/archives/2017/10/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -337,6 +482,8 @@
 
 
           
+  
+
 
         </div>
         
@@ -357,8 +504,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -377,7 +533,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -438,6 +594,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装流程"><span class="nav-number">2.</span> <span class="nav-text">安装流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装gcc编译器"><span class="nav-number">2.1.</span> <span class="nav-text">安装gcc编译器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装APR，放到-var-local目录下，解压："><span class="nav-number">2.2.</span> <span class="nav-text">安装APR，放到/var/local目录下，解压：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装apr-util"><span class="nav-number">2.3.</span> <span class="nav-text">安装apr-util</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装pcre，同apr"><span class="nav-number">2.4.</span> <span class="nav-text">安装pcre，同apr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apache安装"><span class="nav-number">2.5.</span> <span class="nav-text">apache安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">2.6.</span> <span class="nav-text">启动</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -564,6 +736,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 

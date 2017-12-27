@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="zookeeper," />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="前言部署流程安装 JDK，安装 Zookeeper 附录配置自动清理日志开启 snapshot 日志和事务日志自动清理从3.4.0开始，zookeeper提供了自动清理 snapshot 和事务日志的功能，修改${ZK_HOME}/conf/zoo.cfg文件：12autopurge.purgeInterval: 	1  , //这个参数指定了清理频率，单位是小时。默认是0，表示不开启自己清理功能">
-<meta name="keywords" content="zookeeper">
+<meta name="description" content="删除删除第三行：1sed -i &apos;3d&apos; 1.txt">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS6.7下zookeeper3.4.6部署指南">
-<meta property="og:url" content="https://bluehaw.github.io/posts/2017/11/24/CentOS6-7下zookeeper3-4-6部署指南/index.html">
+<meta property="og:title" content="Sed命令在Linux上的使用指南">
+<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/06/Sed命令在Linux上的使用指南/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="前言部署流程安装 JDK，安装 Zookeeper 附录配置自动清理日志开启 snapshot 日志和事务日志自动清理从3.4.0开始，zookeeper提供了自动清理 snapshot 和事务日志的功能，修改${ZK_HOME}/conf/zoo.cfg文件：12autopurge.purgeInterval: 	1  , //这个参数指定了清理频率，单位是小时。默认是0，表示不开启自己清理功能">
+<meta property="og:description" content="删除删除第三行：1sed -i &apos;3d&apos; 1.txt">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-11T06:51:43.157Z">
+<meta property="og:updated_time" content="2017-12-27T14:45:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS6.7下zookeeper3.4.6部署指南">
-<meta name="twitter:description" content="前言部署流程安装 JDK，安装 Zookeeper 附录配置自动清理日志开启 snapshot 日志和事务日志自动清理从3.4.0开始，zookeeper提供了自动清理 snapshot 和事务日志的功能，修改${ZK_HOME}/conf/zoo.cfg文件：12autopurge.purgeInterval: 	1  , //这个参数指定了清理频率，单位是小时。默认是0，表示不开启自己清理功能">
+<meta name="twitter:title" content="Sed命令在Linux上的使用指南">
+<meta name="twitter:description" content="删除删除第三行：1sed -i &apos;3d&apos; 1.txt">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/11/24/CentOS6-7下zookeeper3-4-6部署指南/"/>
+  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/06/Sed命令在Linux上的使用指南/"/>
 
 
 
 
 
-  <title>CentOS6.7下zookeeper3.4.6部署指南 | blueHaw's Notes</title>
+  <title>Sed命令在Linux上的使用指南 | blueHaw's Notes</title>
   
 
 
@@ -277,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/11/24/CentOS6-7下zookeeper3-4-6部署指南/">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/06/Sed命令在Linux上的使用指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blueHaw">
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CentOS6.7下zookeeper3.4.6部署指南</h1>
+          <h1 class="post-title" itemprop="name headline">Sed命令在Linux上的使用指南</h1>
         
 
         <div class="post-meta">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-24T14:44:32+08:00">
-                2017-11-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-06T10:19:48+08:00">
+                2017-10-06
               </time>
             
 
@@ -331,6 +331,17 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Linux/" itemprop="url" rel="index">
                     <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/sed/" itemprop="url" rel="index">
+                    <span itemprop="name">sed</span>
                   </a>
                 </span>
 
@@ -366,19 +377,14 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h1 id="部署流程"><a href="#部署流程" class="headerlink" title="部署流程"></a>部署流程</h1><p>安装 JDK，安装 Zookeeper</p>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="配置自动清理日志"><a href="#配置自动清理日志" class="headerlink" title="配置自动清理日志"></a>配置自动清理日志</h2><h3 id="开启-snapshot-日志和事务日志自动清理"><a href="#开启-snapshot-日志和事务日志自动清理" class="headerlink" title="开启 snapshot 日志和事务日志自动清理"></a>开启 <code>snapshot</code> 日志和事务日志自动清理</h3><p>从3.4.0开始，zookeeper提供了自动清理 snapshot 和事务日志的功能，修改<code>${ZK_HOME}/conf/zoo.cfg</code>文件：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">autopurge<span class="selector-class">.purgeInterval</span>: 	<span class="number">1</span>  , <span class="comment">//这个参数指定了清理频率，单位是小时。默认是0，表示不开启自己清理功能。</span></div><div class="line">autopurge<span class="selector-class">.snapRetainCount</span>:  <span class="number">3</span>	    <span class="comment">//这个参数和上面的参数搭配使用，这个参数指定了需要保留的文件数目。默认是保留3个。</span></div></pre></td></tr></table></figure></p>
-<h3 id="log4j-日志自动清理"><a href="#log4j-日志自动清理" class="headerlink" title="log4j 日志自动清理"></a>log4j 日志自动清理</h3><p>编辑 <code>${ZK_HOME}/conf/log4j.proerties</code> 文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"># Define some default values that can be overridden by system properties</div><div class="line">zookeeper.root.logger=INFO,ROLLINGFILE</div><div class="line">zookeeper.console.threshold=INFO</div><div class="line">zookeeper.log.dir=.</div><div class="line">zookeeper.log.file=zookeeper.log</div><div class="line">zookeeper.log.threshold=DEBUG</div><div class="line">zookeeper.tracelog.dir=.</div><div class="line">zookeeper.tracelog.file=zookeeper_trace.log</div><div class="line"></div><div class="line">#</div><div class="line"># ZooKeeper Logging Configuration</div><div class="line">#</div><div class="line"></div><div class="line"># Format is &quot;&lt;default threshold&gt; (, &lt;appender&gt;)+</div><div class="line"></div><div class="line"># DEFAULT: console appender only</div><div class="line">log4j.rootLogger=$&#123;zookeeper.root.logger&#125;</div><div class="line"></div><div class="line"># Example with rolling log file</div><div class="line">#log4j.rootLogger=DEBUG, CONSOLE, ROLLINGFILE</div><div class="line"></div><div class="line"># Example with rolling log file and tracing</div><div class="line">#log4j.rootLogger=TRACE, CONSOLE, ROLLINGFILE, TRACEFILE</div><div class="line"></div><div class="line">#</div><div class="line"># Log INFO level and above messages to the console</div><div class="line">#</div><div class="line">log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender</div><div class="line">log4j.appender.CONSOLE.Threshold=$&#123;zookeeper.console.threshold&#125;</div><div class="line">log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.CONSOLE.layout.ConversionPattern=%d&#123;ISO8601&#125; [myid:%X&#123;myid&#125;] - %-5p [%t:%C&#123;1&#125;@%L] - %m%n</div><div class="line"></div><div class="line">#</div><div class="line"># Add ROLLINGFILE to rootLogger to get log file output</div><div class="line">#    Log DEBUG level and above messages to a log file</div><div class="line">log4j.appender.ROLLINGFILE=org.apache.log4j.DailyRollingFileAppender</div><div class="line">log4j.appender.ROLLINGFILE.Threshold=$&#123;zookeeper.log.threshold&#125;</div><div class="line">log4j.appender.ROLLINGFILE.File=$&#123;zookeeper.log.dir&#125;/$&#123;zookeeper.log.file&#125;</div><div class="line"></div><div class="line"># Max log file size of 10MB</div><div class="line">log4j.appender.ROLLINGFILE.MaxFileSize=100MB</div><div class="line"># uncomment the next line to limit number of backup files</div><div class="line">log4j.appender.ROLLINGFILE.MaxBackupIndex=30</div><div class="line"></div><div class="line">log4j.appender.ROLLINGFILE.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.ROLLINGFILE.layout.ConversionPattern=%d&#123;ISO8601&#125; [myid:%X&#123;myid&#125;] - %-5p [%t:%C&#123;1&#125;@%L] - %m%n</div><div class="line"></div><div class="line"></div><div class="line">#</div><div class="line"># Add TRACEFILE to rootLogger to get log file output</div><div class="line">#    Log DEBUG level and above messages to a log file</div><div class="line">log4j.appender.TRACEFILE=org.apache.log4j.FileAppender</div><div class="line">log4j.appender.TRACEFILE.Threshold=TRACE</div><div class="line">log4j.appender.TRACEFILE.File=$&#123;zookeeper.tracelog.dir&#125;/$&#123;zookeeper.tracelog.file&#125;</div><div class="line"></div><div class="line">log4j.appender.TRACEFILE.layout=org.apache.log4j.PatternLayout</div><div class="line">### Notice we are including log4j&apos;s NDC here (%x)</div><div class="line">log4j.appender.TRACEFILE.layout.ConversionPattern=%d&#123;ISO8601&#125; [myid:%X&#123;myid&#125;] - %-5p [%t:%C&#123;1&#125;@%L][%x] - %m%n</div></pre></td></tr></table></figure></p>
-<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="阿里云-ECS-上-Zookeeper-部署"><a href="#阿里云-ECS-上-Zookeeper-部署" class="headerlink" title="阿里云 ECS 上 Zookeeper 部署"></a>阿里云 ECS 上 Zookeeper 部署</h2><ol>
-<li>zoo.cfg 中本机器 IP 地址公网访问配置为 0.0.0.0，内网访问配置为内网 ip 地址。</li>
-<li>zookerper 使用的端口需要确认在系统防火墙及ECS实例安全组规则里允许访问。</li>
-</ol>
-<p><code>zoo.cfg</code>栗子(server.1机器上)：<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server<span class="meta">.1</span>=<span class="number">0.0</span><span class="meta">.0</span><span class="meta">.0</span>:<span class="number">2888</span>:<span class="number">3888</span></div><div class="line">server<span class="meta">.2</span>=<span class="number">10.120</span><span class="meta">.1</span><span class="meta">.11</span>:<span class="number">2888</span>:<span class="number">3888</span></div><div class="line">server<span class="meta">.3</span>=<span class="number">10.120</span><span class="meta">.1</span><span class="meta">.12</span>:<span class="number">2888</span>:<span class="number">3888</span></div></pre></td></tr></table></figure></p>
-<h2 id="查看zk状态时报Error-contacting-service-It-is-probably-not-running"><a href="#查看zk状态时报Error-contacting-service-It-is-probably-not-running" class="headerlink" title="查看zk状态时报Error contacting service. It is probably not running"></a>查看zk状态时报Error contacting service. It is probably not running</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@sso conf]# zkServer.sh status</div><div class="line">JMX enabled by default</div><div class="line">Using config: /var/local/server/zookeeper/bin/<span class="built_in">..</span>/conf/zoo.cfg</div><div class="line"><span class="builtin-name">Error</span> contacting service. It is probably <span class="keyword">not</span> running.</div></pre></td></tr></table></figure>
-<ol>
-<li>没有创建数据目录和日志目录</li>
-<li>查看日志</li>
-</ol>
+        <h1 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h1><p>删除第三行：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'3d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>删除以winter开头的行<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'/^winter/d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
+<p>删除包含winter（特殊字符需要转义）的行<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'/winter/d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
+<h1 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h1><p>在14行下插入新的一行：<code>aaaaaa</code><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i <span class="number">14</span>a\aaaaaaa <span class="number">1.</span>txt</div></pre></td></tr></table></figure></p>
+<h1 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h1><p>查询<code>winter</code>在文件中的行号<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="keyword">ne</span> <span class="string">'/winter/='</span> <span class="number">1.</span>txt</div></pre></td></tr></table></figure></p>
+<h1 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h1><p>将文件中的<code>_SUPERMODELIPPORT</code>替换为<code>$SMIPPORT</code>，<code>g</code>代表全局替换，不加g替换第一个<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i <span class="string">"s%_SUPERMODELIPPORT%$SMIPPORT%g"</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
+<p>修改第<code>$ROW</code>行为<code>&#39;$HOST&#39; &#39;$HOSTNAME</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed  -i -e  <span class="variable">$ROW</span><span class="string">'c\'</span><span class="variable">$HOST</span><span class="string">' '</span><span class="variable">$HOSTNAME</span> 1.txt</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -399,7 +405,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://bluehaw.github.io/posts/2017/11/24/CentOS6-7下zookeeper3-4-6部署指南/" title="CentOS6.7下zookeeper3.4.6部署指南">https://bluehaw.github.io/posts/2017/11/24/CentOS6-7下zookeeper3-4-6部署指南/</a>
+    <a href="https://bluehaw.github.io/posts/2017/10/06/Sed命令在Linux上的使用指南/" title="Sed命令在Linux上的使用指南">https://bluehaw.github.io/posts/2017/10/06/Sed命令在Linux上的使用指南/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -414,7 +420,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/zookeeper/" rel="tag"># zookeeper</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
@@ -427,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/2017/11/22/CentOS6-7下多网卡绑定配置指南/" rel="next" title="CentOS6.7下多网卡绑定配置指南">
-                <i class="fa fa-chevron-left"></i> CentOS6.7下多网卡绑定配置指南
+              <a href="/posts/2017/10/06/新机器检查基础环境/" rel="next" title="Linux 新机器检查基础环境">
+                <i class="fa fa-chevron-left"></i> Linux 新机器检查基础环境
               </a>
             
           </div>
@@ -437,8 +443,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/2017/12/26/定时任务Cron在CentOS6-7上安装指南/" rel="prev" title="定时任务Cron在CentOS6.7上安装指南">
-                定时任务Cron在CentOS6.7上安装指南 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/2017/10/09/虚拟机NAT模式使用静态IP上网/" rel="prev" title="虚拟机(Vmware)NAT模式使用静态IP上网">
+                虚拟机(Vmware)NAT模式使用静态IP上网 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -518,7 +524,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -589,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署流程"><span class="nav-number">2.</span> <span class="nav-text">部署流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">3.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置自动清理日志"><span class="nav-number">3.1.</span> <span class="nav-text">配置自动清理日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开启-snapshot-日志和事务日志自动清理"><span class="nav-number">3.1.1.</span> <span class="nav-text">开启 snapshot 日志和事务日志自动清理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#log4j-日志自动清理"><span class="nav-number">3.1.2.</span> <span class="nav-text">log4j 日志自动清理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#阿里云-ECS-上-Zookeeper-部署"><span class="nav-number">4.1.</span> <span class="nav-text">阿里云 ECS 上 Zookeeper 部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看zk状态时报Error-contacting-service-It-is-probably-not-running"><span class="nav-number">4.2.</span> <span class="nav-text">查看zk状态时报Error contacting service. It is probably not running</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#删除"><span class="nav-number">1.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插入"><span class="nav-number">2.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询"><span class="nav-number">3.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改"><span class="nav-number">4.</span> <span class="nav-text">修改</span></a></li></ol></div>
             
 
           </div>

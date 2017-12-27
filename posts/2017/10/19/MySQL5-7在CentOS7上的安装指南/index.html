@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="SVN," />
+  <meta name="keywords" content="MySQL," />
 
 
 
@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="一般来说，subversion服务器可以用两种方式架设：  一种是基于svnserve，svnserve作为服务端 一种是基于Apache，用apache作为服务端   这里以svnserver为例">
-<meta name="keywords" content="SVN">
+<meta name="description" content="1、配置YUM源在MySQL官网中下载YUM源rpm安装包：http://dev.mysql.com/downloads/repo/yum/1234# 下载mysql源安装包shell&amp;gt; wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm# 安装mysql源shell&amp;gt; yum localin">
+<meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux下SVNServer部署手册">
-<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/12/Linux下SVNServer部署手册/index.html">
+<meta property="og:title" content="MySQL5.7在CentOS7上的安装指南">
+<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/19/MySQL5-7在CentOS7上的安装指南/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="一般来说，subversion服务器可以用两种方式架设：  一种是基于svnserve，svnserve作为服务端 一种是基于Apache，用apache作为服务端   这里以svnserver为例">
+<meta property="og:description" content="1、配置YUM源在MySQL官网中下载YUM源rpm安装包：http://dev.mysql.com/downloads/repo/yum/1234# 下载mysql源安装包shell&amp;gt; wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm# 安装mysql源shell&amp;gt; yum localin">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T15:28:10.158Z">
+<meta property="og:image" content="http://7xsh47.com1.z0.glb.clouddn.com/1-160626010T0Z8.jpg.png">
+<meta property="og:image" content="http://7xsh47.com1.z0.glb.clouddn.com/1-160626010U5133.jpg.png">
+<meta property="og:updated_time" content="2017-12-27T15:38:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下SVNServer部署手册">
-<meta name="twitter:description" content="一般来说，subversion服务器可以用两种方式架设：  一种是基于svnserve，svnserve作为服务端 一种是基于Apache，用apache作为服务端   这里以svnserver为例">
+<meta name="twitter:title" content="MySQL5.7在CentOS7上的安装指南">
+<meta name="twitter:description" content="1、配置YUM源在MySQL官网中下载YUM源rpm安装包：http://dev.mysql.com/downloads/repo/yum/1234# 下载mysql源安装包shell&amp;gt; wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm# 安装mysql源shell&amp;gt; yum localin">
+<meta name="twitter:image" content="http://7xsh47.com1.z0.glb.clouddn.com/1-160626010T0Z8.jpg.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/12/Linux下SVNServer部署手册/"/>
+  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/19/MySQL5-7在CentOS7上的安装指南/"/>
 
 
 
 
 
-  <title>Linux下SVNServer部署手册 | blueHaw's Notes</title>
+  <title>MySQL5.7在CentOS7上的安装指南 | blueHaw's Notes</title>
   
 
 
@@ -277,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/12/Linux下SVNServer部署手册/">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/19/MySQL5-7在CentOS7上的安装指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blueHaw">
@@ -294,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux下SVNServer部署手册</h1>
+          <h1 class="post-title" itemprop="name headline">MySQL5.7在CentOS7上的安装指南</h1>
         
 
         <div class="post-meta">
@@ -306,8 +309,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T23:27:17+08:00">
-                2017-10-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-19T15:45:53+08:00">
+                2017-10-19
               </time>
             
 
@@ -340,8 +343,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/SVN/" itemprop="url" rel="index">
-                    <span itemprop="name">SVN</span>
+                  <a href="/categories/Linux/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
                   </a>
                 </span>
 
@@ -377,66 +380,36 @@
       
 
       
-        <p>一般来说，subversion服务器可以用两种方式架设：</p>
-<ul>
-<li>一种是基于svnserve，svnserve作为服务端</li>
-<li>一种是基于Apache，用apache作为服务端</li>
-</ul>
+        <h3 id="1、配置YUM源"><a href="#1、配置YUM源" class="headerlink" title="1、配置YUM源"></a>1、配置YUM源</h3><p>在<font color="red">MySQL</font>官网中下载YUM源rpm安装包：<a href="http://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="external">http://dev.mysql.com/downloads/repo/yum/</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 下载mysql源安装包</span></div><div class="line"><span class="meta">shell&gt;</span><span class="bash"> wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</span></div><div class="line"><span class="meta">#</span><span class="bash"> 安装mysql源</span></div><div class="line"><span class="meta">shell&gt;</span><span class="bash"> yum localinstall mysql57-community-release-el7-8.noarch.rpm</span></div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>检查mysql源是否安装成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@iZsqo0q6xrrbl8Z etc]# yum repolist enabled | grep "mysql.*-community.*"</div><div class="line">mysql-connectors-community/x86_64 MySQL Connectors Community                  30</div><div class="line">mysql-tools-community/x86_64      MySQL Tools Community                       40</div><div class="line">mysql57-community/x86_64          MySQL 5.7 Community Server                 164</div></pre></td></tr></table></figure>
+<p>看到上图所示表示安装成功</p>
+<h3 id="2、安装MySQL"><a href="#2、安装MySQL" class="headerlink" title="2、安装MySQL"></a>2、安装MySQL</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">shell&gt;</span><span class="bash"> yum install mysql-community-server</span></div></pre></td></tr></table></figure>
+<h3 id="3-启动MySql服务"><a href="#3-启动MySql服务" class="headerlink" title="3. 启动MySql服务"></a>3. 启动MySql服务</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">shell</span><span class="bash">&gt; systemctl start mysqld</span></div></pre></td></tr></table></figure>
+<p>查看MySql的启动状态<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">shell&gt; systemctl status mysqld</div><div class="line">● mysqld.service - MySQL Server</div><div class="line">   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; disabled; vendor preset: disabled)</div><div class="line">   Active: active (running) since 五 2016-06-24 04:37:37 CST; 35min ago</div><div class="line"> Main PID: 2888 (mysqld)</div><div class="line">   CGroup: /system.slice/mysqld.service</div><div class="line">           └─2888 /usr/sbin/mysqld --daemonize <span class="attribute">--pid-file</span>=/var/run/mysqld/mysqld.pid</div><div class="line"></div><div class="line">6月 24 04:37:36 localhost.localdomain systemd[1]: Starting MySQL Server<span class="built_in">..</span>.</div><div class="line">6月 24 04:37:37 localhost.localdomain systemd[1]: Started MySQL Server.</div></pre></td></tr></table></figure></p>
+<h3 id="4-开机启动"><a href="#4-开机启动" class="headerlink" title="4. 开机启动"></a>4. 开机启动</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">shell</span><span class="bash">&gt; systemctl <span class="built_in">enable</span> mysqld</span></div><div class="line"><span class="bash">shell&gt; systemctl daemon-reload</span></div></pre></td></tr></table></figure>
+<h3 id="5、修改root默认密码"><a href="#5、修改root默认密码" class="headerlink" title="5、修改root默认密码"></a>5、修改root默认密码</h3><p>mysql安装完成之后，在/var/log/mysqld.log文件中给root生成了一个默认密码。通过下面的方式找到root默认密码，然后登录mysql进行修改<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">shell</span>&gt; <span class="keyword">grep</span> <span class="string">'temporary password'</span> /var/<span class="built_in">log</span>/mysqld.<span class="built_in">log</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://7xsh47.com1.z0.glb.clouddn.com/1-160626010T0Z8.jpg.png" alt=""><br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">shell</span><span class="bash">&gt; mysql -uroot -p</span></div><div class="line"><span class="bash">mysql&gt; ALTER USER <span class="string">'root'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'MyNewPass4!'</span>;</span></div></pre></td></tr></table></figure></p>
 <blockquote>
-<p>这里以svnserver为例<br><a id="more"></a></p>
-<h4 id="安装svnserver"><a href="#安装svnserver" class="headerlink" title="安装svnserver"></a>安装svnserver</h4><ol>
-<li><code>docker</code>安装 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull garethflowers/svn-<span class="keyword">server</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
+<p>注意：mysql5.7默认安装了密码安全检查插件（validate_password），默认密码检查策略要求密码必须包含：大小写字母、数字和特殊符号，并且长度不能少于8位。否则会提示ERROR 1819 (HY000): Your password does not satisfy the current policy requirements错误，如下图所示</p>
 </blockquote>
-<ol>
-<li>本地安装 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]<span class="comment"># yum -y install subversion</span></div><div class="line">[root@localhost ~]<span class="comment"># svnserve --version</span></div><div class="line">svnserve, version 1.7.14 (r1542130)</div><div class="line">   compiled Nov 20 2015, 19:25:09</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="配置svnserver"><a href="#配置svnserver" class="headerlink" title="配置svnserver"></a>配置svnserver</h4><h5 id="1-添加svn管理用户和subversion组（这步很重要，不然会导致authentication-failed）"><a href="#1-添加svn管理用户和subversion组（这步很重要，不然会导致authentication-failed）" class="headerlink" title="1. 添加svn管理用户和subversion组（这步很重要，不然会导致authentication failed）"></a>1. 添加svn管理用户和subversion组（这步很重要，不然会导致authentication failed）</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># centos下：</span></div><div class="line">sudo adduser svnuser <span class="comment">#(添加svnuser用户）</span></div><div class="line">sudo groupadd subversion <span class="comment">#（添加subversion组）</span></div><div class="line">sudo groupadd -G subversion svnuser  </div><div class="line">sudo groupadd -G root subversion <span class="comment">#把root用户添加到组里</span></div><div class="line"><span class="comment"># Ubuntu下：</span></div><div class="line">sudo adduser svnuser <span class="comment">#(添加svnuser用户）</span></div><div class="line">sudo addgroup subversion <span class="comment">#（添加subversion组）</span></div><div class="line">sudo addgroup svnuser subversion </div><div class="line">sudo addgroup root subversion <span class="comment">#把root用户添加到组里</span></div></pre></td></tr></table></figure>
-<h5 id="2-开始创建项目目录"><a href="#2-开始创建项目目录" class="headerlink" title="2. 开始创建项目目录"></a>2. 开始创建项目目录</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mkdir /home/svn  <span class="comment">#(这里的svn即为版本库目录文件，以后所有的操作都在/home/svn下</span></div><div class="line"><span class="built_in">cd</span> /home/svn</div><div class="line">mkdir repo <span class="comment">#(这里即为一个版本库文件，文件名可以任意取）</span></div><div class="line">chown -R root:subversion repo</div><div class="line">chmod -R g+rws repo</div></pre></td></tr></table></figure>
-<h5 id="3-创建SVN文件仓库，即为上面建立的repo文件目录"><a href="#3-创建SVN文件仓库，即为上面建立的repo文件目录" class="headerlink" title="3. 创建SVN文件仓库，即为上面建立的repo文件目录"></a>3. 创建SVN文件仓库，即为上面建立的repo文件目录</h5><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svnadmin create /<span class="built_in">home</span>/svn/repo</div></pre></td></tr></table></figure>
-<p>到这一步，安装基本完成，开始改配置。</p>
-<h5 id="4-在-home-svn-repo文件目录中可以看到conf文件夹，可针对conf文件夹中的authz、passwd、svnserve-conf进行设置，svnserve-conf主要设置整体的安全策略，passwd则设置用户名和密码，-authz-则是设置具体的用户有什么权限。"><a href="#4-在-home-svn-repo文件目录中可以看到conf文件夹，可针对conf文件夹中的authz、passwd、svnserve-conf进行设置，svnserve-conf主要设置整体的安全策略，passwd则设置用户名和密码，-authz-则是设置具体的用户有什么权限。" class="headerlink" title="4. 在/home/svn/repo文件目录中可以看到conf文件夹，可针对conf文件夹中的authz、passwd、svnserve.conf进行设置，svnserve.conf主要设置整体的安全策略，passwd则设置用户名和密码， authz 则是设置具体的用户有什么权限。"></a>4. 在<code>/home/svn/repo</code>文件目录中可以看到conf文件夹，可针对conf文件夹中的<code>authz、passwd、svnserve.conf</code>进行设置，<code>svnserve.conf</code>主要设置整体的安全策略，<code>passwd</code>则设置用户名和密码， <code>authz</code> 则是设置具体的用户有什么权限。</h5><h5 id="5-访问权限设置"><a href="#5-访问权限设置" class="headerlink" title="5. 访问权限设置"></a>5. 访问权限设置</h5><ol>
-<li>编辑svnserve.conf文件<ul>
-<li>anon-access：匿名用户的权限，可以为<code>read</code>，<code>write</code>和<code>none</code>，默认值<code>read</code>。不允许匿名用户访问：<code>anon-access = none</code></li>
-<li>auth-access：认证用户的权限，可以为<code>read</code>，<code>write</code>和<code>none</code>，默认值<code>write</code>。</li>
-<li>password-db：密码数据库的路径，去掉前边的#</li>
-<li>authz-db：认证规则库的路径，去掉前边的#<blockquote>
-<p><strong>这些配置项的行都要顶格，否则会报错。修改配置后需要重启svn才能生效。</strong></p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>编辑passwd文件，加入用户名和密码<br> 用户名=密码, 采用的是明码。如<code>allen=1</code>（apache模式下密码为经过加密的变化）<br> 如下：</p>
- <figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="section">[users]</span></div><div class="line"><span class="attr">slhan</span>=justdoit</div></pre></td></tr></table></figure>
-</li>
-<li><p>编辑authz文件，配置用户访问权限（如下为示例）</p>
-<ul>
-<li><p><code>[groups]</code>设置，为了便于管理，可以将一些用户放到一个组里边，比如：<code>owner=allen,ellen</code>,如下：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="section">[groups]</span></div><div class="line"><span class="comment"># harry_and_sally = harry,sally</span></div><div class="line"><span class="comment"># harry_sally_and_joe = harry,sally,&amp;joe</span></div><div class="line"><span class="attr">owner</span>=slhan</div></pre></td></tr></table></figure>
-</li>
-<li><p><code>groups</code>下边的配置表示对一个目录的认证规则，比如对根目录的认证规则的section为<code>[/]</code>。设置单用户的认证规则时一个用户一行，如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[/]</div><div class="line">allen=rw　　<span class="comment">#allen对根目录的权限为rw</span></div><div class="line">ellen=r　　 <span class="comment">#ellen对根目录的权限为r</span></div></pre></td></tr></table></figure>
-<p>如果使用group，需要在group名字前加@,如</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">owner</span>=<span class="keyword">rw</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>每个仓库的根目录<code>(/)</code>就是自己的起始目录；<code>[repos:/]</code>这种方式只适用于多仓库的情况；<code>[/]</code>适合于单仓库和单仓库的方式。更多关于单仓库和多仓库的问题，</p>
-<h5 id="6-启动svn服务"><a href="#6-启动svn服务" class="headerlink" title="6. 启动svn服务"></a>6. 启动svn服务</h5><p><code>svnserve -d -T -r /home/svn</code><br>描述说明：</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><code>-d</code> 表示svnserver以“守护”进程模式运行</li>
-<li><code>-T</code> 表示以线程模式运行，增加效率</li>
-<li><code>-r</code> 指定文件系统的根位置（版本库的根目录），这样客户端不用输入全路径，就可以访问版本库。如: svn://你的IP/repo<h5 id="7-验证系统"><a href="#7-验证系统" class="headerlink" title="7. 验证系统"></a>7. 验证系统</h5>使用客户端访问<code>svn://你的IP/repo</code><blockquote>
-<p>注意authz passwd svnserve.conf文件所有行的前面都不能有空格<br>注意建立svn管理用户和组</p>
-</blockquote>
-</li>
-</ul>
-
+<p><img src="http://7xsh47.com1.z0.glb.clouddn.com/1-160626010U5133.jpg.png" alt=""></p>
+<p><b>如果不需要密码策略，添加my.cnf文件中添加如下配置禁用即可：</b><br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">validate_password</span> = <span class="literal">off</span></div></pre></td></tr></table></figure></p>
+<p>重新启动mysql服务使配置生效：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">systemctl restart mysqld</span></div></pre></td></tr></table></figure></p>
+<h3 id="6、添加远程登录用户"><a href="#6、添加远程登录用户" class="headerlink" title="6、添加远程登录用户"></a>6、添加远程登录用户</h3><p>默认只允许root帐户在本地登录，如果要在其它机器上连接mysql，必须修改root允许远程连接，或者添加一个允许远程连接的帐户，为了安全起见，我添加一个新的帐户：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> 数据库名.表名 <span class="keyword">to</span> 创建的用户名 @<span class="string">"%"</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">"密码"</span>;  <span class="comment">/* 数据库名.表名 如果写成*.*代表授权所有的数据库  */</span></div><div class="line"></div><div class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>; <span class="comment">/* 刷新刚才的内容*/</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mysql&gt; use mysql;</div><div class="line">Reading table information for completion of table and column names</div><div class="line">You can turn off this feature to get a quicker startup with -A</div><div class="line"></div><div class="line">Database changed</div><div class="line">mysql&gt; select host,user from user;</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">| host      | user      |</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">| localhost | mysql.sys |</div><div class="line">| localhost | root      |</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div></pre></td></tr></table></figure>
+<p>默认root用户只能在本地登录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">mysql&gt; grant all privileges on *.* to blue  @"%" identified by "justdoit";</div><div class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; flush privileges;  /* 刷新刚才的内容*/ </div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; select host,user from user;</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">| host      | user      |</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">| %         | blue      |</div><div class="line">| localhost | mysql.sys |</div><div class="line">| localhost | root      |</div><div class="line">+<span class="comment">-----------+-----------+</span></div><div class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div><div class="line"></div><div class="line">mysql&gt;</div></pre></td></tr></table></figure>
+<p>添加blue远程登录用户</p>
+<p>同时也可以为现有的用户设置是否具有远程访问权限。如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">use</span> mysql;</div><div class="line"></div><div class="line"><span class="keyword">update</span> db <span class="keyword">set</span> host = <span class="string">'%'</span> <span class="keyword">where</span> <span class="keyword">user</span> = <span class="string">'用户名'</span>; <span class="comment">/*（如果写成 host=localhost 那此用户就不具有远程访问权限）*/</span></div><div class="line"></div><div class="line"><span class="keyword">FLUSH</span> <span class="keyword">PRIVILEGES</span>;</div></pre></td></tr></table></figure>
+<h3 id="7、配置默认编码为utf8"><a href="#7、配置默认编码为utf8" class="headerlink" title="7、配置默认编码为utf8"></a>7、配置默认编码为utf8</h3><p>修改/etc/my.cnf配置文件，在[mysqld]下添加编码配置，如下所示：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="section">[mysqld]</span></div><div class="line"><span class="attr">character_set_server</span>=utf8</div><div class="line"><span class="attr">init_connect</span>=<span class="string">'SET NAMES utf8'</span></div></pre></td></tr></table></figure>
+<p>重新启动mysql服务，查看数据库默认编码如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show variables like '%character%';</div><div class="line">+<span class="comment">--------------------------+----------------------------+</span></div><div class="line">| Variable_name            | Value                      |</div><div class="line">+<span class="comment">--------------------------+----------------------------+</span></div><div class="line">| character_set_client     | utf8                       |</div><div class="line">| character_set_connection | utf8                       |</div><div class="line">| character_set_database   | latin1                     |</div><div class="line">| character_set_filesystem | binary                     |</div><div class="line">| character_set_results    | utf8                       |</div><div class="line">| character_set_server     | utf8                       |</div><div class="line">| character_set_system     | utf8                       |</div><div class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</div><div class="line">+<span class="comment">--------------------------+----------------------------+</span></div><div class="line">8 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div></pre></td></tr></table></figure>
+<p><b>默认配置文件路径：</b>  配置文件：/etc/my.cnf  日志文件：/var/log//var/log/mysqld.log  服务启动脚本：/usr/lib/systemd/system/mysqld.service  socket文件：/var/run/mysqld/mysqld.pid</p>
+<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2>
       
     </div>
     
@@ -456,7 +429,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://bluehaw.github.io/posts/2017/10/12/Linux下SVNServer部署手册/" title="Linux下SVNServer部署手册">https://bluehaw.github.io/posts/2017/10/12/Linux下SVNServer部署手册/</a>
+    <a href="https://bluehaw.github.io/posts/2017/10/19/MySQL5-7在CentOS7上的安装指南/" title="MySQL5.7在CentOS7上的安装指南">https://bluehaw.github.io/posts/2017/10/19/MySQL5-7在CentOS7上的安装指南/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -471,7 +444,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SVN/" rel="tag"># SVN</a>
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
           
         </div>
       
@@ -484,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/2017/10/12/Linux下Apache2-4-25部署手册/" rel="next" title="Apache2.4.25 在 CentOS上的部署手册">
-                <i class="fa fa-chevron-left"></i> Apache2.4.25 在 CentOS上的部署手册
+              <a href="/posts/2017/10/12/SVNServer在CentOS6-7上的部署指南/" rel="next" title="SVNServer在CentOS6.7上的部署指南">
+                <i class="fa fa-chevron-left"></i> SVNServer在CentOS6.7上的部署指南
               </a>
             
           </div>
@@ -494,8 +467,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/2017/10/19/Linux下MySQL5-7安装指南/" rel="prev" title="Linux下MySQL5.7安装指南">
-                Linux下MySQL5.7安装指南 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/2017/10/22/CentOS7minimal在VMware上的安装指南/" rel="prev" title="CentOS7minimal在VMware上的安装指南">
+                CentOS7minimal在VMware上的安装指南 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -575,7 +548,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -646,7 +619,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装svnserver"><span class="nav-number">1.</span> <span class="nav-text">安装svnserver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置svnserver"><span class="nav-number">2.</span> <span class="nav-text">配置svnserver</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-添加svn管理用户和subversion组（这步很重要，不然会导致authentication-failed）"><span class="nav-number">2.1.</span> <span class="nav-text">1. 添加svn管理用户和subversion组（这步很重要，不然会导致authentication failed）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-开始创建项目目录"><span class="nav-number">2.2.</span> <span class="nav-text">2. 开始创建项目目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-创建SVN文件仓库，即为上面建立的repo文件目录"><span class="nav-number">2.3.</span> <span class="nav-text">3. 创建SVN文件仓库，即为上面建立的repo文件目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-在-home-svn-repo文件目录中可以看到conf文件夹，可针对conf文件夹中的authz、passwd、svnserve-conf进行设置，svnserve-conf主要设置整体的安全策略，passwd则设置用户名和密码，-authz-则是设置具体的用户有什么权限。"><span class="nav-number">2.4.</span> <span class="nav-text">4. 在/home/svn/repo文件目录中可以看到conf文件夹，可针对conf文件夹中的authz、passwd、svnserve.conf进行设置，svnserve.conf主要设置整体的安全策略，passwd则设置用户名和密码， authz 则是设置具体的用户有什么权限。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-访问权限设置"><span class="nav-number">2.5.</span> <span class="nav-text">5. 访问权限设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-启动svn服务"><span class="nav-number">2.6.</span> <span class="nav-text">6. 启动svn服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-验证系统"><span class="nav-number">2.7.</span> <span class="nav-text">7. 验证系统</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、配置YUM源"><span class="nav-number">1.</span> <span class="nav-text">1、配置YUM源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、安装MySQL"><span class="nav-number">2.</span> <span class="nav-text">2、安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-启动MySql服务"><span class="nav-number">3.</span> <span class="nav-text">3. 启动MySql服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-开机启动"><span class="nav-number">4.</span> <span class="nav-text">4. 开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、修改root默认密码"><span class="nav-number">5.</span> <span class="nav-text">5、修改root默认密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、添加远程登录用户"><span class="nav-number">6.</span> <span class="nav-text">6、添加远程登录用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、配置默认编码为utf8"><span class="nav-number">7.</span> <span class="nav-text">7、配置默认编码为utf8</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卸载"><span class="nav-number"></span> <span class="nav-text">卸载</span></a></div>
             
 
           </div>

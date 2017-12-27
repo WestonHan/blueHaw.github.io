@@ -273,168 +273,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="blueHaw">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blueHaw's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/" itemprop="url">Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T17:25:12+08:00">
-                2017-10-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/NTP/" itemprop="url" rel="index">
-                    <span itemprop="name">NTP</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>使用root用户进行操作，涉及所有服务器。</p>
-<h3 id="0-设置所有服务器在同一时区"><a href="#0-设置所有服务器在同一时区" class="headerlink" title="0.    设置所有服务器在同一时区"></a>0.    设置所有服务器在同一时区</h3><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TZ=Asia/Shanghai</div><div class="line">ln -snf <span class="meta-keyword">/usr/</span>share<span class="meta-keyword">/zoneinfo/</span>$TZ <span class="meta-keyword">/etc/</span>localtime</div><div class="line">echo $TZ &gt; <span class="meta-keyword">/etc/</span>timezone</div></pre></td></tr></table></figure>
-<h3 id="1-安装ntp服务"><a href="#1-安装ntp服务" class="headerlink" title="1.    安装ntp服务"></a>1.    安装ntp服务</h3><ul>
-<li>查看是否已经安装：<code>rpm -qa | grep ntp</code>。 如果已安装就不需要再安装了。<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@docker2 ~]# rpm -qa | grep ntp</div><div class="line">ntpdate-4.2.6p5-5.el6.centos.x86_64</div><div class="line">ntp-4.2.6p5-5.el6.centos.x86_64</div></pre></td></tr></table></figure>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/虚拟机网络模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -727,7 +565,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/06/linux-sed命令介绍/">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/06/Sed命令在Linux上的使用指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blueHaw">
@@ -746,7 +584,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/2017/10/06/linux-sed命令介绍/" itemprop="url">Linux sed命令介绍</a></h1>
+                <a class="post-title-link" href="/posts/2017/10/06/Sed命令在Linux上的使用指南/" itemprop="url">Sed命令在Linux上的使用指南</a></h1>
         
 
         <div class="post-meta">
@@ -830,10 +668,10 @@
 
       
         
-          <h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>删除第三行：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'3d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
+          <h1 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h1><p>删除第三行：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -<span class="selector-tag">i</span> <span class="string">'3d'</span> <span class="number">1</span>.txt</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/posts/2017/10/06/linux-sed命令介绍/#more" rel="contents">
+            <a class="btn" href="/posts/2017/10/06/Sed命令在Linux上的使用指南/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1127,7 +965,7 @@
 
       
         
-          <h3 id="1-更换本地yum源"><a href="#1-更换本地yum源" class="headerlink" title="1. 更换本地yum源"></a>1. 更换本地yum源</h3><h4 id="1-从ustc下载-repo文件，切换源"><a href="#1-从ustc下载-repo文件，切换源" class="headerlink" title="1. 从ustc下载.repo文件，切换源"></a>1. 从ustc下载.repo文件，切换源</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /etc/yum.repos.d/</div></pre></td></tr></table></figure>
+          <h1 id="更换本地yum源"><a href="#更换本地yum源" class="headerlink" title="更换本地yum源"></a>更换本地yum源</h1><h2 id="从ustc下载-repo文件，切换源"><a href="#从ustc下载-repo文件，切换源" class="headerlink" title="从ustc下载.repo文件，切换源"></a>从ustc下载.repo文件，切换源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /etc/yum.repos.d/</div></pre></td></tr></table></figure>
 <p>将原有xx.repo文件全部改名为xx.repo.bak(<code>rename .repo  .repo.bak *.repo</code>)<br>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1182,7 +1020,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/02/install docker/">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/02/Docker17-09在CentOS7上的部署指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blueHaw">
@@ -1201,7 +1039,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/2017/10/02/install docker/" itemprop="url">Docker 在CentOS6.7 上的部署指南</a></h1>
+                <a class="post-title-link" href="/posts/2017/10/02/Docker17-09在CentOS7上的部署指南/" itemprop="url">Docker17.09在CentOS7上的部署指南</a></h1>
         
 
         <div class="post-meta">
@@ -1274,10 +1112,10 @@
 
       
         
-          <h1 id="1-Uninstall-old-versions"><a href="#1-Uninstall-old-versions" class="headerlink" title="1. Uninstall old versions"></a>1. Uninstall old versions</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sudo yum remove docker \</div><div class="line">                  docker-common \</div><div class="line">                  docker-selinux \</div><div class="line">                  docker-engine</div></pre></td></tr></table></figure>
+          <h1 id="Uninstall-old-versions"><a href="#Uninstall-old-versions" class="headerlink" title="Uninstall old versions"></a>Uninstall old versions</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sudo yum remove docker \</div><div class="line">                  docker-common \</div><div class="line">                  docker-selinux \</div><div class="line">                  docker-engine</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/posts/2017/10/02/install docker/#more" rel="contents">
+            <a class="btn" href="/posts/2017/10/02/Docker17-09在CentOS7上的部署指南/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1328,7 +1166,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/02/github学习/">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/02/Github相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blueHaw">
@@ -1347,7 +1185,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/2017/10/02/github学习/" itemprop="url">github学习</a></h1>
+                <a class="post-title-link" href="/posts/2017/10/02/Github相关/" itemprop="url">Github相关</a></h1>
         
 
         <div class="post-meta">
@@ -1382,8 +1220,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/github/" itemprop="url" rel="index">
-                    <span itemprop="name">github</span>
+                  <a href="/categories/Github/" itemprop="url" rel="index">
+                    <span itemprop="name">Github</span>
                   </a>
                 </span>
 
@@ -1420,10 +1258,10 @@
 
       
         
-          <p>##1. 为<code>github</code>帐号添加<code>SSH keys</code><br>使用<code>git clone</code>命令从github上同步github上的代码库时，如果使用SSH链接（如我自己的beagleOS项 目：<code>git@github.com:DamonDeng/beagleOS.git</code>），而你的SSH key没有添加到github帐号设置中，系统会报下面的错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Permission denied (publickey).</div><div class="line">fatal: The remote end hung up unexpectedly</div></pre></td></tr></table></figure></p>
+          <h2 id="为github帐号添加SSH-keys"><a href="#为github帐号添加SSH-keys" class="headerlink" title="为github帐号添加SSH keys"></a>为<code>github</code>帐号添加<code>SSH keys</code></h2><p>使用<code>git clone</code>命令从github上同步github上的代码库时，如果使用SSH链接（如我自己的beagleOS项 目：<code>git@github.com:DamonDeng/beagleOS.git</code>），而你的SSH key没有添加到github帐号设置中，系统会报下面的错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Permission denied (publickey).</div><div class="line">fatal: The remote end hung up unexpectedly</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/posts/2017/10/02/github学习/#more" rel="contents">
+            <a class="btn" href="/posts/2017/10/02/Github相关/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1515,7 +1353,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

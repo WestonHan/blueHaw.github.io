@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Linux," />
+  <meta name="keywords" content="SVN," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
-<meta name="keywords" content="Linux">
+<meta name="description" content="一般来说，subversion服务器可以用两种方式架设：  一种是基于svnserve，svnserve作为服务端 一种是基于Apache，用apache作为服务端   这里以svnserver为例">
+<meta name="keywords" content="SVN">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南">
-<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/index.html">
+<meta property="og:title" content="SVNServer在CentOS6.7上的部署指南">
+<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/12/SVNServer在CentOS6-7上的部署指南/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
+<meta property="og:description" content="一般来说，subversion服务器可以用两种方式架设：  一种是基于svnserve，svnserve作为服务端 一种是基于Apache，用apache作为服务端   这里以svnserver为例">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-21T02:00:45.580Z">
+<meta property="og:updated_time" content="2017-12-27T15:31:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南">
-<meta name="twitter:description" content="使用root用户进行操作，涉及所有服务器。 0.    设置所有服务器在同一时区123TZ=Asia/Shanghailn -snf /usr/share/zoneinfo/$TZ /etc/localtimeecho $TZ &amp;gt; /etc/timezone 1.    安装ntp服务 查看是否已经安装：rpm -qa | grep ntp。 如果已安装就不需要再安装了。123[root@d">
+<meta name="twitter:title" content="SVNServer在CentOS6.7上的部署指南">
+<meta name="twitter:description" content="一般来说，subversion服务器可以用两种方式架设：  一种是基于svnserve，svnserve作为服务端 一种是基于Apache，用apache作为服务端   这里以svnserver为例">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/"/>
+  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/12/SVNServer在CentOS6-7上的部署指南/"/>
 
 
 
 
 
-  <title>Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南 | blueHaw's Notes</title>
+  <title>SVNServer在CentOS6.7上的部署指南 | blueHaw's Notes</title>
   
 
 
@@ -277,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/12/SVNServer在CentOS6-7上的部署指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blueHaw">
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南</h1>
+          <h1 class="post-title" itemprop="name headline">SVNServer在CentOS6.7上的部署指南</h1>
         
 
         <div class="post-meta">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T17:25:12+08:00">
-                2017-10-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T23:27:17+08:00">
+                2017-10-12
               </time>
             
 
@@ -340,8 +340,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/NTP/" itemprop="url" rel="index">
-                    <span itemprop="name">NTP</span>
+                  <a href="/categories/Linux/SVN/" itemprop="url" rel="index">
+                    <span itemprop="name">SVN</span>
                   </a>
                 </span>
 
@@ -377,49 +377,65 @@
       
 
       
-        <p>使用root用户进行操作，涉及所有服务器。</p>
-<h3 id="0-设置所有服务器在同一时区"><a href="#0-设置所有服务器在同一时区" class="headerlink" title="0.    设置所有服务器在同一时区"></a>0.    设置所有服务器在同一时区</h3><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TZ=Asia/Shanghai</div><div class="line">ln -snf <span class="meta-keyword">/usr/</span>share<span class="meta-keyword">/zoneinfo/</span>$TZ <span class="meta-keyword">/etc/</span>localtime</div><div class="line">echo $TZ &gt; <span class="meta-keyword">/etc/</span>timezone</div></pre></td></tr></table></figure>
-<h3 id="1-安装ntp服务"><a href="#1-安装ntp服务" class="headerlink" title="1.    安装ntp服务"></a>1.    安装ntp服务</h3><ul>
-<li>查看是否已经安装：<code>rpm -qa | grep ntp</code>。 如果已安装就不需要再安装了。<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@docker2 ~]# rpm -qa | grep ntp</div><div class="line">ntpdate-4.2.6p5-5.el6.centos.x86_64</div><div class="line">ntp-4.2.6p5-5.el6.centos.x86_64</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<a id="more"></a>
+        <p>一般来说，subversion服务器可以用两种方式架设：</p>
 <ul>
-<li>如果没安装，使用： <code>yum install ntpd</code> 安装<h3 id="2-设置开机启动：-chkconfig-ntpd-on"><a href="#2-设置开机启动：-chkconfig-ntpd-on" class="headerlink" title="2.    设置开机启动： chkconfig ntpd on"></a>2.    设置开机启动： <code>chkconfig ntpd on</code></h3><h3 id="3-修改-etc-ntp-conf"><a href="#3-修改-etc-ntp-conf" class="headerlink" title="3.    修改/etc/ntp.conf"></a>3.    修改<code>/etc/ntp.conf</code></h3></li>
-<li>将<code>restrict default kod nomodify notrap nopeer noquery</code>注释掉，这个对客户端的限制太多。<strong>ntp 4.2之前版本</strong>添加<code>restrict default nomodify notrust</code>（允许任何IP的客户机都可以进行时间同步）以允许所有客户端获取时间数据。<code>notrust</code> 参数的功能是并需通过认证才能同步，也就是客户端同步命令中必须有<code>keyid</code>和<code>key</code>才能通过。</li>
-<li>注释掉所有的<code>trustedkey</code>， 添加 <code>trustedkey 1 2 3</code>，后边指定数字任意，但必须与<code>/etc/ntp/keys</code>文件中的 值保持一致。也就是说<code>1 2 3</code> 这三个数分别作为认证的<code>keyid</code>。</li>
-<li><p>配置时间源， 指定同步参考的服务器时间。如果连接不了外网就把所有外网时间服务器都注释掉</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server <span class="number">10.148</span>.<span class="number">27.166</span> <span class="comment">// 局域网内，客户机（slaver）配置为集群内master服务器IP</span></div><div class="line">server ntp<span class="selector-class">.api</span><span class="selector-class">.bz</span> <span class="comment">// 连接不了外网就注释掉</span></div><div class="line">server <span class="number">2</span><span class="selector-class">.centos</span><span class="selector-class">.pool</span><span class="selector-class">.ntp</span><span class="selector-class">.org</span> <span class="comment">// 连接不了外网就注释掉</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>添加如下配置项目，以让<code>NTP Server</code>和其自身保持同步，如果在<code>/etc/ntp.conf</code>中定义的server都不可用时，将使用local时间作为ntp服务提供给ntp客户端。 客户端不需要配置，只在服务端配置即可</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">server <span class="number">127.127</span><span class="number">.1</span><span class="number">.0</span> # local clock <span class="comment">//服务端如果连接不了外网，使用本地时间提供给客户端同步</span></div><div class="line">fudge <span class="number">127.127</span><span class="number">.1</span><span class="number">.0</span> stratum <span class="number">2</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>最后保存退出</p>
-<h3 id="4-修改-etc-ntp-keys文件（集群内所在节点）"><a href="#4-修改-etc-ntp-keys文件（集群内所在节点）" class="headerlink" title="4.    修改/etc/ntp/keys文件（集群内所在节点）"></a>4.    修改<code>/etc/ntp/keys</code>文件（集群内所在节点）</h3><p>添加如下配置， 前面的数字必须与 <code>/etc/ntp.conf</code> 文件中 <code>trustedkey</code> 后边指定的数字一致才行，字符串任意。</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">1 </span>M gao</div><div class="line"><span class="symbol">2 </span>M tian</div><div class="line"><span class="symbol">3 </span>M di</div></pre></td></tr></table></figure>
-</li>
+<li>一种是基于svnserve，svnserve作为服务端</li>
+<li>一种是基于Apache，用apache作为服务端</li>
 </ul>
-<h3 id="5-修改时区"><a href="#5-修改时区" class="headerlink" title="5.    修改时区"></a>5.    修改时区</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rm -f <span class="regexp">/etc/</span>localtime</div><div class="line">cp -f <span class="regexp">/usr/</span>share<span class="regexp">/zoneinfo/</span>Asia<span class="regexp">/Shanghai /</span>etc<span class="regexp">/localtime</span></div></pre></td></tr></table></figure>
-<h3 id="6-重启-ntp-服务-service-ntpd-restart"><a href="#6-重启-ntp-服务-service-ntpd-restart" class="headerlink" title="6.    重启 ntp 服务    service ntpd restart"></a>6.    重启 ntp 服务    <code>service ntpd restart</code></h3><ul>
-<li>要注意ntp的重启是有延迟的，所以有的时候重启以后没发现修改配置生效，是因为这个延迟导致的， 这是因为NTP server还没有和其自身或者它的server同步上</li>
-<li>如果集群内所在节点都安装了NTP服务，服务端时间源外网时间源不可用时，可与本地时间同步，且客户端时间源配置了集群内服务端，那么启动所有节点NTP服务，集群内节点即可实现时间同步。</li>
-<li>如果客户端NTP服务未启动，或者未配置集群内时间源，可通过执行 <code>ntpdate &lt;ntp server&gt;</code> 来同步，我们只要指定与<code>master</code>节点同步就可以了。</li>
-<li>手动在集群内所客户端系统上执行 <code>ntpdate 10.148.27.166</code> ，测试服务器是否成功配置；<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">成功返回：ntpdate[15522]: adjust time<span class="built_in"> server </span>10.148.27.166 offset 0.290456 sec</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>同步调试模式<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ntpdate</span> <span class="selector-tag">-d</span> 10<span class="selector-class">.148</span><span class="selector-class">.27</span><span class="selector-class">.166</span></div></pre></td></tr></table></figure></p>
-<h3 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7. 常见问题"></a>7. 常见问题</h3><h4 id="问题一：-10-148-27-166-Server-dropped-no-data"><a href="#问题一：-10-148-27-166-Server-dropped-no-data" class="headerlink" title="问题一： 10.148.27.166: Server dropped: no data"></a>问题一： <code>10.148.27.166: Server dropped: no data</code></h4><ol>
-<li><p>ntp 4.2（包括4.2）之后的版本，在restrict的定义中使用<code>notrust</code>的话，会导致以上错误。<br>使用以下命令查看ntp版本：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ntpq -c <span class="built_in">version</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>检查ntp server的防火墙，可能是server的防火墙屏蔽了upd 123端口<br>可关闭防火墙试试，若同步成功，说明是防火墙问题，开启防火墙端口即可。关闭防火墙：</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service iptables <span class="built_in">stop</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里以svnserver为例<br><a id="more"></a></p>
+<h1 id="安装svnserver"><a href="#安装svnserver" class="headerlink" title="安装svnserver"></a>安装svnserver</h1><ol>
+<li><code>docker</code>安装 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull garethflowers/svn-<span class="keyword">server</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
-<h4 id="问题二：-10-148-27-166-Server-dropped-Strata-too-high"><a href="#问题二：-10-148-27-166-Server-dropped-Strata-too-high" class="headerlink" title="问题二： 10.148.27.166: Server dropped: Strata too high"></a>问题二： <code>10.148.27.166: Server dropped: Strata too high</code></h4><p><code>startum</code>的值正常情况下为<code>0~15</code>，修改<code>/etc/ntp.conf</code>中：startum后面的值在0~15之间即可。</p>
-<h4 id="问题三：-一直提示step-time-server"><a href="#问题三：-一直提示step-time-server" class="headerlink" title="问题三： 一直提示step time server"></a>问题三： 一直提示<code>step time server</code></h4><p>重启 ntp <code>service ntpd restart</code> ，还没有解决稍等一下再手动同步</p>
-<p>成功返回<code>adjust time server 10.148.27.166 offset 0.000073 sec</code></p>
-<h3 id="8-常用命令"><a href="#8-常用命令" class="headerlink" title="8. 常用命令"></a>8. 常用命令</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看ntp版本</span></div><div class="line">ntpq -c version</div><div class="line">ntpdate -u ip</div><div class="line"><span class="comment"># NTP服务状态</span></div><div class="line">ntpstat</div><div class="line">ntpq -p</div><div class="line"><span class="comment"># 查看NTP服务的运行状况</span></div><div class="line">watch ntpq -p</div></pre></td></tr></table></figure>
+</blockquote>
+<ol>
+<li>本地安装 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]<span class="comment"># yum -y install subversion</span></div><div class="line">[root@localhost ~]<span class="comment"># svnserve --version</span></div><div class="line">svnserve, version 1.7.14 (r1542130)</div><div class="line">   compiled Nov 20 2015, 19:25:09</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="配置svnserver"><a href="#配置svnserver" class="headerlink" title="配置svnserver"></a>配置svnserver</h1><h2 id="1-添加svn管理用户和subversion组（这步很重要，不然会导致authentication-failed）"><a href="#1-添加svn管理用户和subversion组（这步很重要，不然会导致authentication-failed）" class="headerlink" title="1. 添加svn管理用户和subversion组（这步很重要，不然会导致authentication failed）"></a>1. 添加svn管理用户和subversion组（这步很重要，不然会导致authentication failed）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># centos下：</span></div><div class="line">sudo adduser svnuser <span class="comment">#(添加svnuser用户）</span></div><div class="line">sudo groupadd subversion <span class="comment">#（添加subversion组）</span></div><div class="line">sudo groupadd -G subversion svnuser  </div><div class="line">sudo groupadd -G root subversion <span class="comment">#把root用户添加到组里</span></div><div class="line"><span class="comment"># Ubuntu下：</span></div><div class="line">sudo adduser svnuser <span class="comment">#(添加svnuser用户）</span></div><div class="line">sudo addgroup subversion <span class="comment">#（添加subversion组）</span></div><div class="line">sudo addgroup svnuser subversion </div><div class="line">sudo addgroup root subversion <span class="comment">#把root用户添加到组里</span></div></pre></td></tr></table></figure>
+<h2 id="2-开始创建项目目录"><a href="#2-开始创建项目目录" class="headerlink" title="2. 开始创建项目目录"></a>2. 开始创建项目目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mkdir /home/svn  <span class="comment">#(这里的svn即为版本库目录文件，以后所有的操作都在/home/svn下</span></div><div class="line"><span class="built_in">cd</span> /home/svn</div><div class="line">mkdir repo <span class="comment">#(这里即为一个版本库文件，文件名可以任意取）</span></div><div class="line">chown -R root:subversion repo</div><div class="line">chmod -R g+rws repo</div></pre></td></tr></table></figure>
+<h2 id="3-创建SVN文件仓库，即为上面建立的repo文件目录"><a href="#3-创建SVN文件仓库，即为上面建立的repo文件目录" class="headerlink" title="3. 创建SVN文件仓库，即为上面建立的repo文件目录"></a>3. 创建SVN文件仓库，即为上面建立的repo文件目录</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svnadmin create /<span class="built_in">home</span>/svn/repo</div></pre></td></tr></table></figure>
+<p>到这一步，安装基本完成，开始改配置。</p>
+<h2 id="4-在-home-svn-repo文件目录中可以看到conf文件夹，可针对conf文件夹中的authz、passwd、svnserve-conf进行设置，svnserve-conf主要设置整体的安全策略，passwd则设置用户名和密码，-authz-则是设置具体的用户有什么权限。"><a href="#4-在-home-svn-repo文件目录中可以看到conf文件夹，可针对conf文件夹中的authz、passwd、svnserve-conf进行设置，svnserve-conf主要设置整体的安全策略，passwd则设置用户名和密码，-authz-则是设置具体的用户有什么权限。" class="headerlink" title="4. 在/home/svn/repo文件目录中可以看到conf文件夹，可针对conf文件夹中的authz、passwd、svnserve.conf进行设置，svnserve.conf主要设置整体的安全策略，passwd则设置用户名和密码， authz 则是设置具体的用户有什么权限。"></a>4. 在<code>/home/svn/repo</code>文件目录中可以看到conf文件夹，可针对conf文件夹中的<code>authz、passwd、svnserve.conf</code>进行设置，<code>svnserve.conf</code>主要设置整体的安全策略，<code>passwd</code>则设置用户名和密码， <code>authz</code> 则是设置具体的用户有什么权限。</h2><h2 id="5-访问权限设置"><a href="#5-访问权限设置" class="headerlink" title="5. 访问权限设置"></a>5. 访问权限设置</h2><ol>
+<li>编辑svnserve.conf文件<ul>
+<li>anon-access：匿名用户的权限，可以为<code>read</code>，<code>write</code>和<code>none</code>，默认值<code>read</code>。不允许匿名用户访问：<code>anon-access = none</code></li>
+<li>auth-access：认证用户的权限，可以为<code>read</code>，<code>write</code>和<code>none</code>，默认值<code>write</code>。</li>
+<li>password-db：密码数据库的路径，去掉前边的#</li>
+<li>authz-db：认证规则库的路径，去掉前边的#<blockquote>
+<p><strong>这些配置项的行都要顶格，否则会报错。修改配置后需要重启svn才能生效。</strong></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>编辑passwd文件，加入用户名和密码<br> 用户名=密码, 采用的是明码。如<code>allen=1</code>（apache模式下密码为经过加密的变化）<br> 如下：</p>
+ <figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="section">[users]</span></div><div class="line"><span class="attr">slhan</span>=justdoit</div></pre></td></tr></table></figure>
+</li>
+<li><p>编辑authz文件，配置用户访问权限（如下为示例）</p>
+<ul>
+<li><p><code>[groups]</code>设置，为了便于管理，可以将一些用户放到一个组里边，比如：<code>owner=allen,ellen</code>,如下：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="section">[groups]</span></div><div class="line"><span class="comment"># harry_and_sally = harry,sally</span></div><div class="line"><span class="comment"># harry_sally_and_joe = harry,sally,&amp;joe</span></div><div class="line"><span class="attr">owner</span>=slhan</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>groups</code>下边的配置表示对一个目录的认证规则，比如对根目录的认证规则的section为<code>[/]</code>。设置单用户的认证规则时一个用户一行，如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[/]</div><div class="line">allen=rw　　<span class="comment">#allen对根目录的权限为rw</span></div><div class="line">ellen=r　　 <span class="comment">#ellen对根目录的权限为r</span></div></pre></td></tr></table></figure>
+<p>如果使用group，需要在group名字前加@,如</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">owner</span>=<span class="keyword">rw</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>每个仓库的根目录<code>(/)</code>就是自己的起始目录；<code>[repos:/]</code>这种方式只适用于多仓库的情况；<code>[/]</code>适合于单仓库和单仓库的方式。更多关于单仓库和多仓库的问题，</p>
+<h2 id="6-启动svn服务"><a href="#6-启动svn服务" class="headerlink" title="6. 启动svn服务"></a>6. 启动svn服务</h2><p><code>svnserve -d -T -r /home/svn</code><br>描述说明：</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><code>-d</code> 表示svnserver以“守护”进程模式运行</li>
+<li><code>-T</code> 表示以线程模式运行，增加效率</li>
+<li><code>-r</code> 指定文件系统的根位置（版本库的根目录），这样客户端不用输入全路径，就可以访问版本库。如: svn://你的IP/repo<h1 id="部署验证"><a href="#部署验证" class="headerlink" title="部署验证"></a>部署验证</h1>使用客户端访问<code>svn://你的IP/repo</code><blockquote>
+<p>注意authz passwd svnserve.conf文件所有行的前面都不能有空格<br>注意建立svn管理用户和组</p>
+</blockquote>
+</li>
+</ul>
 
       
     </div>
@@ -440,7 +456,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/" title="Linux 集群时钟同步 ntp （NetworkTimeProtocol）安装指南">https://bluehaw.github.io/posts/2017/10/09/linux集群时钟同步ntp（NetworkTimeProtocol）/</a>
+    <a href="https://bluehaw.github.io/posts/2017/10/12/SVNServer在CentOS6-7上的部署指南/" title="SVNServer在CentOS6.7上的部署指南">https://bluehaw.github.io/posts/2017/10/12/SVNServer在CentOS6-7上的部署指南/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -455,7 +471,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/SVN/" rel="tag"># SVN</a>
           
         </div>
       
@@ -468,8 +484,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/2017/10/09/虚拟机网络模式/" rel="next" title="虚拟机网络模式">
-                <i class="fa fa-chevron-left"></i> 虚拟机网络模式
+              <a href="/posts/2017/10/12/ApacheHTTPServer2-4-25在CentOS6-7上的部署手册/" rel="next" title="ApacheHTTPServer2.4.25在CentOS6.7上的部署手册">
+                <i class="fa fa-chevron-left"></i> ApacheHTTPServer2.4.25在CentOS6.7上的部署手册
               </a>
             
           </div>
@@ -478,8 +494,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/2017/10/09/docker问题/" rel="prev" title="Docker问题">
-                Docker问题 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/2017/10/19/MySQL5-7在CentOS7上的安装指南/" rel="prev" title="MySQL5.7在CentOS7上的安装指南">
+                MySQL5.7在CentOS7上的安装指南 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -559,7 +575,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -630,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-设置所有服务器在同一时区"><span class="nav-number">1.</span> <span class="nav-text">0.    设置所有服务器在同一时区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装ntp服务"><span class="nav-number">2.</span> <span class="nav-text">1.    安装ntp服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-设置开机启动：-chkconfig-ntpd-on"><span class="nav-number">3.</span> <span class="nav-text">2.    设置开机启动： chkconfig ntpd on</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-修改-etc-ntp-conf"><span class="nav-number">4.</span> <span class="nav-text">3.    修改/etc/ntp.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-修改-etc-ntp-keys文件（集群内所在节点）"><span class="nav-number">5.</span> <span class="nav-text">4.    修改/etc/ntp/keys文件（集群内所在节点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-修改时区"><span class="nav-number">6.</span> <span class="nav-text">5.    修改时区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-重启-ntp-服务-service-ntpd-restart"><span class="nav-number">7.</span> <span class="nav-text">6.    重启 ntp 服务    service ntpd restart</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-常见问题"><span class="nav-number">8.</span> <span class="nav-text">7. 常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一：-10-148-27-166-Server-dropped-no-data"><span class="nav-number">8.1.</span> <span class="nav-text">问题一： 10.148.27.166: Server dropped: no data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题二：-10-148-27-166-Server-dropped-Strata-too-high"><span class="nav-number">8.2.</span> <span class="nav-text">问题二： 10.148.27.166: Server dropped: Strata too high</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题三：-一直提示step-time-server"><span class="nav-number">8.3.</span> <span class="nav-text">问题三： 一直提示step time server</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-常用命令"><span class="nav-number">9.</span> <span class="nav-text">8. 常用命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装svnserver"><span class="nav-number">1.</span> <span class="nav-text">安装svnserver</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置svnserver"><span class="nav-number">2.</span> <span class="nav-text">配置svnserver</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-添加svn管理用户和subversion组（这步很重要，不然会导致authentication-failed）"><span class="nav-number">2.1.</span> <span class="nav-text">1. 添加svn管理用户和subversion组（这步很重要，不然会导致authentication failed）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-开始创建项目目录"><span class="nav-number">2.2.</span> <span class="nav-text">2. 开始创建项目目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-创建SVN文件仓库，即为上面建立的repo文件目录"><span class="nav-number">2.3.</span> <span class="nav-text">3. 创建SVN文件仓库，即为上面建立的repo文件目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-在-home-svn-repo文件目录中可以看到conf文件夹，可针对conf文件夹中的authz、passwd、svnserve-conf进行设置，svnserve-conf主要设置整体的安全策略，passwd则设置用户名和密码，-authz-则是设置具体的用户有什么权限。"><span class="nav-number">2.4.</span> <span class="nav-text">4. 在/home/svn/repo文件目录中可以看到conf文件夹，可针对conf文件夹中的authz、passwd、svnserve.conf进行设置，svnserve.conf主要设置整体的安全策略，passwd则设置用户名和密码， authz 则是设置具体的用户有什么权限。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-访问权限设置"><span class="nav-number">2.5.</span> <span class="nav-text">5. 访问权限设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-启动svn服务"><span class="nav-number">2.6.</span> <span class="nav-text">6. 启动svn服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署验证"><span class="nav-number">3.</span> <span class="nav-text">部署验证</span></a></li></ol></div>
             
 
           </div>

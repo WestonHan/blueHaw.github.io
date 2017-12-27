@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
 <meta property="og:description" content="系统信息： cat /etc/redhat-release ,  uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo ，是否升级内核 内存信息： free -h， cat /proc/meminfo 磁盘信息： df -lhT ，挂载路径 网卡信息： ip a ,  ifconfig, ethtool devname |grep -i speed">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-24T07:49:07.880Z">
+<meta property="og:updated_time" content="2017-12-27T14:41:18.299Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 新机器检查基础环境">
 <meta name="twitter:description" content="系统信息： cat /etc/redhat-release ,  uname -a, lsb_release -a cpu信息： cat /proc/cpuinfo ，是否升级内核 内存信息： free -h， cat /proc/meminfo 磁盘信息： df -lhT ，挂载路径 网卡信息： ip a ,  ifconfig, ethtool devname |grep -i speed">
@@ -378,13 +378,13 @@
 <li>时钟同步：web服务器、solr机器（必须）</li>
 <li>ssh互信：web服务器、solr机器</li>
 </ul>
-<h2 id="1-查看系统信息"><a href="#1-查看系统信息" class="headerlink" title="1. 查看系统信息"></a>1. 查看系统信息</h2><h2 id="2-查看CPU信息"><a href="#2-查看CPU信息" class="headerlink" title="2. 查看CPU信息"></a>2. 查看CPU信息</h2><h3 id="查看CPU信息（型号）"><a href="#查看CPU信息（型号）" class="headerlink" title="查看CPU信息（型号）"></a>查看CPU信息（型号）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c</div></pre></td></tr></table></figure>
-<h3 id="查看物理CPU个数"><a href="#查看物理CPU个数" class="headerlink" title="查看物理CPU个数"></a>查看物理CPU个数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo| grep <span class="string">"physical id"</span>| sort| uniq| wc -l</div></pre></td></tr></table></figure>
-<h3 id="查看每个物理CPU中core的个数-即核数"><a href="#查看每个物理CPU中core的个数-即核数" class="headerlink" title="查看每个物理CPU中core的个数(即核数)"></a>查看每个物理CPU中core的个数(即核数)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo| grep <span class="string">"cpu cores"</span>| uniq</div></pre></td></tr></table></figure>
-<h3 id="查看逻辑CPU的个数"><a href="#查看逻辑CPU的个数" class="headerlink" title="查看逻辑CPU的个数"></a>查看逻辑CPU的个数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo| grep <span class="string">"processor"</span>| wc -l</div></pre></td></tr></table></figure>
+<h1 id="查看系统信息"><a href="#查看系统信息" class="headerlink" title="查看系统信息"></a>查看系统信息</h1><h1 id="查看CPU信息"><a href="#查看CPU信息" class="headerlink" title="查看CPU信息"></a>查看CPU信息</h1><h2 id="查看CPU信息（型号）"><a href="#查看CPU信息（型号）" class="headerlink" title="查看CPU信息（型号）"></a>查看CPU信息（型号）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c</div></pre></td></tr></table></figure>
+<h2 id="查看物理CPU个数"><a href="#查看物理CPU个数" class="headerlink" title="查看物理CPU个数"></a>查看物理CPU个数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo| grep <span class="string">"physical id"</span>| sort| uniq| wc -l</div></pre></td></tr></table></figure>
+<h2 id="查看每个物理CPU中core的个数-即核数"><a href="#查看每个物理CPU中core的个数-即核数" class="headerlink" title="查看每个物理CPU中core的个数(即核数)"></a>查看每个物理CPU中core的个数(即核数)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo| grep <span class="string">"cpu cores"</span>| uniq</div></pre></td></tr></table></figure>
+<h2 id="查看逻辑CPU的个数"><a href="#查看逻辑CPU的个数" class="headerlink" title="查看逻辑CPU的个数"></a>查看逻辑CPU的个数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo| grep <span class="string">"processor"</span>| wc -l</div></pre></td></tr></table></figure>
 <p>总核数 = 物理CPU个数 X 每颗物理CPU的核数 </p>
 <p>总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数</p>
-<h2 id="3-查看内存信息"><a href="#3-查看内存信息" class="headerlink" title="3. 查看内存信息"></a>3. 查看内存信息</h2><p>运行 <code>grep -i commit /proc/meminfo</code> 查看系统内存分配状态<br><figure class="highlight tcl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost local]# grep -i commit /<span class="keyword">proc</span>/meminfo</div><div class="line">CommitLimit:    15550904<span class="title"> kB</span></div><div class="line"><span class="title">Committed_AS:</span>   15098404<span class="title"> kB</span></div><div class="line"><span class="title">#</span> CommitLimit是一个内存分配上限,CommitLimit = 物理内存 *<span class="title"> overcommit_ratio(默认50，即50%)</span> +<span class="title"> swap大小</span></div><div class="line"><span class="title">#</span> Committed_As是已经分配的内存大小。</div></pre></td></tr></table></figure></p>
+<h1 id="查看内存信息"><a href="#查看内存信息" class="headerlink" title="查看内存信息"></a>查看内存信息</h1><p>运行 <code>grep -i commit /proc/meminfo</code> 查看系统内存分配状态<br><figure class="highlight tcl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost local]# grep -i commit /<span class="keyword">proc</span>/meminfo</div><div class="line">CommitLimit:    15550904<span class="title"> kB</span></div><div class="line"><span class="title">Committed_AS:</span>   15098404<span class="title"> kB</span></div><div class="line"><span class="title">#</span> CommitLimit是一个内存分配上限,CommitLimit = 物理内存 *<span class="title"> overcommit_ratio(默认50，即50%)</span> +<span class="title"> swap大小</span></div><div class="line"><span class="title">#</span> Committed_As是已经分配的内存大小。</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -443,8 +443,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/2017/10/06/linux-sed命令介绍/" rel="prev" title="Linux sed命令介绍">
-                Linux sed命令介绍 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/2017/10/06/Sed命令在Linux上的使用指南/" rel="prev" title="Sed命令在Linux上的使用指南">
+                Sed命令在Linux上的使用指南 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -524,7 +524,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -595,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-查看系统信息"><span class="nav-number">1.</span> <span class="nav-text">1. 查看系统信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-查看CPU信息"><span class="nav-number">2.</span> <span class="nav-text">2. 查看CPU信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看CPU信息（型号）"><span class="nav-number">2.1.</span> <span class="nav-text">查看CPU信息（型号）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看物理CPU个数"><span class="nav-number">2.2.</span> <span class="nav-text">查看物理CPU个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看每个物理CPU中core的个数-即核数"><span class="nav-number">2.3.</span> <span class="nav-text">查看每个物理CPU中core的个数(即核数)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看逻辑CPU的个数"><span class="nav-number">2.4.</span> <span class="nav-text">查看逻辑CPU的个数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-查看内存信息"><span class="nav-number">3.</span> <span class="nav-text">3. 查看内存信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#查看系统信息"><span class="nav-number">1.</span> <span class="nav-text">查看系统信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看CPU信息"><span class="nav-number">2.</span> <span class="nav-text">查看CPU信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看CPU信息（型号）"><span class="nav-number">2.1.</span> <span class="nav-text">查看CPU信息（型号）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看物理CPU个数"><span class="nav-number">2.2.</span> <span class="nav-text">查看物理CPU个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看每个物理CPU中core的个数-即核数"><span class="nav-number">2.3.</span> <span class="nav-text">查看每个物理CPU中core的个数(即核数)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看逻辑CPU的个数"><span class="nav-number">2.4.</span> <span class="nav-text">查看逻辑CPU的个数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看内存信息"><span class="nav-number">3.</span> <span class="nav-text">查看内存信息</span></a></li></ol></div>
             
 
           </div>

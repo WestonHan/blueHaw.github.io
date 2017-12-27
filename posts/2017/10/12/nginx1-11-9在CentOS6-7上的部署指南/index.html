@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Docker," />
+  <meta name="keywords" content="Nginx," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1. Uninstall old versions1234$ sudo yum remove docker \                  docker-common \                  docker-selinux \                  docker-engine">
-<meta name="keywords" content="Docker">
+<meta name="description" content="安装流程安装 PCRE，然后安装 nginx。 安装PCRE1yum -y install pcre-devel">
+<meta name="keywords" content="Nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker 在CentOS6.7 上的部署指南">
-<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/02/install docker/index.html">
+<meta property="og:title" content="nginx1.11.9在CentOS6.7上的部署指南">
+<meta property="og:url" content="https://bluehaw.github.io/posts/2017/10/12/nginx1-11-9在CentOS6-7上的部署指南/index.html">
 <meta property="og:site_name" content="blueHaw&#39;s Notes">
-<meta property="og:description" content="1. Uninstall old versions1234$ sudo yum remove docker \                  docker-common \                  docker-selinux \                  docker-engine">
+<meta property="og:description" content="安装流程安装 PCRE，然后安装 nginx。 安装PCRE1yum -y install pcre-devel">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-27T14:15:22.800Z">
+<meta property="og:updated_time" content="2017-12-27T15:20:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker 在CentOS6.7 上的部署指南">
-<meta name="twitter:description" content="1. Uninstall old versions1234$ sudo yum remove docker \                  docker-common \                  docker-selinux \                  docker-engine">
+<meta name="twitter:title" content="nginx1.11.9在CentOS6.7上的部署指南">
+<meta name="twitter:description" content="安装流程安装 PCRE，然后安装 nginx。 安装PCRE1yum -y install pcre-devel">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/02/install docker/"/>
+  <link rel="canonical" href="https://bluehaw.github.io/posts/2017/10/12/nginx1-11-9在CentOS6-7上的部署指南/"/>
 
 
 
 
 
-  <title>Docker 在CentOS6.7 上的部署指南 | blueHaw's Notes</title>
+  <title>nginx1.11.9在CentOS6.7上的部署指南 | blueHaw's Notes</title>
   
 
 
@@ -277,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/02/install docker/">
+    <link itemprop="mainEntityOfPage" href="https://bluehaw.github.io/posts/2017/10/12/nginx1-11-9在CentOS6-7上的部署指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blueHaw">
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Docker 在CentOS6.7 上的部署指南</h1>
+          <h1 class="post-title" itemprop="name headline">nginx1.11.9在CentOS6.7上的部署指南</h1>
         
 
         <div class="post-meta">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T19:34:58+08:00">
-                2017-10-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T23:04:27+08:00">
+                2017-10-12
               </time>
             
 
@@ -329,8 +329,30 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/中间件/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/中间件/负载均衡/" itemprop="url" rel="index">
+                    <span itemprop="name">负载均衡</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/中间件/负载均衡/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
                   </a>
                 </span>
 
@@ -366,92 +388,17 @@
       
 
       
-        <h1 id="1-Uninstall-old-versions"><a href="#1-Uninstall-old-versions" class="headerlink" title="1. Uninstall old versions"></a>1. Uninstall old versions</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sudo yum remove docker \</div><div class="line">                  docker-common \</div><div class="line">                  docker-selinux \</div><div class="line">                  docker-engine</div></pre></td></tr></table></figure>
+        <h1 id="安装流程"><a href="#安装流程" class="headerlink" title="安装流程"></a>安装流程</h1><p>安装 PCRE，然后安装 nginx。</p>
+<h2 id="安装PCRE"><a href="#安装PCRE" class="headerlink" title="安装PCRE"></a>安装PCRE</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y <span class="keyword">install</span> pcre-devel</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<h1 id="2-Install-Docker-CE"><a href="#2-Install-Docker-CE" class="headerlink" title="2. Install Docker CE"></a>2. Install Docker CE</h1><p>You can install Docker CE in different ways, depending on your needs:</p>
-<ul>
-<li>Most users <code>set up Docker’s repositories</code> and install from them, for ease of installation and upgrade tasks. This is the recommended approach.</li>
-<li>Some users download the RPM package and <code>install it manually</code> and manage upgrades completely manually. This is useful in situations such as installing Docker on air-gapped systems with no access to the internet.</li>
-<li>In testing and development environments, some users choose to use automated <code>convenience scripts</code> to install Docker.</li>
-</ul>
-<h2 id="Install-using-the-repository"><a href="#Install-using-the-repository" class="headerlink" title="Install using the repository"></a>Install using the repository</h2><p>Before you install Docker CE for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.</p>
-<h3 id="Set-up-the-repository"><a href="#Set-up-the-repository" class="headerlink" title="Set up the repository"></a>Set up the repository</h3><ol>
-<li><p>Install required packages.</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install -y yum-utils device-mapper-persistent-<span class="class"><span class="keyword">data</span> lvm2</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>Use the following command to set up the <strong>stable</strong> repository. You always need the <strong>stable</strong> repository, even if you want to install builds from the <strong>edge</strong> or <strong>test</strong> repositories as well.</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo yum-config-manager \</div><div class="line">    --<span class="built_in">add</span>-repo \</div><div class="line">    http<span class="variable">s:</span>//download.docker.<span class="keyword">com</span>/linux/centos/docker-<span class="keyword">ce</span>.repo</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Optional</strong>: Enable the <strong>edge</strong> and <strong>test</strong> repositories. These repositories are included in the docker.repo file above but are disabled by default. You can enable them alongside the stable repository.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo yum-config-manager --<span class="built_in">enable</span> docker-ce-edge</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo yum-config-manager --<span class="built_in">enable</span> docker-ce-test</span></div></pre></td></tr></table></figure>
-<p>You can disable the <strong>edge</strong> or <strong>test</strong> repository by running the yum-config-manager command with the <code>--disable</code> flag. To re-enable it, use the <code>--enable</code> flag. The following command disables the <strong>edge</strong> repository.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo yum-config-manager --<span class="built_in">disable</span> docker-ce-edge</span></div></pre></td></tr></table></figure></p>
-<blockquote>
-<p><strong>Note</strong>: Starting with Docker 17.06, stable releases are also pushed to the <strong>edge</strong> and <strong>test</strong> repositories.</p>
-<h3 id="Install-Docker-CE"><a href="#Install-Docker-CE" class="headerlink" title="Install Docker CE"></a>Install Docker CE</h3><ol>
-<li>Update the <code>yum</code> package index.<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo yum makecache fast</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-<ol>
-<li>Install the latest version of Docker CE, or go to the next step to install a specific version.<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum <span class="keyword">install</span> docker-ce</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<blockquote>
-<p><span style="color:#CE4844">Warning: If you have multiple Docker repositories enabled, installing or updating without specifying a version in the <code>yum install</code> or <code>yum update</code> command will always install the highest possible version, which may not be appropriate for your stability needs.</span></p>
-</blockquote>
-<ol>
-<li>On production systems, you should install a specific version of Docker CE instead of always using the latest. List the available versions. This example uses the <code>sort -r</code> command to sort the results by version number, highest to lowest, and is truncated.<blockquote>
-<p><strong>Note</strong>: This yum list command only shows binary packages. To show source packages as well, omit the .x86_64 from the package name.</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ yum <span class="keyword">list</span> docker-<span class="keyword">ce</span>.x86_64  --showduplicates | <span class="keyword">sort</span> -r</div><div class="line"></div><div class="line">docker-<span class="keyword">ce</span>.x86_64  <span class="number">17.06</span>.<span class="number">0</span>.el7                              docker-<span class="keyword">ce</span>-stable</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ol>
-<p>The contents of the list depend upon which repositories are enabled, and will be specific to your version of CentOS (indicated by the .el7 suffix on the version, in this example). </p>
-<p>Choose a specific version to install. The second column is the version string. The third column is the repository name, which indicates which repository the package is from and by extension its stability level. To install a specific version, append the version string to the package name and separate them by a hyphen (-):<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo yum install docker-ce-&lt;VERSION&gt;</span></div></pre></td></tr></table></figure></p>
-<ol>
-<li><p>Start Docker.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo systemctl start docker</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>Verify that docker is installed correctly by running the hello-world image.</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker <span class="keyword">run</span><span class="bash"> hello-world</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>This command downloads a test image and runs it in a container. When the container runs, it prints an informational message and exits.</p>
-<p><strong>Upgrade Docker CE</strong></p>
-<p>To upgrade Docker CE, first run sudo yum makecache fast, then follow the installation instructions, choosing the new version you want to install.</p>
-<h2 id="Install-from-a-package"><a href="#Install-from-a-package" class="headerlink" title="Install from a package"></a>Install from a package</h2><p>If you cannot use Docker’s repository to install Docker, you can download the <code>.rpm</code> file for your release and install it manually. You will need to download a new file each time you want to upgrade Docker.</p>
-<ol>
-<li><p>Go to <a href="https://download.docker.com/linux/centos/7/x86_64/stable/Packages/" target="_blank" rel="external">https://download.docker.com/linux/centos/7/x86_64/stable/Packages/</a> and download the <code>.rpm</code> file for the Docker version you want to install.</p>
-<blockquote>
-<p>Note: To install an edge package, change the word stable in the &gt; URL to edge. </p>
-</blockquote>
-</li>
-<li><p>Install Docker CE, changing the path below to the path where you downloaded the Docker package.</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum <span class="keyword">install</span> /<span class="keyword">path</span>/<span class="keyword">to</span>/package.rpm</div></pre></td></tr></table></figure>
-</li>
-<li><p>Start Docker.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo systemctl start docker</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>Verify that docker is installed correctly by running the hello-world image.</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker <span class="keyword">run</span><span class="bash"> hello-world</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="Install-using-the-convenience-script"><a href="#Install-using-the-convenience-script" class="headerlink" title="Install using the convenience script"></a>Install using the convenience script</h2><p>reference <a href="https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-using-the-convenience-script" target="_blank" rel="external">https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-using-the-convenience-script</a></p>
-<h1 id="Uninstall-Docker-CE"><a href="#Uninstall-Docker-CE" class="headerlink" title="Uninstall Docker CE"></a>Uninstall Docker CE</h1><ol>
-<li><p>Uninstall the Docker package:</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum <span class="builtin-name">remove</span> docker-ce</div></pre></td></tr></table></figure>
-</li>
-<li><p>Images, containers, volumes, or customized configuration files on your host are not automatically removed. To delete all images, containers, and volumes:</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo rm -rf /var/<span class="class"><span class="keyword">lib</span>/<span class="title">docker</span></span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>You must delete any edited configuration files manually.</p>
-<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="清空容器日志"><a href="#清空容器日志" class="headerlink" title="清空容器日志"></a>清空容器日志</h2><p>查看容器详细信息<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">docker inspect ContainerID</span></div></pre></td></tr></table></figure></p>
-<p>找到<code>LogPath</code>的值 <code>/var/log/......log-json.log</code>，运行<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /dev/<span class="built_in">null</span> &gt; /<span class="built_in">var</span>/<span class="keyword">log</span>/<span class="params">...</span><span class="params">...</span><span class="keyword">log</span><span class="params">-json.log</span></div></pre></td></tr></table></figure></p>
-
+<h2 id="下载-nginx-1-11-9-tar-gz-安装包放到-usr-local-目录下，解压："><a href="#下载-nginx-1-11-9-tar-gz-安装包放到-usr-local-目录下，解压：" class="headerlink" title="下载 nginx-1.11.9.tar.gz 安装包放到 /usr/local 目录下，解压："></a>下载 <code>nginx-1.11.9.tar.gz</code> 安装包放到 <code>/usr/local</code> 目录下，解压：</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-zxvf</span> <span class="selector-tag">nginx-1</span><span class="selector-class">.11</span><span class="selector-class">.9</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></div></pre></td></tr></table></figure>
+<p>接着进行安装步骤了，进入到解压的目录下执行如下命令<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">./configure</div><div class="line"></div><div class="line">nginx path prefix: <span class="string">"/usr/local/nginx"</span></div><div class="line">nginx binary file: <span class="string">"/usr/local/nginx/sbin/nginx"</span></div><div class="line"><span class="comment"># 注意binary file为启动nginx时的路径。</span></div><div class="line">nginx modules path: <span class="string">"/usr/local/nginx/modules"</span></div><div class="line">nginx configuration prefix: <span class="string">"/usr/local/nginx/conf"</span></div><div class="line">nginx configuration file: <span class="string">"/usr/local/nginx/conf/nginx.conf"</span></div><div class="line">nginx pid file: <span class="string">"/usr/local/nginx/logs/nginx.pid"</span></div><div class="line">nginx <span class="builtin-name">error</span> log file: <span class="string">"/usr/local/nginx/logs/error.log"</span></div><div class="line">nginx http access log file: <span class="string">"/usr/local/nginx/logs/access.log"</span></div><div class="line">nginx http<span class="built_in"> client </span>request body temporary files: <span class="string">"client_body_temp"</span></div><div class="line">nginx http<span class="built_in"> proxy </span>temporary files: <span class="string">"proxy_temp"</span></div><div class="line">nginx http fastcgi temporary files: <span class="string">"fastcgi_temp"</span></div><div class="line">nginx http uwsgi temporary files: <span class="string">"uwsgi_temp"</span></div><div class="line">nginx http scgi temporary files: <span class="string">"scgi_temp"</span></div><div class="line"></div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure></p>
+<p>启动<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>local<span class="regexp">/nginx/</span>sbin<span class="regexp">/nginx</span></div></pre></td></tr></table></figure></p>
+<p>停止<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>local<span class="regexp">/nginx/</span>sbin<span class="regexp">/nginx -s stop</span></div></pre></td></tr></table></figure></p>
+<p>从容停止<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">kill</span> - QUIT nginx 主进程号</div></pre></td></tr></table></figure></p>
+<p>停止nginx所有进程<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pkill <span class="number">-9</span> nginx</div></pre></td></tr></table></figure></p>
+<h1 id="部署验证"><a href="#部署验证" class="headerlink" title="部署验证"></a>部署验证</h1><p>在浏览器中输入IP：端口号，看到 <code>Welcome to nginx!</code>页面，表示安装成功。</p>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1>
       
     </div>
     
@@ -471,7 +418,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://bluehaw.github.io/posts/2017/10/02/install docker/" title="Docker 在CentOS6.7 上的部署指南">https://bluehaw.github.io/posts/2017/10/02/install docker/</a>
+    <a href="https://bluehaw.github.io/posts/2017/10/12/nginx1-11-9在CentOS6-7上的部署指南/" title="nginx1.11.9在CentOS6.7上的部署指南">https://bluehaw.github.io/posts/2017/10/12/nginx1-11-9在CentOS6-7上的部署指南/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -486,7 +433,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Docker/" rel="tag"># Docker</a>
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
           
         </div>
       
@@ -499,8 +446,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/2017/10/02/github学习/" rel="next" title="github学习">
-                <i class="fa fa-chevron-left"></i> github学习
+              <a href="/posts/2017/10/12/DockerRegistryHTTPAPIV2/" rel="next" title="Docker Registry HTTP API V2">
+                <i class="fa fa-chevron-left"></i> Docker Registry HTTP API V2
               </a>
             
           </div>
@@ -509,8 +456,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/2017/10/02/Linux系统基础环境设置/" rel="prev" title="Linux系统基础环境设置">
-                Linux系统基础环境设置 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/2017/10/12/ApacheHTTPServer2-4-25在CentOS6-7上的部署手册/" rel="prev" title="ApacheHTTPServer2.4.25在CentOS6.7上的部署手册">
+                ApacheHTTPServer2.4.25在CentOS6.7上的部署手册 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -590,7 +537,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -661,7 +608,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Uninstall-old-versions"><span class="nav-number">1.</span> <span class="nav-text">1. Uninstall old versions</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Install-Docker-CE"><span class="nav-number">2.</span> <span class="nav-text">2. Install Docker CE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-using-the-repository"><span class="nav-number">2.1.</span> <span class="nav-text">Install using the repository</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-up-the-repository"><span class="nav-number">2.1.1.</span> <span class="nav-text">Set up the repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Docker-CE"><span class="nav-number">2.1.2.</span> <span class="nav-text">Install Docker CE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-from-a-package"><span class="nav-number">2.2.</span> <span class="nav-text">Install from a package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-using-the-convenience-script"><span class="nav-number">2.3.</span> <span class="nav-text">Install using the convenience script</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Uninstall-Docker-CE"><span class="nav-number">3.</span> <span class="nav-text">Uninstall Docker CE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#清空容器日志"><span class="nav-number">5.1.</span> <span class="nav-text">清空容器日志</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装流程"><span class="nav-number">1.</span> <span class="nav-text">安装流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装PCRE"><span class="nav-number">1.1.</span> <span class="nav-text">安装PCRE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载-nginx-1-11-9-tar-gz-安装包放到-usr-local-目录下，解压："><span class="nav-number">1.2.</span> <span class="nav-text">下载 nginx-1.11.9.tar.gz 安装包放到 /usr/local 目录下，解压：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署验证"><span class="nav-number">2.</span> <span class="nav-text">部署验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">3.</span> <span class="nav-text">常见问题</span></a></li></ol></div>
             
 
           </div>
