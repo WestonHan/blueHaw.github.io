@@ -390,7 +390,7 @@
       
         <h2 id="解压安装"><a href="#解压安装" class="headerlink" title="解压安装"></a>解压安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">tar -zxvf keepalived-1.2.13.tar.gz</div><div class="line"><span class="built_in">cd</span> keepalived-1.2.13</div><div class="line"><span class="comment">#安装依赖</span></div><div class="line">yum install –y openssl openssl-devel</div><div class="line"><span class="comment">#配置、编译安装</span></div><div class="line">./configure --<span class="built_in">disable</span>-fwmark</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="开机服务启动"><a href="#开机服务启动" class="headerlink" title="开机服务启动"></a>开机服务启动</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cp /usr/<span class="built_in">local</span>/etc/rc.d/init.d/keepalived /etc/init.d/</div><div class="line">cp /usr/<span class="built_in">local</span>/etc/sysconfig/keepalived /etc/sysconfig/    <span class="comment">#启动初始化</span></div><div class="line">cp /usr/<span class="built_in">local</span>/etc/keepalived/keepalived.conf  /etc/keepalived/</div></pre></td></tr></table></figure>
+<h2 id="开机服务启动"><a href="#开机服务启动" class="headerlink" title="开机服务启动"></a>开机服务启动</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cp /usr/<span class="built_in">local</span>/etc/rc.d/init.d/keepalived /etc/init.d/</div><div class="line">cp /usr/<span class="built_in">local</span>/etc/sysconfig/keepalived /etc/sysconfig/    <span class="comment">#启动初始化</span></div><div class="line">mkdir -p /etc/keepalived/</div><div class="line">cp /usr/<span class="built_in">local</span>/etc/keepalived/keepalived.conf  /etc/keepalived/</div></pre></td></tr></table></figure>
 <blockquote>
 <p>注：确保拷贝的路径存在（<code>/etc/keepalived/</code>可能会不存在，不存在首先创建）</p>
 </blockquote>
@@ -557,7 +557,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -568,7 +568,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -579,7 +579,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -648,7 +648,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
