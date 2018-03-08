@@ -517,9 +517,9 @@
         
           <h1 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h1><p>ES（ElasticSearch）依赖于 Java 环境，要先安装 JDK，<strong>ElasticSearch5.6.4要求最低Java8版本</strong>，参考《JDK在Linux上部署指南》</p>
 <h1 id="部署说明"><a href="#部署说明" class="headerlink" title="部署说明"></a>部署说明</h1><h2 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h2><ul>
-<li><a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.4.tar.gz" target="_blank" rel="external">elasticsearch-5.6.4.tar.gz</a><h2 id="部署流程"><a href="#部署流程" class="headerlink" title="部署流程"></a>部署流程</h2><h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3>ES 只能用普通用户启动服务，首先给所有节点创建一个普通用户用来安装。<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">useradd elastic</div><div class="line">passwd elastic</div></pre></td></tr></table></figure>
-</li>
+<li><a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.4.tar.gz" target="_blank" rel="external">elasticsearch-5.6.4.tar.gz</a></li>
 </ul>
+<h2 id="部署流程"><a href="#部署流程" class="headerlink" title="部署流程"></a>部署流程</h2><h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><p>ES 只能用普通用户启动服务，首先给所有节点创建一个普通用户用来安装。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">useradd elastic</div><div class="line">passwd elastic</div><div class="line">useradd zabbix</div><div class="line">passwd zabbix</div></pre></td></tr></table></figure></p>
 <p>新建普通用户为 elastic，根据实际情况修改。<br>
           <!--noindex-->
           <div class="post-button text-center">
